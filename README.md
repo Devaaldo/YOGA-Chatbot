@@ -225,4 +225,4 @@ When adding screenshots, include concise captions and alt text like: `![Screensh
 ## Created By
 
 - Muhammad Akbar Pradana (Devaaldo)
-  Link Repository : github.com/Devaaldo/yoga
+- Link Repository : github.com/Devaaldo/yoga
