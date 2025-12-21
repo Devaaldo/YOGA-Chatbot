@@ -2,13 +2,15 @@
 
 **A Telegram chatbot for recommending tourist destinations in Yogyakarta**.
 
-This repository contains a trained intent-classification chatbot (LSTM) and a scraping utility to enrich place data using Google Places API. It includes training notebooks, inference code for a Telegram bot, and utilities for collecting place metadata.
+This repository contains an intent-classification chatbot and utilities to enrich place data using Google Places API. The development notebook contains experiments with a hybrid TF‑IDF + SVM pipeline (used during research), while the production bot now uses the SVM hybrid pipeline by default (configurable to use an LSTM if you prefer).
 
 ---
 
 ## 🔍 Project Overview
 
 - **Bot**: `src/telegram_bot.py` — loads a pre-trained LSTM intent classifier, Word2Vec embeddings, and a label encoder to classify user messages and reply using canned responses in `data/intents_diy_full.json`.
+- **Bot (recommended)**: `src/telegram_bot_v3.py` — latest SVM-based hybrid pipeline (greeting detector + 88-class SVM). Use `src/run_telegram_v3.py` to run this version (it reads `TELEGRAM_TOKEN`).
+- **Bot (alternate)**: `src/telegram_bot.py` — supports both SVM and LSTM via the `CLASSIFIER_TYPE` environment variable (default `svm`) and kept for compatibility.
 - **Scraper**: `scripts/fetch_places_details.py` — uses Google Places APIs to retrieve details (ratings, opening hours, address components) for places parsed from the intents file.
 - **Notebook**: `YOGA_Chatbot_Complete.ipynb` — EDA, preprocessing, feature extraction, training pipeline (dual TF-IDF hybrid pipeline and experiments). Can be used to re-train or reproduce model artifacts.
 
@@ -28,14 +30,15 @@ This repository contains a trained intent-classification chatbot (LSTM) and a sc
 ```
 ├─ data/
 │  ├─ intents_diy_full.json         # intent definitions & responses
-│  └─ features/                     # expected: label_encoder.pickle, word2vec.model, feature_extraction_info.json
+│  └─ features/                     # expected: label_encoder.pickle, tfidf vectorizers
 ├─ models/
-│  └─ yoga_lstm_best.h5            # expected Keras LSTM model used by the bot
+│  └─ greeting_detector.pkl, svm_model.pkl  # SVM artifacts expected by v3
 ├─ scripts/
 │  └─ fetch_places_details.py      # Google Places scraping utility
 ├─ src/
-│  ├─ telegram_bot.py              # Telegram bot logic and model loading
-│  └─ run_telegram_v3.py           # legacy runner (see notes)
+│  ├─ telegram_bot_v3.py           # recommended SVM-based bot
+│  ├─ telegram_bot.py              # alternate bot (svm/lstm)
+│  └─ run_telegram_v3.py           # runner for v3
 ├─ logs/                           # auto-created: predictions.jsonl, conversations.jsonl
 ├─ requirements.txt
 └─ YOGA_Chatbot_Complete.ipynb
@@ -65,41 +68,60 @@ python -m pip install -r requirements.txt
 
 ## ⚙️ Configuration
 
-1. Create a `.env` file at the repository root with your Telegram Bot token:
+1. Create a `.env` file at the repository root (optional) OR set environment variables directly.
 
+Examples (PowerShell):
+
+```powershell
+# For v3 runner (recommended):
+$env:TELEGRAM_TOKEN = "your_token_here"
+
+# If using src/telegram_bot.py directly (alternate):
+$env:TELEGRAM_BOT_TOKEN = "your_token_here"
+# Optional: choose classifier type (svm or lstm)
+$env:CLASSIFIER_TYPE = "svm"
 ```
-TELEGRAM_BOT_TOKEN=your_token_here
-```
 
-2. Ensure the following model artifacts exist (paths expected by `src/telegram_bot.py`):
+2. Required model artifacts (v3 / SVM pipeline):
 
-- `models/yoga_lstm_best.h5` (Keras model)
-- `data/features/label_encoder.pickle` (Pickled sklearn LabelEncoder)
-- `data/features/word2vec.model` (Gensim Word2Vec model)
-- `data/features/feature_extraction_info.json` (JSON with at least: `{"max_length": <int>, "vector_size": <int>}`)
+- In `models/`:
 
-If you don't have them, see "Retrain / Reproduce artifacts" below.
+  - `greeting_detector.pkl` — binary greeting detector (pickled sklearn model)
+  - `svm_model.pkl` — main 88-class SVM classifier (pickled sklearn model)
+
+- In `data/features/`:
+  - `tfidf_greeting.pickle` — TF-IDF vectorizer for greeting detector
+  - `tfidf_vectorizer.pickle` — TF-IDF vectorizer for main classifier
+  - `label_encoder.pickle` — sklearn LabelEncoder
+
+Optional LSTM artifacts (only if `CLASSIFIER_TYPE=lstm`):
+
+- `models/yoga_lstm_best.h5`
+- `data/features/word2vec.model`
+- `data/features/feature_extraction_info.json` (with `max_length` and `vector_size`)
+
+If you don't have the SVM artifacts, follow the notebook section below to export them from training outputs.
 
 ---
 
 ## ▶️ Running the Telegram Bot (Quick Start)
 
-1. Set token in PowerShell for the current session:
+1. Set token in PowerShell for the current session (v3 uses `TELEGRAM_TOKEN`):
 
 ```powershell
-$env:TELEGRAM_BOT_TOKEN = "<your_token_here>"
+$env:TELEGRAM_TOKEN = "<your_token_here>"
 ```
 
-2. Run the bot (recommended call that works with the current structure):
+2. Run the v3 runner (recommended):
 
 ```powershell
-python -c "from src.telegram_bot import main; main()"
+python src/run_telegram_v3.py
 ```
 
 Notes:
 
-- `src/run_telegram_v3.py` references `TELEGRAM_TOKEN` and `telegram_bot_v3` (which does not exist in this repo). Prefer calling `src/telegram_bot.main()` as shown above.
-- If `TELEGRAM_BOT_TOKEN` is not set, the bot will log an error and exit.
+- `run_telegram_v3.py` loads `TELEGRAM_TOKEN` and starts `src/telegram_bot_v3.py` (the SVM hybrid pipeline).
+- If you prefer the alternate bot entrypoint, you can set `TELEGRAM_BOT_TOKEN` and use `src/telegram_bot.py` directly; that file supports `CLASSIFIER_TYPE=svm|lstm` via env var `CLASSIFIER_TYPE`.
 
 ---
 
@@ -131,12 +153,21 @@ Summary steps to produce artifacts used by the bot:
 2. Export/save artifacts with these filenames/paths expected by the bot:
 
 ```python
-# Example snippets to save artifacts in the notebook or a script
-model.save('models/yoga_lstm_best.h5')
+# Example snippets to save SVM artifacts from notebook training
 with open('data/features/label_encoder.pickle', 'wb') as f:
     pickle.dump(label_encoder, f)
+with open('data/features/tfidf_vectorizer.pickle', 'wb') as f:
+    pickle.dump(tfidf_main, f)
+with open('data/features/tfidf_greeting.pickle', 'wb') as f:
+    pickle.dump(tfidf_greeting, f)
+with open('models/svm_model.pkl', 'wb') as f:
+    pickle.dump(main_classifier, f)
+with open('models/greeting_detector.pkl', 'wb') as f:
+    pickle.dump(greeting_detector, f)
+
+# Optional: save LSTM artifacts (if you train an LSTM)
+model.save('models/yoga_lstm_best.h5')
 word2vec_model.save('data/features/word2vec.model')
-# feature_extraction_info.json
 json.dump({'max_length': max_len, 'vector_size': vector_size}, open('data/features/feature_extraction_info.json','w'), ensure_ascii=False)
 ```
 
@@ -190,3 +221,7 @@ When adding screenshots, include concise captions and alt text like: `![Screensh
 - If you add `Top 5` lists in kecamatan responses, re-run the scraper to collect place metadata.
 
 ---
+
+## Created By
+
+- Muhammad Akbar Pradana (Devaaldo)
