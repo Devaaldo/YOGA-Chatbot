@@ -1,4 +1,4 @@
-# YOGA Chatbot — YOgyakarta Guide Assistant 🧘‍♀️
+# YOGA Chatbot — YOgyakarta Guide Assistant 
 
 **A Telegram chatbot for recommending tourist destinations in Yogyakarta**.
 
@@ -6,7 +6,7 @@ This repository contains an intent-classification chatbot and utilities to enric
 
 ---
 
-## 🔍 Project Overview
+##  Project Overview
 
 - **Bot**: `src/telegram_bot.py` — loads a pre-trained LSTM intent classifier, Word2Vec embeddings, and a label encoder to classify user messages and reply using canned responses in `data/intents_diy_full.json`.
 - **Bot (recommended)**: `src/telegram_bot_v3.py` — latest SVM-based hybrid pipeline (greeting detector + 88-class SVM). Use `src/run_telegram_v3.py` to run this version (it reads `TELEGRAM_TOKEN`).
@@ -16,7 +16,7 @@ This repository contains an intent-classification chatbot and utilities to enric
 
 ---
 
-## ✅ Features
+##  Features
 
 - Intent classification for ~88 classes (greeting, goodbye, many `kecamatan_` intents for district-level recommendations).
 - Response mapping and preview generation.
@@ -104,7 +104,7 @@ If you don't have the SVM artifacts, follow the notebook section below to export
 
 ---
 
-## ▶️ Running the Telegram Bot (Quick Start)
+##  Running the Telegram Bot (Quick Start)
 
 1. Set token in PowerShell for the current session (v3 uses `TELEGRAM_TOKEN`):
 
@@ -125,7 +125,7 @@ Notes:
 
 ---
 
-## 🧪 Scripts — Google Places Scraper
+##  Scripts — Google Places Scraper
 
 Usage (PowerShell):
 
@@ -141,7 +141,7 @@ The script will parse `Top 5` lists from `kecamatan_` intents and query Google P
 
 ---
 
-## 🔁 Retrain / Reproduce Model Artifacts
+##  Retrain / Reproduce Model Artifacts
 
 The training & evaluation pipeline is in `YOGA_Chatbot_Complete.ipynb`.
 
@@ -175,7 +175,7 @@ Make sure `vector_size` matches the Word2Vec vectors used when training the LSTM
 
 ---
 
-## 📂 Logs & Monitoring
+##  Logs & Monitoring
 
 - Predictions & model output: `logs/predictions.jsonl`
 - Full conversations: `logs/conversations.jsonl`
@@ -184,7 +184,7 @@ Each entry is a JSON object (newline-delimited). Useful for error analysis and r
 
 ---
 
-## ⚠️ Troubleshooting
+##  Troubleshooting
 
 - Missing model files: The bot raises errors if any expected artifact is absent; ensure the correct filenames and paths.
 - Token issues: `TELEGRAM_BOT_TOKEN` must be set in `.env` or environment.
@@ -207,7 +207,7 @@ When adding screenshots, include concise captions and alt text like: `![Screensh
 
 ---
 
-## ✅ Example Quick Tests
+##  Example Quick Tests
 
 - Send: "Rekomendasi wisata di Bantul" → expect an intent for general tourism and a response from the corresponding intent.
 - Send short greetings: "Hai" / "Selamat pagi" → greeting intents should be detected.
