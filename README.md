@@ -194,7 +194,7 @@ Each entry is a JSON object (newline-delimited). Useful for error analysis and r
 
 ---
 
-## 🖼️ Image Categories / Screenshot Examples
+## Image Categories / Screenshot Examples
 
 Add images to an `images/` directory and reference them here for the README. Example categories and filenames:
 
