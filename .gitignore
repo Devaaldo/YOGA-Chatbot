@@ -1,0 +1,65 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+
+# === Virtual environments ===
+.venv/
+venv/
+env/
+ENV/
+
+# === Environment & secrets ===
+.env
+*.env.local
+
+# === Jupyter ===
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# === Testing & coverage ===
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.coverage
+
+# === IDE ===
+.idea/
+.vscode/
+*.code-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Logs ===
+*.log
+logs/
+
+# === Large model files (track separately or via DVC) ===
+# models/*.pkl is included in the repo for convenience (< 20 MB total).
+# Remove this comment and uncomment below if models grow too large:
+# models/*.pkl
+# models/*.pickle
+
+# === Data — raw downloads ===
+data/raw/*.csv
+
+# === Temporary ===
+*.tmp
+*.bak
+*.swp

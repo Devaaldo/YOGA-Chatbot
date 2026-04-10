@@ -1,0 +1,30 @@
+{
+  "bantul": [
+    "bambang lipuro", "banguntapan", "bantul", "dlingo", "imogiri",
+    "jetis", "kasihan", "kretek", "pajangan", "pandak",
+    "piyungan", "pleret", "pundong", "sanden", "sedayu",
+    "sewon", "srandakan"
+  ],
+  "sleman": [
+    "berbah", "cangkringan", "depok", "gamping", "godean",
+    "kalasan", "minggir", "mlati", "moyudan", "ngaglik",
+    "ngemplak", "pakem", "prambanan", "seyegan", "sleman",
+    "tempel", "turi"
+  ],
+  "gunungkidul": [
+    "gedangsari", "girisubo", "karangmojo", "ngawen", "nglipar",
+    "paliyan", "panggang", "patuk", "playen", "ponjong",
+    "purwosari", "rongkop", "sapto sari", "semanu", "semin",
+    "tanjungsari", "tepus", "wonosari"
+  ],
+  "kulonprogo": [
+    "galur", "girimulyo", "kalibawang", "kokap", "lendah",
+    "nanggulan", "panjatan", "pengasih", "samigaluh", "sentolo",
+    "temon", "wates"
+  ],
+  "yogyakarta": [
+    "danurejan", "gedongtengen", "gondokusuman", "gondomanan", "jetis",
+    "kotagede", "kraton", "mantrijeron", "mergangsan", "ngampilan",
+    "pakualaman", "tegalrejo", "umbulharjo", "wirobrajan"
+  ]
+}

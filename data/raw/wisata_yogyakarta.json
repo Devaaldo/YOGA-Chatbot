@@ -1,0 +1,1352 @@
+[
+  {
+    "name":"Candi Prambanan",
+    "category":"Candi & Sejarah",
+    "address":"Jl. Raya Solo - Yogyakarta, Kranggan, Bokoharjo, Kec. Prambanan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55571, Indonesia",
+    "rating":4.7,
+    "total_ratings":103912,
+    "types":"hindu_temple, tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7520206,
+    "lng":110.4914674
+  },
+  {
+    "name":"Candi Borobudur",
+    "category":"Candi & Sejarah",
+    "address":"Jl. Badrawati, Kw. Candi Borobudur, Borobudur, Kec. Borobudur, Kabupaten Magelang, Jawa Tengah, Indonesia",
+    "rating":4.7,
+    "total_ratings":102005,
+    "types":"tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.6078738,
+    "lng":110.2037513
+  },
+  {
+    "name":"Keraton Ratu Boko",
+    "category":"Candi & Sejarah",
+    "address":"Jl. Ratu Boko No.2, Gatak, Bokoharjo, Kec. Prambanan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55572, Indonesia",
+    "rating":4.7,
+    "total_ratings":15574,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7705683,
+    "lng":110.4861422
+  },
+  {
+    "name":"Candi Plaosan Lor",
+    "category":"Candi & Sejarah",
+    "address":"Jl. Candi Plaosan, Dukuh Plaosan, Bugisan, Kec. Prambanan, Kabupaten Klaten, Jawa Tengah 57454, Indonesia",
+    "rating":4.6,
+    "total_ratings":11362,
+    "types":"tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7406467,
+    "lng":110.5046261
+  },
+  {
+    "name":"Candi Ijo",
+    "category":"Candi & Sejarah",
+    "address":"Groyokan Jl. Candi Ijo, Kikis, Sambirejo, Kec. Prambanan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55572, Indonesia",
+    "rating":4.8,
+    "total_ratings":1906,
+    "types":"hindu_temple, tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7837725,
+    "lng":110.5120459
+  },
+  {
+    "name":"Candi Sambisari",
+    "category":"Candi & Sejarah",
+    "address":"Jl. Candi Sambisari, Sambisari, Purwomartani, Kec. Kalasan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55571, Indonesia",
+    "rating":4.6,
+    "total_ratings":7949,
+    "types":"hindu_temple, tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7625264,
+    "lng":110.4470684
+  },
+  {
+    "name":"Candi Kalasan",
+    "category":"Candi & Sejarah",
+    "address":"6FMC+3WW, Jl. Raya Yogya - Solo, Suryatmajan, Danurejan, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.6,
+    "total_ratings":2071,
+    "types":"tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7672505,
+    "lng":110.4723365
+  },
+  {
+    "name":"Candi Sari",
+    "category":"Candi & Sejarah",
+    "address":"Jl. Candisari Jl. Raya Solo - Yogyakarta No.107, Bendan, Tirtomartani, Kec. Kalasan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55571, Indonesia",
+    "rating":4.5,
+    "total_ratings":1164,
+    "types":"tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7615299,
+    "lng":110.4742167
+  },
+  {
+    "name":"Candi Banyunibo",
+    "category":"Candi & Sejarah",
+    "address":"Cepit, Bokoharjo, Kec. Prambanan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55572, Indonesia",
+    "rating":4.6,
+    "total_ratings":1973,
+    "types":"tourist_attraction, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7779715,
+    "lng":110.4940426
+  },
+  {
+    "name":"Candi Barong",
+    "category":"Candi & Sejarah",
+    "address":"6FFW+PWM, Dusun Candisari, Dowang Sari, Sambirejo, Kec. Prambanan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55572, Indonesia",
+    "rating":4.6,
+    "total_ratings":731,
+    "types":"hindu_temple, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7756537,
+    "lng":110.4973011
+  },
+  {
+    "name":"Candi Gebang",
+    "category":"Candi & Sejarah",
+    "address":"6CX8+CG7, Jl. Gebang Jl. Jetis Raya, Jetis, Wedomartani, Kec. Ngemplak, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55584, Indonesia",
+    "rating":4.5,
+    "total_ratings":701,
+    "types":"hindu_temple, place_of_worship, point_of_interest, establishment",
+    "lat":-7.7514654,
+    "lng":110.4162887
+  },
+  {
+    "name":"Candi Abang",
+    "category":"Candi & Sejarah",
+    "address":"5FQ9+VF3, Blambangan, Jogotirto, Kec. Berbah, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55573, Indonesia",
+    "rating":4.3,
+    "total_ratings":1564,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8103728,
+    "lng":110.468686
+  },
+  {
+    "name":"Kecamatan Kraton",
+    "category":"Candi & Sejarah",
+    "address":"Kecamatan Kraton, Kota Yogyakarta, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"administrative_area_level_3, political",
+    "lat":-7.8090256,
+    "lng":110.363649
+  },
+  {
+    "name":"Kampung Wisata Taman Sari",
+    "category":"Candi & Sejarah",
+    "address":"Patehan, Kecamatan Kraton, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55133, Indonesia",
+    "rating":4.6,
+    "total_ratings":43983,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8099513,
+    "lng":110.3589961
+  },
+  {
+    "name":"Museum Benteng Vredeburg",
+    "category":"Candi & Sejarah",
+    "address":"Jl. Margo Mulyo No.6, Ngupasan, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55122, Indonesia",
+    "rating":4.7,
+    "total_ratings":19994,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.800293,
+    "lng":110.3661642
+  },
+  {
+    "name":"Pantai Parangtritis",
+    "category":"Pantai",
+    "address":"Pantai Parangtritis, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.6,
+    "total_ratings":17206,
+    "types":"natural_feature, establishment",
+    "lat":-8.024608,
+    "lng":110.3298045
+  },
+  {
+    "name":"Pantai Pulang Sawal",
+    "category":"Pantai",
+    "address":"Pantai Pulang Sawal, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.6,
+    "total_ratings":6706,
+    "types":"natural_feature, establishment",
+    "lat":-8.1506589,
+    "lng":110.6126311
+  },
+  {
+    "name":"Pantai Baron",
+    "category":"Pantai",
+    "address":"Pantai Baron, Rejosari, Kemadang, Kec. Tanjungsari, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.4,
+    "total_ratings":3257,
+    "types":"natural_feature, establishment",
+    "lat":-8.1288246,
+    "lng":110.5487763
+  },
+  {
+    "name":"Pantai Kukup",
+    "category":"Pantai",
+    "address":"Ngepung, Kemadang, Kec. Tanjungsari, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55881, Indonesia",
+    "rating":4.6,
+    "total_ratings":6549,
+    "types":"tourist_attraction, lodging, point_of_interest, establishment",
+    "lat":-8.1337123,
+    "lng":110.5547433
+  },
+  {
+    "name":"Pantai Krakal",
+    "category":"Pantai",
+    "address":"VH3X+XG3, Rejosari, Kemadang, Kec. Tanjungsari, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55881, Indonesia",
+    "rating":4.7,
+    "total_ratings":2821,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.1451024,
+    "lng":110.5988006
+  },
+  {
+    "name":"Pantai Drini",
+    "category":"Pantai",
+    "address":"Pantai Drini, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.5,
+    "total_ratings":12024,
+    "types":"natural_feature, establishment",
+    "lat":-8.1384509,
+    "lng":110.577522
+  },
+  {
+    "name":"Pantai Timang",
+    "category":"Pantai",
+    "address":"Jl. Pantai Sel. Jawa, Pantai, Purwodadi, Kec. Tepus, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55881, Indonesia",
+    "rating":4.5,
+    "total_ratings":3473,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.1759266,
+    "lng":110.6624196
+  },
+  {
+    "name":"Pantai Siung",
+    "category":"Pantai",
+    "address":"Pantai Siung, Duwet, Purwodadi, Kec. Tepus, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.7,
+    "total_ratings":1491,
+    "types":"natural_feature, establishment",
+    "lat":-8.1818233,
+    "lng":110.6832394
+  },
+  {
+    "name":"Pantai Jogan",
+    "category":"Pantai",
+    "address":"Pantai Jogan, Jl. Pantai Siung, Pantai, Purwodadi, Kec. Tepus, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55881, Indonesia",
+    "rating":4.3,
+    "total_ratings":797,
+    "types":"natural_feature, establishment",
+    "lat":-8.180135,
+    "lng":110.6763715
+  },
+  {
+    "name":"Pantai Ngrenehan",
+    "category":"Pantai",
+    "address":"Pantai Ngrenehan, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.5,
+    "total_ratings":2601,
+    "types":"natural_feature, establishment",
+    "lat":-8.1211475,
+    "lng":110.5142337
+  },
+  {
+    "name":"Pantai Wediombo",
+    "category":"Pantai",
+    "address":"Pantai Wediombo, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.5,
+    "total_ratings":7024,
+    "types":"natural_feature, establishment",
+    "lat":-8.1862462,
+    "lng":110.709901
+  },
+  {
+    "name":"Pantai Ngobaran",
+    "category":"Pantai",
+    "address":"Pantai Ngobaran, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.6,
+    "total_ratings":2590,
+    "types":"natural_feature, establishment",
+    "lat":-8.1184844,
+    "lng":110.5028785
+  },
+  {
+    "name":"Pantai Nguyahan",
+    "category":"Pantai",
+    "address":"Pantai ngobaran, Gebang, Kanigoro, Kec. Saptosari, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55871, Indonesia",
+    "rating":4.5,
+    "total_ratings":2138,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.1184709,
+    "lng":110.5030696
+  },
+  {
+    "name":"Pantai Sepanjang",
+    "category":"Pantai",
+    "address":"Pantai Sepanjang, Jl. nglolang,saglen, Ngalos, Kemadang, Kec. Tanjungsari, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55881, Indonesia",
+    "rating":4.5,
+    "total_ratings":3673,
+    "types":"natural_feature, establishment",
+    "lat":-8.1366656,
+    "lng":110.5659962
+  },
+  {
+    "name":"Pantai Sundak",
+    "category":"Pantai",
+    "address":"Pantai Sundak, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.5,
+    "total_ratings":3180,
+    "types":"natural_feature, establishment",
+    "lat":-8.147072,
+    "lng":110.6079043
+  },
+  {
+    "name":"Pantai Pok Tunggal",
+    "category":"Pantai",
+    "address":"Pantai Pok Tunggal, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.5,
+    "total_ratings":3911,
+    "types":"natural_feature, establishment",
+    "lat":-8.1554468,
+    "lng":110.6217582
+  },
+  {
+    "name":"Teras Kaca Pantai Nguluran",
+    "category":"Pantai",
+    "address":"Bolang, Girikarto, Kec. Panggang, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55872, Indonesia",
+    "rating":4.1,
+    "total_ratings":3515,
+    "types":"point_of_interest, establishment",
+    "lat":-8.1060061,
+    "lng":110.4618655
+  },
+  {
+    "name":"Pantai Gesing",
+    "category":"Pantai",
+    "address":"VFR9+H57, Bolang, Girikarto, Kec. Panggang, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55133, Indonesia",
+    "rating":4.4,
+    "total_ratings":6591,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.1085778,
+    "lng":110.4679367
+  },
+  {
+    "name":"Pantai Glagah Indah",
+    "category":"Pantai",
+    "address":"Pantai Glagah Indah, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.5,
+    "total_ratings":3440,
+    "types":"natural_feature, establishment",
+    "lat":-7.9119427,
+    "lng":110.0647339
+  },
+  {
+    "name":"Pantai Samas",
+    "category":"Pantai",
+    "address":"X7V8+R37, Jl. Samas, Dodogan, Srigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55763, Indonesia",
+    "rating":4.4,
+    "total_ratings":640,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.0054541,
+    "lng":110.2651603
+  },
+  {
+    "name":"Pantai Congot",
+    "category":"Pantai",
+    "address":"Pantai Congot, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.4,
+    "total_ratings":705,
+    "types":"natural_feature, establishment",
+    "lat":-7.9075425,
+    "lng":110.0535658
+  },
+  {
+    "name":"Pantai Kuwaru",
+    "category":"Pantai",
+    "address":"Kawaru, Poncosari, Kec. Srandakan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55762, Indonesia",
+    "rating":4.1,
+    "total_ratings":1427,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9903075,
+    "lng":110.2263965
+  },
+  {
+    "name":"Pantai Trisik",
+    "category":"Pantai",
+    "address":"Pantai Trisik, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.1,
+    "total_ratings":606,
+    "types":"natural_feature, establishment",
+    "lat":-7.9673349,
+    "lng":110.182607
+  },
+  {
+    "name":"Bukit Bintang",
+    "category":"Bukit & Puncak",
+    "address":"Area Kebun, Srimulyo, Kec. Patuk, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55792, Indonesia",
+    "rating":4.5,
+    "total_ratings":31122,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8458407,
+    "lng":110.4798457
+  },
+  {
+    "name":"Puncak Pinus Becici",
+    "category":"Bukit & Puncak",
+    "address":"Gunungcilik, Jl. Margo Mulyo, Gn. Cilik, Muntuk, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.5,
+    "total_ratings":17434,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.9019918,
+    "lng":110.4373813
+  },
+  {
+    "name":"Tebing Breksi",
+    "category":"Bukit & Puncak",
+    "address":"Jl. Desa Lengkong, RT.02\/RW.17, Gn. Sari, Sambirejo, Kec. Prambanan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55572, Indonesia",
+    "rating":4.5,
+    "total_ratings":66139,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.7815714,
+    "lng":110.5045827
+  },
+  {
+    "name":"Tebing Karaton",
+    "category":"Bukit & Puncak",
+    "address":"Puncak Kordon, Cihargem Puncak, RT.2\/RW.10, Ciburial, Kec. Cimenyan, Bandung Barat, Jawa Barat 40198, Indonesia",
+    "rating":4.5,
+    "total_ratings":10058,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-6.8348771,
+    "lng":107.6637416
+  },
+  {
+    "name":"Bukit Panguk Kediwung",
+    "category":"Bukit & Puncak",
+    "address":"Kediwung, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.5,
+    "total_ratings":3612,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9583695,
+    "lng":110.4407622
+  },
+  {
+    "name":"Bukit Mojo Gumelem",
+    "category":"Bukit & Puncak",
+    "address":"2CVM+393, Kanigoro, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.2,
+    "total_ratings":560,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9573641,
+    "lng":110.4334354
+  },
+  {
+    "name":"Bukit Klangon",
+    "category":"Bukit & Puncak",
+    "address":"Kalitengah Lor, Glagaharjo, Kec. Cangkringan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55583, Indonesia",
+    "rating":4.6,
+    "total_ratings":9217,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.5768966,
+    "lng":110.4548266
+  },
+  {
+    "name":"Puncak Suroloyo",
+    "category":"Bukit & Puncak",
+    "address":"Keceme, Gerbosari, Kec. Samigaluh, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55673, Indonesia",
+    "rating":4.5,
+    "total_ratings":1332,
+    "types":"tourist_attraction, amusement_park, cafe, lodging, store, restaurant, food, park, point_of_interest, establishment",
+    "lat":-7.6463076,
+    "lng":110.1811376
+  },
+  {
+    "name":"Bukit Lintang Sewu",
+    "category":"Bukit & Puncak",
+    "address":"Karang Asem, Muntuk, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.5,
+    "total_ratings":3172,
+    "types":"rv_park, campground, lodging, restaurant, food, park, point_of_interest, establishment",
+    "lat":-7.9157997,
+    "lng":110.4366436
+  },
+  {
+    "name":"Puncak Widosari",
+    "category":"Bukit & Puncak",
+    "address":"Tritis, Ngargosari, Kec. Samigaluh, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55673, Indonesia",
+    "rating":4.6,
+    "total_ratings":808,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.6583125,
+    "lng":110.1488125
+  },
+  {
+    "name":"Kebun Buah Mangunan",
+    "category":"Bukit & Puncak",
+    "address":"Jl. Imogiri - Dlingo, Sukorame, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.7,
+    "total_ratings":4834,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9408714,
+    "lng":110.4245352
+  },
+  {
+    "name":"Hutan Pinus Mangunan",
+    "category":"Hutan & Alam",
+    "address":"Jl raya Jl. Hutan Pinus Nganjir, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.6,
+    "total_ratings":26692,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.9261073,
+    "lng":110.4304652
+  },
+  {
+    "name":"Hutan Pinus Pengger",
+    "category":"Hutan & Alam",
+    "address":"Jl. Dlingo-Patuk, Sendangsari, Terong, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.5,
+    "total_ratings":26950,
+    "types":"park, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8712041,
+    "lng":110.4595144
+  },
+  {
+    "name":"Hutan Pinus Mangunan",
+    "category":"Hutan & Alam",
+    "address":"Jl raya Jl. Hutan Pinus Nganjir, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.6,
+    "total_ratings":26692,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.9261073,
+    "lng":110.4304652
+  },
+  {
+    "name":"Kawasan Konservasi Mangrove Baros",
+    "category":"Hutan & Alam",
+    "address":"X7RM+P7X, Pantai, Tirtohargo, Kec. Kretek, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55772, Indonesia",
+    "rating":4.3,
+    "total_ratings":244,
+    "types":"park, tourist_attraction, point_of_interest, establishment",
+    "lat":-8.008126,
+    "lng":110.2832467
+  },
+  {
+    "name":"Wisata Hutan Mangrove Wana Tirta",
+    "category":"Hutan & Alam",
+    "address":"4249+MW8, Pasir Mendit, Jangkaran, Kec. Temon, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55654, Indonesia",
+    "rating":4.1,
+    "total_ratings":1383,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8933459,
+    "lng":110.0198257
+  },
+  {
+    "name":"Hutan Pendidikan Wanagama I",
+    "category":"Hutan & Alam",
+    "address":"Banaran I, Banaran, Kec. Playen, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55861, Indonesia",
+    "rating":4.7,
+    "total_ratings":363,
+    "types":"park, lodging, point_of_interest, establishment",
+    "lat":-7.9127673,
+    "lng":110.5231255
+  },
+  {
+    "name":"Air Terjun Sri Gethuk",
+    "category":"Air Terjun",
+    "address":"Air Terjun Sri Gethuk, Mungguran II, Bleberan, Kec. Playen, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.4,
+    "total_ratings":1138,
+    "types":"natural_feature, establishment",
+    "lat":-7.943178,
+    "lng":110.48924
+  },
+  {
+    "name":"Kedung Pedut",
+    "category":"Air Terjun",
+    "address":"Jl. Kutogiri Gunung Kelir, Kembang, Jatimulyo, Kec. Girimulyo, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55674, Indonesia",
+    "rating":4.5,
+    "total_ratings":3922,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7699875,
+    "lng":110.1210707
+  },
+  {
+    "name":"Grojogan Tuwondo",
+    "category":"Air Terjun",
+    "address":"4CMJ+QVM, Lemah Abang, Banyakan 3, Sitimulyo, Kec. Piyungan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55792, Indonesia",
+    "rating":3.9,
+    "total_ratings":156,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8655379,
+    "lng":110.4321692
+  },
+  {
+    "name":"Air Terjun Kembang Soka",
+    "category":"Air Terjun",
+    "address":"Jl. Raya Kaligesing, Banyunganti, Jatimulyo, Kec. Girimulyo, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55674, Indonesia",
+    "rating":4.7,
+    "total_ratings":1291,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.7664251,
+    "lng":110.1175615
+  },
+  {
+    "name":"Grojogan Watu Purbo",
+    "category":"Air Terjun",
+    "address":"Jl. Grojogan Watu Purbo, Bangunrejo, Merdikorejo, Kec. Tempel, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55552, Indonesia",
+    "rating":4.5,
+    "total_ratings":3151,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.6307204,
+    "lng":110.3407695
+  },
+  {
+    "name":"Curug Banyunibo (ꦕꦸꦫꦸꦒ꧀ꦧꦚꦸꦤꦶꦧꦺꦴ)",
+    "category":"Air Terjun",
+    "address":"47JQ+R6R, Kabrokan Kulon, RT.\/rw:02\/RW.00, Kabrokan Wetan, Sendangsari, Kec. Pajangan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55751, Indonesia",
+    "rating":4.1,
+    "total_ratings":325,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8675423,
+    "lng":110.2867568
+  },
+  {
+    "name":"Air Terjun Grojogan Sewu Jatimulyo",
+    "category":"Air Terjun",
+    "address":"64XP+688, Beteng, Jatimulyo, Kec. Girimulyo, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55674, Indonesia",
+    "rating":4.2,
+    "total_ratings":355,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7519624,
+    "lng":110.1358235
+  },
+  {
+    "name":"Curug Seribu Batu",
+    "category":"Air Terjun",
+    "address":"3CH6+V3R, Cengkehan, Wukirsari, Kec. Imogiri, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55782, Indonesia",
+    "rating":4.5,
+    "total_ratings":42,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.920265,
+    "lng":110.4101468
+  },
+  {
+    "name":"Goa Pindul",
+    "category":"Goa",
+    "address":"Jalan Goa Pindul Gelaran 2, RT.3\/RW.16, Bejiharjo, Kec. Karangmojo, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55813, Indonesia",
+    "rating":4.5,
+    "total_ratings":8008,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9307459,
+    "lng":110.6496694
+  },
+  {
+    "name":"Goa Jomblang",
+    "category":"Goa",
+    "address":"Jetis, Pacarejo, Kec. Semanu, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55893, Indonesia",
+    "rating":4.6,
+    "total_ratings":1359,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.028688,
+    "lng":110.6383381
+  },
+  {
+    "name":"Kalisuci Cave Tubing",
+    "category":"Goa",
+    "address":"Jetis, Pacarejo, Kec. Semanu, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55893, Indonesia",
+    "rating":4.6,
+    "total_ratings":1510,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.0096941,
+    "lng":110.638918
+  },
+  {
+    "name":"Goa Rancang Kencono",
+    "category":"Goa",
+    "address":"Mungguran II, Bleberan, Kec. Playen, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55861, Indonesia",
+    "rating":4.3,
+    "total_ratings":811,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9494598,
+    "lng":110.4927262
+  },
+  {
+    "name":"Goa Cerme",
+    "category":"Goa",
+    "address":"Jl. Srunggo, Srunggo, Selopamioro, Kec. Imogiri, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55782, Indonesia",
+    "rating":4.5,
+    "total_ratings":856,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9794413,
+    "lng":110.3803114
+  },
+  {
+    "name":"Goa Selarong",
+    "category":"Goa",
+    "address":"48Q7+6W9, Waktu Gedug, Guwosari, Kec. Pajangan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55751, Indonesia",
+    "rating":4.4,
+    "total_ratings":3163,
+    "types":"park, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8619643,
+    "lng":110.314867
+  },
+  {
+    "name":"Goa Jepang",
+    "category":"Goa",
+    "address":"5FRF+CJJ, Blambangan, Jogotirto, Kec. Berbah, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55573, Indonesia",
+    "rating":4.1,
+    "total_ratings":308,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8089243,
+    "lng":110.4740015
+  },
+  {
+    "name":"Goa Kiskendo",
+    "category":"Goa",
+    "address":"743J+4HP, Jl. Raya Kaligesing, Sokomoyo, Jatimulyo, Kec. Girimulyo, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55674, Indonesia",
+    "rating":4.3,
+    "total_ratings":2137,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7471682,
+    "lng":110.1314505
+  },
+  {
+    "name":"Museum Benteng Vredeburg",
+    "category":"Museum",
+    "address":"Jl. Margo Mulyo No.6, Ngupasan, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55122, Indonesia",
+    "rating":4.7,
+    "total_ratings":19994,
+    "types":"tourist_attraction, museum, point_of_interest, establishment",
+    "lat":-7.800293,
+    "lng":110.3661642
+  },
+  {
+    "name":"Ullen Sentalu Museum",
+    "category":"Museum",
+    "address":"Jl. Boyong No.KM 25, Kaliurang, Hargobinangun, Kec. Pakem, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55582, Indonesia",
+    "rating":4.7,
+    "total_ratings":11173,
+    "types":"museum, point_of_interest, establishment",
+    "lat":-7.598228,
+    "lng":110.422825
+  },
+  {
+    "name":"Museum Sonobudoyo Unit I",
+    "category":"Museum",
+    "address":"Jl. Pangurakan No.6, Ngupasan, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55122, Indonesia",
+    "rating":4.8,
+    "total_ratings":9432,
+    "types":"tourist_attraction, museum, point_of_interest, establishment",
+    "lat":-7.802257,
+    "lng":110.3639441
+  },
+  {
+    "name":"Affandi Museum",
+    "category":"Museum",
+    "address":"Jl. Laksda Adisucipto No.167, Papringan, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281, Indonesia",
+    "rating":4.6,
+    "total_ratings":2276,
+    "types":"museum, point_of_interest, establishment",
+    "lat":-7.7827353,
+    "lng":110.3963954
+  },
+  {
+    "name":"Museum Pusat TNI AU Dirgantara Mandala",
+    "category":"Museum",
+    "address":"Kompleks Pangkalan Udara Adisucipto Jl. Raya Janti, Karang Janbe, Maguwoharjo, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55282, Indonesia",
+    "rating":4.6,
+    "total_ratings":15349,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7903029,
+    "lng":110.415762
+  },
+  {
+    "name":"Museum Batik Yogyakarta",
+    "category":"Museum",
+    "address":"Jl. Doktor Sutomo No.13A, Bausasran, Kec. Danurejan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55211, Indonesia",
+    "rating":5.0,
+    "total_ratings":566,
+    "types":"museum, point_of_interest, establishment",
+    "lat":-7.7956668,
+    "lng":110.3772607
+  },
+  {
+    "name":"Museum Gunungapi Merapi",
+    "category":"Museum",
+    "address":"9CMC+7RJ, Jl. Kaliurang No.Km. 22, Banteng, Hargobinangun, Kec. Pakem, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55582, Indonesia",
+    "rating":4.4,
+    "total_ratings":8644,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.6160233,
+    "lng":110.4240292
+  },
+  {
+    "name":"Museum Gunungapi Merapi",
+    "category":"Museum",
+    "address":"9CMC+7RJ, Jl. Kaliurang No.Km. 22, Banteng, Hargobinangun, Kec. Pakem, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55582, Indonesia",
+    "rating":4.4,
+    "total_ratings":8644,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.6160233,
+    "lng":110.4240292
+  },
+  {
+    "name":"Museum Pusat TNI AU Dirgantara Mandala",
+    "category":"Museum",
+    "address":"Kompleks Pangkalan Udara Adisucipto Jl. Raya Janti, Karang Janbe, Maguwoharjo, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55282, Indonesia",
+    "rating":4.6,
+    "total_ratings":15349,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7903029,
+    "lng":110.415762
+  },
+  {
+    "name":"Museum Biologi Fakultas Biologi UGM",
+    "category":"Museum",
+    "address":"Jl. Sultan Agung No.22, Wirogunan, Kec. Mergangsan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55151, Indonesia",
+    "rating":4.5,
+    "total_ratings":508,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8017742,
+    "lng":110.3743783
+  },
+  {
+    "name":"De Mata Museum Jogja",
+    "category":"Museum",
+    "address":"XT Square, Jl. Veteran No.150-151, Pandeyan, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55161, Indonesia",
+    "rating":4.4,
+    "total_ratings":7037,
+    "types":"tourist_attraction, museum, point_of_interest, establishment",
+    "lat":-7.8163156,
+    "lng":110.3871442
+  },
+  {
+    "name":"The House Of Raminten",
+    "category":"Museum",
+    "address":"Jl. F.M. Noto No.7, Kotabaru, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55224, Indonesia",
+    "rating":4.5,
+    "total_ratings":20666,
+    "types":"restaurant, food, point_of_interest, establishment",
+    "lat":-7.7851643,
+    "lng":110.3713574
+  },
+  {
+    "name":"Jl. Malioboro",
+    "category":"Wisata Kota",
+    "address":"Jl. Malioboro, Sosromenduran, Gedong Tengen, Kota Yogyakarta, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.7,
+    "total_ratings":7540,
+    "types":"route",
+    "lat":-7.7937525,
+    "lng":110.3657077
+  },
+  {
+    "name":"Alun-Alun Kidul Yogyakarta",
+    "category":"Wisata Kota",
+    "address":"Jl. Alun Alun Kidul, Patehan, Kecamatan Kraton, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55133, Indonesia",
+    "rating":4.7,
+    "total_ratings":16521,
+    "types":"park, point_of_interest, establishment",
+    "lat":-7.8118782,
+    "lng":110.3632054
+  },
+  {
+    "name":"Alun Alun Utara",
+    "category":"Wisata Kota",
+    "address":"Alun Alun Utara, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"town_square",
+    "lat":-7.8037766,
+    "lng":110.3646426
+  },
+  {
+    "name":"Titik Nol Kilometer Yogyakarta",
+    "category":"Wisata Kota",
+    "address":"Jl. Pangurakan No.1, Ngupasan, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55122, Indonesia",
+    "rating":4.8,
+    "total_ratings":55062,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8013966,
+    "lng":110.3647641
+  },
+  {
+    "name":"Jl. Prawirotaman",
+    "category":"Wisata Kota",
+    "address":"Jl. Prawirotaman, Brontokusuman, Kec. Mergangsan, Kota Yogyakarta, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.6,
+    "total_ratings":284,
+    "types":"route",
+    "lat":-7.8191529,
+    "lng":110.3706155
+  },
+  {
+    "name":"Kec. Kotagede",
+    "category":"Wisata Kota",
+    "address":"Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"administrative_area_level_3, political",
+    "lat":-7.8205288,
+    "lng":110.4009845
+  },
+  {
+    "name":"Kampoeng Cyber",
+    "category":"Wisata Kota",
+    "address":"Taman KT I No.434, Patehan, Kecamatan Kraton, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55133, Indonesia",
+    "rating":4.9,
+    "total_ratings":11,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8098918,
+    "lng":110.3583126
+  },
+  {
+    "name":"Tugu Jogja",
+    "category":"Wisata Kota",
+    "address":"Jl. Jend. Sudirman, Gowongan, Kec. Jetis, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55233, Indonesia",
+    "rating":4.8,
+    "total_ratings":47994,
+    "types":"point_of_interest, establishment",
+    "lat":-7.7829218,
+    "lng":110.3670757
+  },
+  {
+    "name":"Taman Pelangi Jogja",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Ring Road Utara, Jongkang, Sariharjo, Kec. Ngaglik, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55284, Indonesia",
+    "rating":4.2,
+    "total_ratings":6114,
+    "types":"amusement_park, park, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7503027,
+    "lng":110.3694988
+  },
+  {
+    "name":"Taman Pelangi Jogja",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Ring Road Utara, Jongkang, Sariharjo, Kec. Ngaglik, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55284, Indonesia",
+    "rating":4.2,
+    "total_ratings":6114,
+    "types":"amusement_park, tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.7503027,
+    "lng":110.3694988
+  },
+  {
+    "name":"SKE CITY PARK",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Jambon, Kragilan, Sinduadi, Kec. Mlati, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55284, Indonesia",
+    "rating":4.2,
+    "total_ratings":17197,
+    "types":"amusement_park, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.766867,
+    "lng":110.3553757
+  },
+  {
+    "name":"Galaxy Waterpark",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Wonosari No.6, Kalangan, Baturetno, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55196, Indonesia",
+    "rating":4.4,
+    "total_ratings":3835,
+    "types":"tourist_attraction, amusement_park, point_of_interest, establishment",
+    "lat":-7.8159633,
+    "lng":110.4136917
+  },
+  {
+    "name":"Waterboom Jogja",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Jenengan Raya, Jenengan, Maguwoharjo, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281, Indonesia",
+    "rating":4.7,
+    "total_ratings":3798,
+    "types":"amusement_park, point_of_interest, establishment",
+    "lat":-7.7485632,
+    "lng":110.4188818
+  },
+  {
+    "name":"Kids Fun Park (Pusat)",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Wonosari No.KM 10, Asem Ngecis, Sitimulyo, Kec. Piyungan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55792, Indonesia",
+    "rating":4.5,
+    "total_ratings":7270,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8278773,
+    "lng":110.4413062
+  },
+  {
+    "name":"Taman Pintar Yogyakarta",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Panembahan Senopati No.1-3, Ngupasan, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55122, Indonesia",
+    "rating":4.5,
+    "total_ratings":7822,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8006715,
+    "lng":110.3676551
+  },
+  {
+    "name":"Gembira Loka Zoo (Pintu masuk Timur)",
+    "category":"Taman & Rekreasi",
+    "address":"Gembira Loka Zoo, Jl. Kebun Raya No.2, Rejowinangun, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55171, Indonesia",
+    "rating":4.5,
+    "total_ratings":48225,
+    "types":"zoo, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.803957,
+    "lng":110.3981136
+  },
+  {
+    "name":"Gembira Loka Zoo (Pintu masuk Timur)",
+    "category":"Taman & Rekreasi",
+    "address":"Gembira Loka Zoo, Jl. Kebun Raya No.2, Rejowinangun, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55171, Indonesia",
+    "rating":4.5,
+    "total_ratings":48225,
+    "types":"zoo, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.803957,
+    "lng":110.3981136
+  },
+  {
+    "name":"Kampung Wisata Taman Sari",
+    "category":"Taman & Rekreasi",
+    "address":"Patehan, Kecamatan Kraton, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55133, Indonesia",
+    "rating":4.6,
+    "total_ratings":43983,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8099513,
+    "lng":110.3589961
+  },
+  {
+    "name":"Taman Balekambang Surakarta",
+    "category":"Taman & Rekreasi",
+    "address":"Jl. Depok, Manahan, Kec. Banjarsari, Kota Surakarta, Jawa Tengah 57139, Indonesia",
+    "rating":4.5,
+    "total_ratings":3338,
+    "types":"park, point_of_interest, establishment",
+    "lat":-7.5525687,
+    "lng":110.8083635
+  },
+  {
+    "name":"HeHa Sky View",
+    "category":"Spot Foto & Hits",
+    "address":"Jl. Dlingo-Patuk No.2, Patuk, Bukit, Kec. Patuk, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55862, Indonesia",
+    "rating":4.5,
+    "total_ratings":35634,
+    "types":"amusement_park, restaurant, food, point_of_interest, establishment",
+    "lat":-7.8493846,
+    "lng":110.4782122
+  },
+  {
+    "name":"HeHa Ocean View",
+    "category":"Spot Foto & Hits",
+    "address":"Bolang, Girikarto, Kec. Panggang, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55872, Indonesia",
+    "rating":4.0,
+    "total_ratings":12851,
+    "types":"amusement_park, lodging, restaurant, food, point_of_interest, establishment",
+    "lat":-8.1060664,
+    "lng":110.4615101
+  },
+  {
+    "name":"Jurang Tembelan Kanigoro",
+    "category":"Spot Foto & Hits",
+    "address":"Jurangtembelan, Kanigoro, Mangunan, Dlingo, Bantul Regency, Special Region of Yogyakarta 55783, Indonesia",
+    "rating":4.5,
+    "total_ratings":4138,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9399945,
+    "lng":110.4298378
+  },
+  {
+    "name":"The World Landmarks - Merapi Park Yogyakarta",
+    "category":"Spot Foto & Hits",
+    "address":"Jl. Kaliurang No.KM. 22.5, Banteng, Hargobinangun, Kec. Pakem, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55582, Indonesia",
+    "rating":4.3,
+    "total_ratings":18467,
+    "types":"park, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.6209046,
+    "lng":110.4216275
+  },
+  {
+    "name":"Kalibiru",
+    "category":"Spot Foto & Hits",
+    "address":"Kalibiru, Hargowilis, Kec. Kokap, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"administrative_area_level_5, political",
+    "lat":-7.8072986,
+    "lng":110.1261135
+  },
+  {
+    "name":"Embung Nglanggeran",
+    "category":"Spot Foto & Hits",
+    "address":"5G3W+5WC, Nglanggeran Wetan, Nglanggeran, Kec. Patuk, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55862, Indonesia",
+    "rating":4.6,
+    "total_ratings":5951,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.8471399,
+    "lng":110.5468589
+  },
+  {
+    "name":"Embung Batara Sriten",
+    "category":"Spot Foto & Hits",
+    "address":"5J9M+562, Sriten, Pilangrejo, Kec. Nglipar, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55852, Indonesia",
+    "rating":4.5,
+    "total_ratings":2165,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8321113,
+    "lng":110.633017
+  },
+  {
+    "name":"Taman Hobbit Mangunan",
+    "category":"Spot Foto & Hits",
+    "address":"Jl. Hutan Pinus Nganjir, Sukorame, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.6,
+    "total_ratings":587,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9307287,
+    "lng":110.4308477
+  },
+  {
+    "name":"Watu Mabur Mangunan",
+    "category":"Spot Foto & Hits",
+    "address":"Lemahbang RT28, Lembah Bang, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.5,
+    "total_ratings":1005,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.947121,
+    "lng":110.441
+  },
+  {
+    "name":"Hutan Pinus Asri",
+    "category":"Spot Foto & Hits",
+    "address":"3CHP+J6P, Jl. Hutan Pinus Nganjir, Sukorame, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.5,
+    "total_ratings":5055,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.9209209,
+    "lng":110.4355651
+  },
+  {
+    "name":"Seribu Batu Songgo Langit",
+    "category":"Spot Foto & Hits",
+    "address":"Jl. Hutan Pinus Nganjir, Sukorame, Mangunan, Kec. Dlingo, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783, Indonesia",
+    "rating":4.6,
+    "total_ratings":6841,
+    "types":"tourist_attraction, park, point_of_interest, establishment",
+    "lat":-7.9308668,
+    "lng":110.4308565
+  },
+  {
+    "name":"Gunung Merapi",
+    "category":"Gunung & Merapi",
+    "address":"Gunung Merapi, Dusun 2, Suroteleng, Kec. Selo, Kabupaten Boyolali, Jawa Tengah, Indonesia",
+    "rating":4.4,
+    "total_ratings":3020,
+    "types":"natural_feature, establishment",
+    "lat":-7.5407175,
+    "lng":110.4457241
+  },
+  {
+    "name":"Kaliurang",
+    "category":"Gunung & Merapi",
+    "address":"Kaliurang, Hargobinangun, Kec. Pakem, Kabupaten Sleman, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"administrative_area_level_5, political",
+    "lat":-7.5989706,
+    "lng":110.4307901
+  },
+  {
+    "name":"Merapi Lava Tour Yogyakarta",
+    "category":"Gunung & Merapi",
+    "address":"sidorejo, Kabupaten Sleman, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.6,
+    "total_ratings":41,
+    "types":"tourist_attraction, travel_agency, point_of_interest, establishment",
+    "lat":-7.590098,
+    "lng":110.4425279
+  },
+  {
+    "name":"Museum Gunungapi Merapi",
+    "category":"Gunung & Merapi",
+    "address":"9CMC+7RJ, Jl. Kaliurang No.Km. 22, Banteng, Hargobinangun, Kec. Pakem, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55582, Indonesia",
+    "rating":4.4,
+    "total_ratings":8644,
+    "types":"museum, tourist_attraction, point_of_interest, establishment",
+    "lat":-7.6160233,
+    "lng":110.4240292
+  },
+  {
+    "name":"Bunker Kaliadem Merapi",
+    "category":"Gunung & Merapi",
+    "address":"Kinarejo, Hargobinangun, Kec. Pakem, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55582, Indonesia",
+    "rating":4.6,
+    "total_ratings":17386,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.5828014,
+    "lng":110.4476823
+  },
+  {
+    "name":"Kali Adem",
+    "category":"Gunung & Merapi",
+    "address":"Kali Adem, Kepuharjo, Kec. Cangkringan, Kabupaten Sleman, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"administrative_area_level_5, political",
+    "lat":-7.5877972,
+    "lng":110.4485526
+  },
+  {
+    "name":"Ketep Pass Magelang",
+    "category":"Gunung & Merapi",
+    "address":"Jl. Ketep Kopeng, Ketep Pas, Ketep, Kec. Sawangan, Kabupaten Magelang, Jawa Tengah 56481, Indonesia",
+    "rating":4.5,
+    "total_ratings":20311,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.4944699,
+    "lng":110.3815682
+  },
+  {
+    "name":"Desa Wisata Pentingsari",
+    "category":"Desa Wisata",
+    "address":"Pentingsari, Umbulharjo, Kec. Cangkringan, Kabupaten Sleman, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.6,
+    "total_ratings":1401,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.6428597,
+    "lng":110.4295754
+  },
+  {
+    "name":"Desa Wisata Gerabah Kasongan Yogyakarta",
+    "category":"Desa Wisata",
+    "address":"Jl. Kasongan No.3, Kajen, Bangunjiwo, Kec. Kasihan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55184, Indonesia",
+    "rating":4.6,
+    "total_ratings":1138,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8455358,
+    "lng":110.3379568
+  },
+  {
+    "name":"Desa Wisata Candran",
+    "category":"Desa Wisata",
+    "address":"39GC+3WG, Kanten, Kb. Agung, Kec. Bantul, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55782, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.9245725,
+    "lng":110.3724379
+  },
+  {
+    "name":"Desa Wisata Brayut",
+    "category":"Desa Wisata",
+    "address":"Brayut, Pandowoharjo, Kec. Sleman, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55512, Indonesia",
+    "rating":4.5,
+    "total_ratings":558,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.7015488,
+    "lng":110.3738829
+  },
+  {
+    "name":"DESA WISATA NGLANGGERAN",
+    "category":"Desa Wisata",
+    "address":"5G4Q+W48, Jl. Ngoro Ngoro Ombo, Tawang, Ngoro-oro, Kec. Patuk, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55862, Indonesia",
+    "rating":4.9,
+    "total_ratings":16,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-7.8426644,
+    "lng":110.5378282
+  },
+  {
+    "name":"Jl. Desa Wisata Tembi",
+    "category":"Desa Wisata",
+    "address":"Jl. Desa Wisata Tembi, Timbulharjo, Kec. Sewon, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55185, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"route",
+    "lat":-7.8725254,
+    "lng":110.3532188
+  },
+  {
+    "name":"Desa Wisata Tinalah (Dewi Tinalah - Wisata Jogja)",
+    "category":"Desa Wisata",
+    "address":"Jl. Persandian No.KM 5, Sendang Sari, Purwoharjo, Kec. Samigaluh, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55673, Indonesia",
+    "rating":4.5,
+    "total_ratings":1215,
+    "types":"tourist_attraction, park, travel_agency, point_of_interest, establishment",
+    "lat":-7.6955803,
+    "lng":110.1958839
+  },
+  {
+    "name":"Jl. Malioboro",
+    "category":"Kuliner & Belanja",
+    "address":"Jl. Malioboro, Sosromenduran, Gedong Tengen, Kota Yogyakarta, Daerah Istimewa Yogyakarta, Indonesia",
+    "rating":4.7,
+    "total_ratings":7540,
+    "types":"route",
+    "lat":-7.7937525,
+    "lng":110.3657077
+  },
+  {
+    "name":"Pasar Tradisional Beringharjo",
+    "category":"Kuliner & Belanja",
+    "address":"Jl. Margo Mulyo No.16, Ngupasan, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55122, Indonesia",
+    "rating":4.6,
+    "total_ratings":89219,
+    "types":"shopping_mall, point_of_interest, establishment",
+    "lat":-7.7988399,
+    "lng":110.3657657
+  },
+  {
+    "name":"Gudeg Yu Djum",
+    "category":"Kuliner & Belanja",
+    "address":"Jl. Dagen No.2C, Sosromenduran, Gedong Tengen, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55271, Indonesia",
+    "rating":4.3,
+    "total_ratings":3981,
+    "types":"restaurant, food, point_of_interest, establishment",
+    "lat":-7.7938773,
+    "lng":110.3652591
+  },
+  {
+    "name":"Angkringan Kopi Jos Lik Man",
+    "category":"Kuliner & Belanja",
+    "address":"Ps. Kranggan, Jl. Poncowinatan No.7, Gowongan, Kec. Jetis, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55232, Indonesia",
+    "rating":4.5,
+    "total_ratings":3988,
+    "types":"cafe, store, food, point_of_interest, establishment",
+    "lat":-7.7822734,
+    "lng":110.3653327
+  },
+  {
+    "name":"Pabrik Bakpia Pathok 25",
+    "category":"Kuliner & Belanja",
+    "address":"Sanggrahan Pathuk, Jl. Karel Sasuit Tubun NG\/I No.504, Ngampilan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55261, Indonesia",
+    "rating":4.6,
+    "total_ratings":20610,
+    "types":"shopping_mall, bakery, store, food, point_of_interest, establishment",
+    "lat":-7.7966308,
+    "lng":110.3580388
+  },
+  {
+    "name":"Sate Klathak Pak Pong",
+    "category":"Kuliner & Belanja",
+    "address":"Jl. Sultan Agung No.18, Jejeran II, Wonokromo, Kec. Pleret, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55791, Indonesia",
+    "rating":4.3,
+    "total_ratings":29502,
+    "types":"restaurant, food, point_of_interest, establishment",
+    "lat":-7.8714609,
+    "lng":110.3874267
+  },
+  {
+    "name":"Gumuk Pasir Parangkusumo",
+    "category":"Gumuk Pasir",
+    "address":"Jl. Pantai Parangkusumo RT. 1 Grogol 10, Jl. Pantai Parangkusumo No.16, Pantai, Parangtritis, Kec. Kretek, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55772, Indonesia",
+    "rating":4.5,
+    "total_ratings":9553,
+    "types":"tourist_attraction, point_of_interest, establishment",
+    "lat":-8.0189121,
+    "lng":110.3199682
+  },
+  {
+    "name":"Jl. Gumuk Pasir",
+    "category":"Gumuk Pasir",
+    "address":"Jl. Gumuk Pasir, Parangtritis, Kec. Kretek, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55772, Indonesia",
+    "rating":0.0,
+    "total_ratings":0,
+    "types":"route",
+    "lat":-8.0169697,
+    "lng":110.3205833
+  }
+]
