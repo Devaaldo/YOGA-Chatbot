@@ -1,4 +1,4 @@
-# YOGA Chatbot
+# YOGA Chatbot - Yogyakarta Guide Assistant
 
 Telegram chatbot for tourism recommendations in Yogyakarta (Daerah Istimewa Yogyakarta).
 
