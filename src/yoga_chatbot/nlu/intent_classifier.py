@@ -55,6 +55,12 @@ class HybridIntentClassifier:
     word_count_threshold:
         Texts with more tokens than this skip the greeting detector entirely
         (default 3).
+    intent_confidence_threshold:
+        Minimum ``predict_proba`` score for the main 88-class SVM to commit to
+        a label. Below this the classifier returns ``"fallback"`` instead of
+        forcing one of the 88 classes onto out-of-domain or ambiguous input
+        (default 0.15). Kept low because probabilities are spread thin across
+        88 classes; tune against real user input.
     """
 
     def __init__(
@@ -62,9 +68,11 @@ class HybridIntentClassifier:
         model_dir: Path,
         greeting_confidence_threshold: float = 0.7,
         word_count_threshold: int = 3,
+        intent_confidence_threshold: float = 0.15,
     ) -> None:
         self._greeting_confidence_threshold = greeting_confidence_threshold
         self._word_count_threshold = word_count_threshold
+        self._intent_confidence_threshold = intent_confidence_threshold
         self._load_models(model_dir)
 
     # ------------------------------------------------------------------
@@ -116,8 +124,11 @@ class HybridIntentClassifier:
         vec = self._tfidf_vectorizer.transform([text])
         proba = self._svm_model.predict_proba(vec)[0]
         idx = int(np.argmax(proba))
+        confidence = float(proba[idx])
+        if confidence < self._intent_confidence_threshold:
+            return "fallback", confidence
         label = self._label_encoder.inverse_transform([idx])[0]
-        return str(label), float(proba[idx])
+        return str(label), confidence
 
     def _predict_greeting_subclass(
         self, text: str, base_confidence: float

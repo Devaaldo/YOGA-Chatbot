@@ -47,6 +47,9 @@ class Settings:
     word_count_threshold: int = int(
         os.environ.get("WORD_COUNT_THRESHOLD", "3")
     )
+    intent_confidence_threshold: float = float(
+        os.environ.get("INTENT_CONFIDENCE_THRESHOLD", "0.15")
+    )
 
     # --- Logging ---
     log_level: str = os.environ.get("LOG_LEVEL", "INFO")

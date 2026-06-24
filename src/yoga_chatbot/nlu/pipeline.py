@@ -89,6 +89,7 @@ class NLUPipeline:
             model_dir=settings.model_dir,  # type: ignore[attr-defined]
             greeting_confidence_threshold=settings.greeting_confidence_threshold,  # type: ignore[attr-defined]
             word_count_threshold=settings.word_count_threshold,  # type: ignore[attr-defined]
+            intent_confidence_threshold=settings.intent_confidence_threshold,  # type: ignore[attr-defined]
         )
         return cls(processor, extractor, classifier)
 
