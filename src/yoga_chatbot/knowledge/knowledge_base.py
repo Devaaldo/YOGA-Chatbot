@@ -150,18 +150,26 @@ class KnowledgeBase:
         return self._top_rated(matches, limit)
 
     def search_by_location(self, location_name: str, limit: int = 5) -> list[Place]:
-        """Return places whose name or description mentions *location_name*.
+        """Return places located in *location_name*, sorted by rating.
 
-        Falls back to top-rated overall if no matches are found.
+        The query is matched against each place's ``address`` (which carries
+        the administrative region, e.g. "Bantul Regency"), as well as its
+        ``nama_clean`` and ``description``. Matching is whitespace-insensitive
+        so canonical entity values such as ``"gunungkidul"`` match address
+        spellings like ``"Gunung Kidul"``.
+
+        Returns an empty list when no place matches; callers decide whether to
+        fall back to a generic recommendation.
         """
-        query = location_name.lower()
+        query = self._normalise(location_name)
+        if not query:
+            return []
         matches = [
             p for p in self._places
-            if query in p.nama_clean or query in p.description.lower()
+            if query in self._normalise(p.address)
+            or query in self._normalise(p.nama_clean)
+            or query in self._normalise(p.description)
         ]
-        if not matches:
-            logger.debug("search_by_location: no matches for %r, falling back", query)
-            return self._top_rated(self._places, limit)
         return self._top_rated(matches, limit)
 
     def fuzzy_search(self, query: str, limit: int = 5) -> list[Place]:
@@ -203,6 +211,11 @@ class KnowledgeBase:
     @staticmethod
     def _top_rated(places: list[Place], limit: int) -> list[Place]:
         return sorted(places, key=lambda p: (-p.rating, -p.vote_count))[:limit]
+
+    @staticmethod
+    def _normalise(text: str) -> str:
+        """Lowercase and strip whitespace so 'Gunung Kidul' == 'gunungkidul'."""
+        return "".join((text or "").lower().split())
 
     @staticmethod
     def _load(path: Path) -> list[Place]:
