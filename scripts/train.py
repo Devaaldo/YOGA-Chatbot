@@ -34,6 +34,7 @@ from __future__ import annotations
 import argparse
 import json
 import pickle
+import random
 import sys
 from datetime import date
 from pathlib import Path
@@ -81,6 +82,12 @@ def _preprocess(
 
 
 def train(input_path: Path, model_dir: Path, kecamatan_path: Path) -> None:
+    # Seed every RNG the pipeline touches. augment_pattern uses the stdlib
+    # `random` module, so without this the augmented set — and therefore the
+    # trained model — would differ on every run.
+    random.seed(RANDOM_STATE)
+    np.random.seed(RANDOM_STATE)
+
     print(f"Loading {input_path} ...")
     patterns, labels = _load_patterns(input_path)
     print(f"  {len(patterns)} patterns across {len(set(labels))} classes")
