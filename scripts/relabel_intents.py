@@ -70,6 +70,40 @@ _TYPE_RE = re.compile(r"\b(" + "|".join(re.escape(k) for k in TYPE_KEYWORDS) + r
 # Hand-authored seed patterns for intents the source data under-represents.
 # Expand these freely; they are merged into the relabelled dataset.
 SEED_PATTERNS: dict[str, list[str]] = {
+    "greeting": [
+        "halo", "hai", "hi", "hello", "hey", "haii", "halo kak", "hai kak",
+        "halo yoga", "hai yoga", "halo bot", "hi min", "hello admin",
+        "permisi", "assalamualaikum", "woi", "oi", "halo min", "hai bot",
+        "hai admin", "halo gan", "hallo", "haloo", "hola", "halo yoga bot",
+    ],
+    "pagi": [
+        "selamat pagi", "pagi", "met pagi", "pagi kak", "morning",
+        "good morning", "selamat pagi yoga", "pagi bot", "pagi min",
+        "pagi gan", "slamat pagi", "pagi semua", "selamat pagi kak",
+        "met pagi yoga", "pagiii",
+    ],
+    "siang": [
+        "selamat siang", "siang", "met siang", "siang kak", "good afternoon",
+        "selamat siang yoga", "siang bot", "siang min", "slamat siang",
+        "siang semua", "selamat siang kak", "met siang yoga", "siangg",
+    ],
+    "sore": [
+        "selamat sore", "sore", "met sore", "sore kak", "selamat sore yoga",
+        "sore bot", "sore min", "slamat sore", "sore semua",
+        "selamat sore kak", "met sore yoga", "soree",
+    ],
+    "malam": [
+        "selamat malam", "malam", "met malam", "malam kak", "good evening",
+        "good night", "selamat malam yoga", "malam bot", "malam min",
+        "met malem", "malem", "slamat malam", "malam semua", "malemm",
+    ],
+    "goodbye": [
+        "dadah", "bye", "sampai jumpa", "makasih ya", "terima kasih",
+        "thanks", "sampai nanti", "see you", "selamat tinggal", "babai",
+        "bye bye", "makasih bot", "sampai jumpa lagi", "oke makasih",
+        "thank you", "sip makasih", "udahan dulu", "makasih yoga",
+        "da da", "terima kasih banyak",
+    ],
     "cari_by_harga": [
         "wisata murah di jogja", "tempat wisata tiket murah",
         "rekomendasi wisata hemat", "wisata budget 20rb",

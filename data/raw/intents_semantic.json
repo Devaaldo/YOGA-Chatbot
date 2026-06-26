@@ -27,7 +27,18 @@
         "hai kak",
         "halo gan",
         "hai gan",
-        "assalamualaikum"
+        "assalamualaikum",
+        "haii",
+        "hi min",
+        "hello admin",
+        "woi",
+        "oi",
+        "halo min",
+        "hai admin",
+        "hallo",
+        "haloo",
+        "hola",
+        "halo yoga bot"
       ],
       "responses": [
         "Halo! Ada yang bisa YOGA bantu?",
@@ -62,7 +73,11 @@
         "slmt pagi",
         "slamat pagi",
         "morning",
-        "morning yoga"
+        "morning yoga",
+        "pagi gan",
+        "pagi semua",
+        "selamat pagi kak",
+        "pagiii"
       ],
       "responses": [
         "Selamat pagi juga! Ada yang bisa YOGA bantu?",
@@ -96,7 +111,10 @@
         "slmt siang",
         "slamat siang",
         "sugeng siang",
-        "siang gan"
+        "siang gan",
+        "siang semua",
+        "selamat siang kak",
+        "siangg"
       ],
       "responses": [
         "Selamat siang juga! Ada yang bisa YOGA bantu?",
@@ -130,7 +148,10 @@
         "slmt sore",
         "slamat sore",
         "sugeng sonten",
-        "sore gan"
+        "sore gan",
+        "sore semua",
+        "selamat sore kak",
+        "soree"
       ],
       "responses": [
         "Selamat sore juga! Ada yang bisa YOGA bantu?",
@@ -164,7 +185,12 @@
         "night",
         "night yoga",
         "slmt malam",
-        "slamat malam"
+        "slamat malam",
+        "good evening",
+        "met malem",
+        "malem",
+        "malam semua",
+        "malemm"
       ],
       "responses": [
         "Selamat malam juga! Ada yang bisa YOGA bantu?",
@@ -198,7 +224,18 @@
         "sudah",
         "cukup",
         "selesai",
-        "oke sudah"
+        "oke sudah",
+        "makasih ya",
+        "sampai nanti",
+        "babai",
+        "bye bye",
+        "makasih bot",
+        "sampai jumpa lagi",
+        "oke makasih",
+        "sip makasih",
+        "udahan dulu",
+        "da da",
+        "terima kasih banyak"
       ],
       "responses": [
         "Sama-sama! Semoga membantu. Sampai jumpa!",
