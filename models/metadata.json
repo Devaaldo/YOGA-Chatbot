@@ -18,10 +18,10 @@
     "sore"
   ],
   "n_classes": 12,
-  "train_samples_pre_aug": 1817,
-  "train_samples_post_aug": 6946,
-  "test_samples": 455,
-  "test_accuracy": 0.9473,
-  "test_macro_f1": 0.888,
+  "train_samples_pre_aug": 1964,
+  "train_samples_post_aug": 7622,
+  "test_samples": 491,
+  "test_accuracy": 0.9511,
+  "test_macro_f1": 0.9055,
   "random_state": 42
 }

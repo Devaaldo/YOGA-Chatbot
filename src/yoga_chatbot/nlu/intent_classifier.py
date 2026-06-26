@@ -123,6 +123,11 @@ class HybridIntentClassifier:
 
     def _predict_main(self, text: str) -> tuple[str, float]:
         vec = self._tfidf_vectorizer.transform([text])
+        # Out-of-vocabulary guard: if none of the tokens are known to the
+        # vectorizer the vector is all zeros and the SVM would just emit its
+        # majority class with a deceptively high score. Treat as fallback.
+        if vec.nnz == 0:
+            return "fallback", 0.0
         proba = self._svm_model.predict_proba(vec)[0]
         idx = int(np.argmax(proba))
         confidence = float(proba[idx])

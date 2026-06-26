@@ -11,7 +11,7 @@ User input (Telegram)
        |
   EntityExtractor        Detects kecamatan / kabupaten / provinsi (78 sub-districts)
        |
-  HybridIntentClassifier 3-stage SVM pipeline (94.73% test accuracy)
+  HybridIntentClassifier 3-stage SVM pipeline (95.2% 5-fold CV accuracy)
        |                   Stage 0: word-count gate
        |                   Stage 1: binary GreetingDetector
        |                   Stage 2: 12-class semantic SVM (with confidence fallback)
@@ -97,17 +97,20 @@ make augment
 
 ## Model Performance
 
-Metrics are reported on an untouched held-out test split (TF-IDF fit on the
-training split only — no leakage). See `models/metadata.json` for the exact
-figures from the latest training run.
+Metrics come from `scripts/train.py`: a stratified 5-fold cross-validation
+(augmentation applied inside each fold) plus a single held-out split. TF-IDF is
+fit on training data only — no leakage. See `models/metadata.json` for the exact
+figures from the latest run.
 
-| Metric            | Value                                   |
-| ----------------- | --------------------------------------- |
-| Test accuracy     | 94.73%                                  |
-| Macro F1          | 88.80%                                  |
-| Training samples  | 1,817 raw → 6,946 after augmentation    |
-| Intent classes    | 12 (semantic)                           |
-| Entity types      | kecamatan (78), kabupaten (5), provinsi |
+| Metric                | Value                                   |
+| --------------------- | --------------------------------------- |
+| CV accuracy (5-fold)  | 95.19% ± 0.46%                          |
+| CV macro F1 (5-fold)  | 91.05% ± 1.55%                          |
+| Hold-out test accuracy| 95.72%                                  |
+| Hold-out macro F1     | 91.15%                                  |
+| Training samples      | 1,964 raw → 7,602 after augmentation    |
+| Intent classes        | 12 (semantic)                           |
+| Entity types          | kecamatan (78), kabupaten (5), provinsi |
 
 ## Supported Intent Examples
 
