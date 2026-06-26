@@ -1,6 +1,6 @@
 {
   "trained_on": "2026-06-26",
-  "input_dataset": "data\\raw\\intents_semantic.json",
+  "input_dataset": "data/raw/intents_semantic.json",
   "sklearn_version": "1.4.2",
   "numpy_version": "1.26.4",
   "classes": [
@@ -19,9 +19,9 @@
   ],
   "n_classes": 12,
   "train_samples_pre_aug": 1817,
-  "train_samples_post_aug": 6976,
+  "train_samples_post_aug": 6946,
   "test_samples": 455,
   "test_accuracy": 0.9473,
-  "test_macro_f1": 0.8886,
+  "test_macro_f1": 0.888,
   "random_state": 42
 }
