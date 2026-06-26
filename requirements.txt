@@ -13,4 +13,4 @@ numpy==1.26.4
 scipy==1.13.0
 
 # Indonesian NLP stemmer
-PySastrawi==1.0.0
+PySastrawi==1.2.0
