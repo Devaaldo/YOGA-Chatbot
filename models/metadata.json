@@ -1,6 +1,6 @@
 {
   "trained_on": "2026-06-26",
-  "input_dataset": "data\\raw\\intents_semantic.json",
+  "input_dataset": "data/raw/intents_semantic.json",
   "sklearn_version": "1.4.2",
   "numpy_version": "1.26.4",
   "classes": [
@@ -19,13 +19,9 @@
   ],
   "n_classes": 12,
   "train_samples_pre_aug": 1993,
-  "train_samples_post_aug": 7811,
+  "train_samples_post_aug": 7759,
   "test_samples": 499,
-  "test_accuracy": 0.9399,
-  "test_macro_f1": 0.8786,
-  "cv_accuracy_mean": 0.9458,
-  "cv_accuracy_std": 0.0138,
-  "cv_macro_f1_mean": 0.8973,
-  "cv_macro_f1_std": 0.0276,
+  "test_accuracy": 0.9459,
+  "test_macro_f1": 0.8946,
   "random_state": 42
 }
