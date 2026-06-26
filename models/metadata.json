@@ -1,0 +1,27 @@
+{
+  "trained_on": "2026-06-24",
+  "input_dataset": "C:\\Users\\LENOVO\\code\\YOGA-Chatbot\\data\\raw\\intents_semantic.json",
+  "sklearn_version": "1.4.2",
+  "numpy_version": "1.26.4",
+  "classes": [
+    "cari_by_harga",
+    "cari_by_rating",
+    "cari_by_type",
+    "goodbye",
+    "greeting",
+    "info_detail",
+    "info_lokasi",
+    "malam",
+    "pagi",
+    "rekomendasi_wisata",
+    "siang",
+    "sore"
+  ],
+  "n_classes": 12,
+  "train_samples_pre_aug": 1817,
+  "train_samples_post_aug": 6948,
+  "test_samples": 455,
+  "test_accuracy": 0.9319,
+  "test_macro_f1": 0.882,
+  "random_state": 42
+}
