@@ -1,3 +1,13 @@
+---
+title: YOGA Chatbot
+emoji: 🗺️
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # YOGA Chatbot - Yogyakarta Guide Assistant
 
 Telegram chatbot for tourism recommendations in Yogyakarta (Daerah Istimewa Yogyakarta).
