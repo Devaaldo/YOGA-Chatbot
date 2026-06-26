@@ -66,11 +66,11 @@ Asisten wisata Daerah Istimewa Yogyakarta
 - Preprocessing: Sastrawi stemmer + TF-IDF
 - Entity extractor: 78 kecamatan, 5 kabupaten/kota
 - Intent classifier: Hybrid 3-stage SVM pipeline
-- Accuracy: 97.33% (test set)
+- Accuracy: 93.19% (held-out test set)
 
 *Knowledge base:*
 - 3.000+ tempat wisata di Yogyakarta
-- Data: Kaggle + Google Places API
+- Data: Kaggle + Geoapify Places API
 
 *Versi:* 1.0.0
 """.strip()

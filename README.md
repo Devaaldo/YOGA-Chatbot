@@ -11,10 +11,10 @@ User input (Telegram)
        |
   EntityExtractor        Detects kecamatan / kabupaten / provinsi (78 sub-districts)
        |
-  HybridIntentClassifier 3-stage SVM pipeline (97.33% accuracy)
+  HybridIntentClassifier 3-stage SVM pipeline (93.19% test accuracy)
        |                   Stage 0: word-count gate
        |                   Stage 1: binary GreetingDetector
-       |                   Stage 2: 88-class main SVM
+       |                   Stage 2: 12-class semantic SVM (with confidence fallback)
        |
   ActionHandler          Routes intent to the appropriate search / response method
        |
@@ -38,11 +38,18 @@ source .venv/bin/activate   # Windows: .venv\Scripts\activate
 make install
 
 # 4. Configure environment variables
-.env
+cp .env.example .env
 # Edit .env and set TELEGRAM_BOT_TOKEN
 
 # 5. Run the bot
 make run
+```
+
+To retrain the models from the raw data:
+
+```bash
+PYTHONPATH=src python scripts/relabel_intents.py   # raw -> semantic intents
+PYTHONPATH=src python scripts/train.py             # train + save artifacts
 ```
 
 ## Development
@@ -74,6 +81,8 @@ make augment
 ├── models/                      # Trained model artifacts (.pkl)
 ├── notebooks/                   # Training and evaluation notebooks
 ├── scripts/
+│   ├── relabel_intents.py       # Map raw location tags -> semantic intents
+│   ├── train.py                 # Reproducible training pipeline (-> models/)
 │   ├── augment_data.py          # Data augmentation pipeline
 │   └── fetch_places.py          # Google Places API scraper
 ├── src/
@@ -88,13 +97,17 @@ make augment
 
 ## Model Performance
 
-| Metric                  | Value                                   |
-| ----------------------- | --------------------------------------- |
-| Test accuracy           | 97.33%                                  |
-| Greeting F1 improvement | +20% (binary detector)                  |
-| Training samples        | 4,921 (after augmentation)              |
-| Intent classes          | 88                                      |
-| Entity types            | kecamatan (78), kabupaten (5), provinsi |
+Metrics are reported on an untouched held-out test split (TF-IDF fit on the
+training split only — no leakage). See `models/metadata.json` for the exact
+figures from the latest training run.
+
+| Metric            | Value                                   |
+| ----------------- | --------------------------------------- |
+| Test accuracy     | 93.19%                                  |
+| Macro F1          | 88.20%                                  |
+| Training samples  | 1,817 raw → 6,948 after augmentation    |
+| Intent classes    | 12 (semantic)                           |
+| Entity types      | kecamatan (78), kabupaten (5), provinsi |
 
 ## Supported Intent Examples
 

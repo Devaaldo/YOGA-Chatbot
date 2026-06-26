@@ -159,9 +159,14 @@ def train(input_path: Path, model_dir: Path, kecamatan_path: Path) -> None:
     _dump(greeting_detector, model_dir / "greeting_detector.pkl")
     _dump(label_encoder, model_dir / "label_encoder.pickle")
 
+    root = Path(__file__).resolve().parent.parent
+    try:
+        dataset_label = str(input_path.resolve().relative_to(root))
+    except ValueError:
+        dataset_label = input_path.name
     metadata = {
         "trained_on": str(date.today()),
-        "input_dataset": str(input_path),
+        "input_dataset": dataset_label,
         "sklearn_version": sklearn.__version__,
         "numpy_version": np.__version__,
         "classes": list(label_encoder.classes_),

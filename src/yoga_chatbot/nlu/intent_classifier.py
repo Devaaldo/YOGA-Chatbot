@@ -19,7 +19,9 @@ Stage 1b Greeting sub-classifier
          is returned (e.g. "pagi" vs "siang").
 
 Stage 2  Main SVM classifier
-         88-class SVM covering all location and thematic intents.
+         12-class semantic SVM covering all thematic intents (recommendation,
+         search by type/price/rating, place info). Location is handled
+         separately by the EntityExtractor.
 
 Source: adapted from YOGA-Chatbot-alpha/src/telegram_bot_v3.py
         predict_intent_hybrid() — refactored into a loadable class.
@@ -56,11 +58,10 @@ class HybridIntentClassifier:
         Texts with more tokens than this skip the greeting detector entirely
         (default 3).
     intent_confidence_threshold:
-        Minimum ``predict_proba`` score for the main 88-class SVM to commit to
-        a label. Below this the classifier returns ``"fallback"`` instead of
-        forcing one of the 88 classes onto out-of-domain or ambiguous input
-        (default 0.15). Kept low because probabilities are spread thin across
-        88 classes; tune against real user input.
+        Minimum ``predict_proba`` score for the main SVM to commit to a label.
+        Below this the classifier returns ``"fallback"`` instead of forcing a
+        class onto out-of-domain or ambiguous input (default 0.15). Tune
+        against real user input.
     """
 
     def __init__(
