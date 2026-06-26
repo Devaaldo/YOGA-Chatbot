@@ -11,7 +11,7 @@ User input (Telegram)
        |
   EntityExtractor        Detects kecamatan / kabupaten / provinsi (78 sub-districts)
        |
-  HybridIntentClassifier 3-stage SVM pipeline (93.19% test accuracy)
+  HybridIntentClassifier 3-stage SVM pipeline (94.73% test accuracy)
        |                   Stage 0: word-count gate
        |                   Stage 1: binary GreetingDetector
        |                   Stage 2: 12-class semantic SVM (with confidence fallback)
@@ -103,9 +103,9 @@ figures from the latest training run.
 
 | Metric            | Value                                   |
 | ----------------- | --------------------------------------- |
-| Test accuracy     | 93.19%                                  |
-| Macro F1          | 88.20%                                  |
-| Training samples  | 1,817 raw → 6,948 after augmentation    |
+| Test accuracy     | 94.73%                                  |
+| Macro F1          | 88.80%                                  |
+| Training samples  | 1,817 raw → 6,946 after augmentation    |
 | Intent classes    | 12 (semantic)                           |
 | Entity types      | kecamatan (78), kabupaten (5), provinsi |
 
