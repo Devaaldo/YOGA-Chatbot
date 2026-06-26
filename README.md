@@ -11,7 +11,7 @@ User input (Telegram)
        |
   EntityExtractor        Detects kecamatan / kabupaten / provinsi (78 sub-districts)
        |
-  HybridIntentClassifier 3-stage SVM pipeline (95.2% 5-fold CV accuracy)
+  HybridIntentClassifier 3-stage SVM pipeline (94.6% 5-fold CV accuracy)
        |                   Stage 0: word-count gate
        |                   Stage 1: binary GreetingDetector
        |                   Stage 2: 12-class semantic SVM (with confidence fallback)
@@ -104,13 +104,17 @@ figures from the latest run.
 
 | Metric                | Value                                   |
 | --------------------- | --------------------------------------- |
-| CV accuracy (5-fold)  | 95.19% ± 0.46%                          |
-| CV macro F1 (5-fold)  | 91.05% ± 1.55%                          |
-| Hold-out test accuracy| 95.72%                                  |
-| Hold-out macro F1     | 91.15%                                  |
-| Training samples      | 1,964 raw → 7,602 after augmentation    |
+| CV accuracy (5-fold)  | 94.58% ± 1.38%                          |
+| CV macro F1 (5-fold)  | 89.73% ± 2.76%                          |
+| Hold-out test accuracy| 93.99%                                  |
+| Hold-out macro F1     | 87.86%                                  |
+| Training samples      | 1,993 raw → 7,811 after augmentation    |
 | Intent classes        | 12 (semantic)                           |
 | Entity types          | kecamatan (78), kabupaten (5), provinsi |
+
+> CV/hold-out figures evaluate the **main 12-class SVM only**. At runtime the
+> greeting intents are served first by the Stage-1 binary detector, so these
+> numbers slightly understate real-world greeting accuracy.
 
 ## Supported Intent Examples
 
