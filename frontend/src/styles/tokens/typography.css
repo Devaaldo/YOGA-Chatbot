@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Jelajah Jogja — Typography tokens
+   --------------------------------------------------------------------------
+   Editorial serif (Newsreader) for headings paired with a clean humanist
+   sans (Plus Jakarta Sans) for body & UI. Generous line height, confident
+   scale. Mono (JetBrains Mono) for tokens & code only.
+   ========================================================================== */
+:root {
+  /* Families */
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Type scale (px) — confident editorial steps */
+  --text-2xs:  11px;
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-md:   18px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  30px;
+  --text-3xl:  38px;
+  --text-4xl:  48px;
+  --text-5xl:  62px;
+  --text-6xl:  80px;
+
+  /* Weights */
+  --fw-regular:  400; /* @kind font */
+  --fw-medium:   500; /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold:     700; /* @kind font */
+  --fw-extra:    800; /* @kind font */
+
+  /* Line heights */
+  --lh-none:    1;    /* @kind font */
+  --lh-tight:   1.1;  /* @kind font */
+  --lh-snug:    1.24; /* @kind font */
+  --lh-normal:  1.5;  /* @kind font */
+  --lh-relaxed: 1.66; /* @kind font */
+
+  /* Letter spacing */
+  --tracking-tighter: -0.03em;  /* @kind font */
+  --tracking-tight:   -0.015em; /* @kind font */
+  --tracking-normal:  0;        /* @kind font */
+  --tracking-wide:    0.06em;   /* @kind font */
+  --tracking-caps:    0.16em;   /* @kind font */
+
+  /* --- Semantic text roles --------------------------------------------- */
+  /* Display & headings use the serif; everything functional uses the sans. */
+  --text-display-font:   var(--font-display);
+  --text-display-weight: var(--fw-semibold);
+  --text-display-lh:     var(--lh-tight);
+  --text-display-track:  var(--tracking-tight);
+
+  --text-heading-font:   var(--font-display);
+  --text-heading-weight: var(--fw-semibold);
+  --text-heading-lh:     var(--lh-snug);
+
+  --text-body-font:      var(--font-sans);
+  --text-body-weight:    var(--fw-regular);
+  --text-body-lh:        var(--lh-relaxed);
+
+  --text-ui-font:        var(--font-sans);
+  --text-ui-weight:      var(--fw-medium);
+  --text-ui-lh:          var(--lh-normal);
+
+  --text-eyebrow-font:   var(--font-sans);
+  --text-eyebrow-weight: var(--fw-semibold);
+  --text-eyebrow-track:  var(--tracking-caps);
+  --text-eyebrow-size:   var(--text-xs);
+}

@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Jelajah Jogja — Color tokens
+   --------------------------------------------------------------------------
+   Earthy & cultural palette: a warm sand/cream base, terracotta as primary,
+   a muted forest green as secondary, and a restrained brass/gold accent.
+   Inspired by batik dyes, terracotta rooftops, teak wood, and gold leaf.
+
+   Base scales run light -> dark. Use the SEMANTIC aliases (--color-*) in
+   product code; reach for raw scale steps only when a semantic token is
+   genuinely missing.
+   ========================================================================== */
+:root {
+  /* --- Warm neutral (sand -> ink) --------------------------------------- */
+  --warm-0:   #ffffff;
+  --warm-50:  #faf6ee; /* paper / page background */
+  --warm-100: #f4ecdf; /* sunken surface */
+  --warm-150: #eee3d2;
+  --warm-200: #e8ddc9; /* hairline border */
+  --warm-300: #dac8aa; /* strong border */
+  --warm-400: #c6ad88;
+  --warm-500: #9a8466; /* muted text on light */
+  --warm-600: #7c684f;
+  --warm-700: #5d4d3b; /* secondary text */
+  --warm-800: #3b3127; /* strong text */
+  --warm-900: #241d15; /* ink / headings */
+
+  /* --- Terracotta (primary / burnt sienna) ------------------------------ */
+  --terracotta-50:  #fbefe8;
+  --terracotta-100: #f5d9c9;
+  --terracotta-200: #e9b59a;
+  --terracotta-300: #db8e6b;
+  --terracotta-400: #cc6e48;
+  --terracotta-500: #b85c38; /* PRIMARY */
+  --terracotta-600: #9c4a2b;
+  --terracotta-700: #7c3a23;
+  --terracotta-800: #5c2c1c;
+
+  /* --- Forest (secondary / muted earthy green) -------------------------- */
+  --forest-50:  #eef1ea;
+  --forest-100: #d9e0cd;
+  --forest-200: #b3c09f;
+  --forest-300: #8a9b72;
+  --forest-400: #65764c;
+  --forest-500: #4c5c3a; /* SECONDARY */
+  --forest-600: #3a4a2c;
+  --forest-700: #2c3922;
+
+  /* --- Brass (accent / gold leaf) --------------------------------------- */
+  --brass-50:  #faf3e2;
+  --brass-100: #f1e3be;
+  --brass-200: #e2c988;
+  --brass-300: #d0ae5c;
+  --brass-400: #c19a3e;
+  --brass-500: #a6822f; /* ACCENT (text-safe on light) */
+  --brass-600: #836623;
+
+  /* --- Volcanic stone (cool charcoal, sparing) -------------------------- */
+  --stone-500: #6b6660;
+  --stone-700: #403c37;
+  --stone-900: #211f1c;
+
+  /* ===================================================================== */
+  /* Semantic aliases — prefer these in product code                       */
+  /* ===================================================================== */
+
+  /* Surfaces & background */
+  --color-bg:            var(--warm-50);
+  --color-bg-sunken:     var(--warm-100);
+  --color-surface:       #fffcf7; /* warm white card */
+  --color-surface-raised:#ffffff;
+  --color-overlay-scrim: rgba(36, 29, 21, 0.46);
+
+  /* Borders & dividers */
+  --color-border:        #eadfcb;
+  --color-border-strong: #dac8aa;
+  --color-divider:       #f0e7d7;
+
+  /* Text */
+  --color-text:           var(--warm-900);
+  --color-text-secondary: var(--warm-700);
+  --color-text-muted:     var(--warm-500);
+  --color-text-inverse:   #fdf6ec;
+
+  /* Primary (terracotta) */
+  --color-primary:        var(--terracotta-500);
+  --color-primary-hover:  var(--terracotta-600);
+  --color-primary-press:  var(--terracotta-700);
+  --color-primary-soft:   var(--terracotta-50);
+  --color-primary-border: var(--terracotta-200);
+  --color-on-primary:     #fff6ef;
+
+  /* Secondary (forest) */
+  --color-secondary:       var(--forest-500);
+  --color-secondary-hover:  var(--forest-600);
+  --color-secondary-soft:  var(--forest-50);
+  --color-on-secondary:    #f2f5ec;
+
+  /* Accent (brass / gold) */
+  --color-accent:        var(--brass-500);
+  --color-accent-soft:   var(--brass-50);
+  --color-star:          #c9952f; /* gold rating stars */
+
+  /* Status */
+  --color-success:       var(--forest-500);
+  --color-success-soft:  var(--forest-50);
+  --color-free-bg:       #e6eedd; /* "Gratis" badge */
+  --color-free-text:     var(--forest-600);
+  --color-warning:       var(--brass-500);
+  --color-warning-soft:  var(--brass-50);
+  --color-danger:        #a8412e;
+  --color-danger-soft:   #f7e4dd;
+
+  /* Focus ring */
+  --color-focus:         rgba(184, 92, 56, 0.30);
+
+  /* --- Imagery / placeholder "photo" gradients -------------------------- */
+  /* Warm duotone scene fills used by the destination imagery system until
+     real photography is dropped in. One per scene mood. */
+  --photo-culture:    linear-gradient(160deg, #c8703f 0%, #9c4a2b 52%, #5c2c1c 100%); /* @kind color */
+  --photo-nature:     linear-gradient(160deg, #8a9b72 0%, #4c5c3a 55%, #2c3922 100%); /* @kind color */
+  --photo-beach:      linear-gradient(160deg, #e0b572 0%, #c0824c 48%, #6f5a3f 100%); /* @kind color */
+  --photo-recreation: linear-gradient(160deg, #d98f57 0%, #a6822f 55%, #5d4d3b 100%); /* @kind color */
+  --photo-water:      linear-gradient(160deg, #7fa394 0%, #4c5c3a 52%, #2c3922 100%); /* @kind color */
+  --photo-dusk:       linear-gradient(160deg, #d98a5a 0%, #b85c38 40%, #4c3a52 100%); /* @kind color */
+}

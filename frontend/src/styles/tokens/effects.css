@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Jelajah Jogja — Effects: shadow, motion, blur, z-index
+   --------------------------------------------------------------------------
+   Soft, warm-tinted shadows (never neutral grey). Motion is restrained:
+   gentle fades and slide-ups, a friendly spring only for the chatbot.
+   ========================================================================== */
+:root {
+  /* Elevation — shadows tinted with warm ink, not grey */
+  --shadow-xs: 0 1px 2px rgba(46, 33, 20, 0.06);
+  --shadow-sm: 0 2px 6px rgba(46, 33, 20, 0.06), 0 1px 2px rgba(46, 33, 20, 0.04);
+  --shadow-md: 0 10px 24px -10px rgba(46, 33, 20, 0.16), 0 2px 6px rgba(46, 33, 20, 0.05);
+  --shadow-lg: 0 24px 50px -18px rgba(46, 33, 20, 0.20), 0 6px 14px rgba(46, 33, 20, 0.06);
+  --shadow-xl: 0 40px 80px -28px rgba(46, 33, 20, 0.28), 0 10px 24px rgba(46, 33, 20, 0.08);
+  --shadow-focus: 0 0 0 3px var(--color-focus);
+  --shadow-inset-hair: inset 0 0 0 1px var(--color-border);
+
+  /* Motion — durations */
+  --dur-instant: 90ms;  /* @kind other */
+  --dur-fast:    150ms; /* @kind other */
+  --dur-base:    240ms; /* @kind other */
+  --dur-slow:    420ms; /* @kind other */
+  --dur-slower:  680ms; /* @kind other */
+
+  /* Motion — easing */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);     /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);     /* @kind other */
+  --ease-in:       cubic-bezier(0.5, 0, 0.75, 0);     /* @kind other */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+
+  /* Blur (frosted overlays, sticky nav) */
+  --blur-sm: 6px;  /* @kind other */
+  --blur-md: 14px; /* @kind other */
+  --blur-lg: 28px; /* @kind other */
+
+  /* Z-index scale */
+  --z-base:    1;    /* @kind other */
+  --z-raised:  10;   /* @kind other */
+  --z-sticky:  100;  /* @kind other */
+  --z-nav:     200;  /* @kind other */
+  --z-overlay: 800;  /* @kind other */
+  --z-chat:    900;  /* @kind other */
+  --z-toast:   1000; /* @kind other */
+}

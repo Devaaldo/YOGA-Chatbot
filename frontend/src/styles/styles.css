@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Jelajah Jogja — Design System entry point
+   --------------------------------------------------------------------------
+   Consumers link THIS one file. It is a manifest of @import lines only —
+   never add rules here directly. Everything reached transitively is shipped.
+   Order: fonts -> tokens -> base.
+   ========================================================================== */
+@import url('./tokens/fonts.css');
+@import url('./tokens/colors.css');
+@import url('./tokens/typography.css');
+@import url('./tokens/spacing.css');
+@import url('./tokens/effects.css');
+@import url('./tokens/base.css');

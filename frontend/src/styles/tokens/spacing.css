@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Jelajah Jogja — Spacing, radius & sizing tokens
+   --------------------------------------------------------------------------
+   4px base grid. Generous negative space is core to the brand — when in
+   doubt, step up. Radii skew soft (12-24px) per the rounded-corner motif;
+   pills for chips & buttons.
+   ========================================================================== */
+:root {
+  /* Spacing scale (4px base) */
+  --space-0:   0;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-7:   32px;
+  --space-8:   40px;
+  --space-9:   48px;
+  --space-10:  56px;
+  --space-11:  64px;
+  --space-12:  80px;
+  --space-13:  96px;
+  --space-14:  120px;
+  --space-15:  160px;
+
+  /* Corner radius */
+  --radius-xs:   6px;
+  --radius-sm:   10px;
+  --radius-md:   14px;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+  --radius-2xl:  32px;
+  --radius-pill: 999px;
+  --radius-card: var(--radius-xl); /* default destination/card radius */
+
+  /* Layout */
+  --container-max:   1200px;
+  --container-wide:  1320px;
+  --container-prose: 680px;
+  --gutter:          24px;
+  --gutter-lg:       40px;
+
+  /* Control sizing (height of buttons, inputs, chips) */
+  --control-sm: 34px;
+  --control-md: 44px; /* default — meets 44px touch target */
+  --control-lg: 54px;
+
+  /* Border widths */
+  --border-hairline: 1px;
+  --border-thick:    1.5px;
+}

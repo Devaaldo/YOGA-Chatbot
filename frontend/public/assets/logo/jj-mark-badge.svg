@@ -1,0 +1,6 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Jelajah Jogja">
+  <rect x="1" y="1" width="54" height="54" rx="15" fill="#faf6ee" stroke="#dac8aa" stroke-width="1.5"></rect>
+  <circle cx="34" cy="21" r="7" fill="#c19a3e"></circle>
+  <path d="M9 41 L21 21 L29 31 L38 17 L48 41 Z" fill="#b85c38"></path>
+  <path d="M9 41 L18 34 L28 38 L38 33 L48 39 L48 41 Z" fill="#4c5c3a"></path>
+</svg>

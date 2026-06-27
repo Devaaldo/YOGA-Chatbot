@@ -1,0 +1,6 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="YOGA assistant">
+  <circle cx="24" cy="24" r="24" fill="#b85c38"></circle>
+  <circle cx="29" cy="19" r="5" fill="#f3cf95"></circle>
+  <path d="M8 33 L19 21 L26 28 L33 18 L40 33" stroke="#fdf6ec" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+  <path d="M9 33 H39" stroke="#fdf6ec" stroke-width="2.4" stroke-linecap="round"></path>
+</svg>

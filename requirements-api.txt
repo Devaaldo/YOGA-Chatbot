@@ -1,0 +1,6 @@
+# Web API dependencies (for the Jelajah Jogja frontend).
+# Install alongside the runtime deps:  pip install -r requirements.txt -r requirements-api.txt
+-r requirements.txt
+
+fastapi==0.138.1
+uvicorn[standard]==0.34.0

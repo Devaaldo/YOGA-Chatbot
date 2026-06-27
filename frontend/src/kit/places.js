@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Jelajah Jogja — shared sample data (real, curated from the YOGA knowledge
+   base of 3,399 Yogyakarta tourism places). Loaded by the UI kit.
+   Attaches `window.JJ`. Also supports CommonJS for <x-import>.
+   ========================================================================== */
+(function () {
+  const formatRupiah = (n) => {
+    if (n === 0) return 'Gratis';
+    if (n == null) return null;
+    return 'Rp' + n.toLocaleString('id-ID');
+  };
+
+  // Warm duotone placeholder gradients (until real photography is dropped in)
+  const SCENES = {
+    culture:    'var(--photo-culture)',
+    nature:     'var(--photo-nature)',
+    beach:      'var(--photo-beach)',
+    recreation: 'var(--photo-recreation)',
+    water:      'var(--photo-water)',
+    dusk:       'var(--photo-dusk)',
+  };
+  const sceneGradient = (scene) => SCENES[scene] || SCENES.culture;
+
+  // Six top-level categories with real approximate counts from the dataset
+  const CATEGORIES = [
+    { key: 'alam',    id: 'Alam',              en: 'Nature',            count: 1052, scene: 'nature',     icon: 'mountain' },
+    { key: 'kuliner', id: 'Kuliner',           en: 'Culinary',          count: 809,  scene: 'recreation', icon: 'utensils-crossed' },
+    { key: 'budaya',  id: 'Budaya & Sejarah',  en: 'Culture & History', count: 795,  scene: 'culture',    icon: 'landmark' },
+    { key: 'buatan',  id: 'Buatan',            en: 'Parks & Recreation',count: 526,  scene: 'recreation', icon: 'ferris-wheel' },
+    { key: 'umum',    id: 'Wisata Umum',       en: 'General',           count: 132,  scene: 'dusk',       icon: 'compass' },
+    { key: 'air',     id: 'Wisata Air',        en: 'Water',             count: 33,   scene: 'water',      icon: 'waves' },
+  ];
+
+  // Five kabupaten / kota of DIY
+  const REGENCIES = [
+    { key: 'kota',        name: 'Kota Yogyakarta', count: 410, scene: 'dusk',
+      blurb: { id: 'Jantung budaya: Keraton, Malioboro, dan Tugu.', en: 'The cultural heart: the Keraton, Malioboro and Tugu.' } },
+    { key: 'sleman',      name: 'Sleman',          count: 348, scene: 'culture',
+      blurb: { id: 'Lereng Merapi, candi megah, dan tebing breksi.', en: 'Merapi’s slopes, grand temples and carved cliffs.' } },
+    { key: 'bantul',      name: 'Bantul',          count: 110, scene: 'beach',
+      blurb: { id: 'Pantai selatan, hutan pinus, dan seni rakyat.', en: 'Southern beaches, pine forests and folk art.' } },
+    { key: 'gunungkidul', name: 'Gunungkidul',     count: 96,  scene: 'beach',
+      blurb: { id: 'Pantai pasir putih, goa, dan gunung api purba.', en: 'White-sand coves, caves and ancient volcanoes.' } },
+    { key: 'kulonprogo',  name: 'Kulon Progo',     count: 64,  scene: 'nature',
+      blurb: { id: 'Perbukitan Menoreh yang hijau dan tenang.', en: 'The green, tranquil Menoreh highlands.' } },
+  ];
+
+  // Curated real destinations (subset; full data has 3,399 places)
+  const PLACES = [
+    { id:1, name:'Candi Prambanan', slug:'candi-prambanan', category:'Budaya & Sejarah', tag:'Candi', regency:'Sleman', rating:4.7, votes:71751, priceWeekday:50000, priceWeekend:50000, lat:-7.751835, lng:110.491532, scene:'dusk', address:'Jalan Jogja–Solo, Bokoharjo, Sleman', website:'https://prambanan.id',
+      desc:{ id:'Kompleks candi Hindu terbesar di Indonesia, dibangun abad ke-9 untuk Trimurti. Menaranya menjulang memukau saat senja dengan latar Gunung Merapi.', en:'Indonesia’s largest Hindu temple complex, built in the 9th century for the Trimurti. Its spires glow at golden hour against Mount Merapi.' } },
+    { id:13, name:'Tugu Pal Putih', slug:'tugu-jogja', category:'Budaya & Sejarah', tag:'Landmark', regency:'Kota Yogyakarta', rating:4.8, votes:13330, priceWeekday:0, priceWeekend:0, lat:-7.782882, lng:110.367051, scene:'dusk', address:'Jalan Margo Utomo, Kota Yogyakarta', website:'',
+      desc:{ id:'Tugu putih ikonik Jogja yang berdiri di garis imajiner yang menghubungkan Keraton, Merapi, dan laut selatan.', en:'Jogja’s iconic white pillar, standing on the imaginary axis linking the Keraton, Merapi and the southern sea.' } },
+    { id:49, name:'Jalan Malioboro', slug:'malioboro', category:'Budaya & Sejarah', tag:'Kawasan', regency:'Kota Yogyakarta', rating:4.7, votes:3752, priceWeekday:3000, priceWeekend:3000, lat:-7.798249, lng:110.365279, scene:'dusk', address:'Jalan Malioboro, Kota Yogyakarta', website:'',
+      desc:{ id:'Jantung Kota Jogja — jalan legendaris untuk berburu cendera mata, kuliner kaki lima, dan jalan pagi yang santai.', en:'The beating heart of the city — a legendary street for souvenirs, street food and slow morning walks.' } },
+    { id:5, name:'Taman Sari', slug:'taman-sari', category:'Budaya & Sejarah', tag:'Keraton', regency:'Kota Yogyakarta', rating:4.6, votes:27899, priceWeekday:5000, priceWeekend:5000, lat:-7.809833, lng:110.359512, scene:'culture', address:'Kraton, Kota Yogyakarta', website:'',
+      desc:{ id:'Istana air Kesultanan abad ke-18 — taman kesenangan bergaya Portugis-Jawa dengan kolam dan lorong di belakang Keraton.', en:'The Sultanate’s 18th-century water castle — a Portuguese-Javanese pleasure garden of pools and tunnels behind the Keraton.' } },
+    { id:2, name:'Tebing Breksi', slug:'tebing-breksi', category:'Alam', tag:'Tebing', regency:'Sleman', rating:4.4, votes:51431, priceWeekday:10000, priceWeekend:10000, lat:-7.781477, lng:110.504576, scene:'nature', address:'Sambirejo, Prambanan, Sleman', website:'https://tebingbreksi.com',
+      desc:{ id:'Bekas tambang kapur yang disulap jadi tebing ukir dramatis, dengan panorama senja menyapu dataran Prambanan.', en:'A former limestone quarry turned dramatic carved cliff, with sweeping sunset views over the Prambanan plain.' } },
+    { id:19, name:'Candi Ratu Boko', slug:'candi-ratu-boko', category:'Budaya & Sejarah', tag:'Situs', regency:'Sleman', rating:4.6, votes:11176, priceWeekday:40000, priceWeekend:40000, lat:-7.770542, lng:110.489416, scene:'dusk', address:'Bokoharjo, Prambanan, Sleman', website:'',
+      desc:{ id:'Kompleks istana di atas bukit di atas Prambanan — terkenal dengan gerbang megah dan salah satu senja terbaik di Jogja.', en:'A hilltop palace above Prambanan — famous for its monumental gate and one of Jogja’s finest sunsets.' } },
+    { id:6, name:'Hutan Pinus Mangunan', slug:'hutan-pinus-mangunan', category:'Alam', tag:'Hutan', regency:'Bantul', rating:4.6, votes:18271, priceWeekday:3000, priceWeekend:3000, lat:-7.926784, lng:110.431997, scene:'nature', address:'Mangunan, Dlingo, Bantul', website:'',
+      desc:{ id:'Hutan pinus tinggi yang sejuk di perbukitan Bantul, dicintai karena kabut tipis dan rumpun pohon yang fotogenik.', en:'A cool, towering pine forest in the Bantul highlands, beloved for misty light and photogenic groves.' } },
+    { id:25, name:'Pantai Parangtritis', slug:'pantai-parangtritis', category:'Alam', tag:'Pantai', regency:'Bantul', rating:4.5, votes:8727, priceWeekday:6000, priceWeekend:6000, lat:-8.024608, lng:110.329805, scene:'beach', address:'Parangtritis, Kretek, Bantul', website:'',
+      desc:{ id:'Pantai pasir hitam ikonik Bantul — naik ATV atau kuda, dan nikmati debur ombak dari gumuk pasir saat senja.', en:'Bantul’s iconic black-sand beach — ride ATVs or horses and watch the surf from the dunes at dusk.' } },
+    { id:43, name:'Pantai Indrayanti', slug:'pantai-indrayanti', category:'Alam', tag:'Pantai', regency:'Gunungkidul', rating:4.4, votes:4793, priceWeekday:12000, priceWeekend:12000, lat:-8.150842, lng:110.612985, scene:'beach', address:'Tepus, Gunungkidul', website:'',
+      desc:{ id:'Teluk kecil berpasir putih yang dibingkai tebing karst dan kafe tepi laut di pesisir Gunungkidul.', en:'A small white-sand cove framed by limestone cliffs and seaside cafes on the Gunungkidul coast.' } },
+    { id:64, name:'Pantai Timang', slug:'pantai-timang', category:'Alam', tag:'Pantai', regency:'Gunungkidul', rating:4.5, votes:2656, priceWeekday:5000, priceWeekend:5000, lat:-8.175927, lng:110.662420, scene:'beach', address:'Tepus, Gunungkidul', website:'',
+      desc:{ id:'Air toska liar dan gondola kayu tarik tangan menyeberang ke pulau karang — petualangan pemacu adrenalin.', en:'Wild turquoise water and a hand-pulled wooden gondola crossing to a rocky islet — pure adrenaline.' } },
+    { id:30, name:'Wisata Alam Kalibiru', slug:'kalibiru', category:'Alam', tag:'Perbukitan', regency:'Kulon Progo', rating:4.4, votes:6912, priceWeekday:10000, priceWeekend:10000, lat:-7.805731, lng:110.127969, scene:'nature', address:'Hargowilis, Kokap, Kulon Progo', website:'',
+      desc:{ id:'Hutan kemasyarakatan di ketinggian 450 mdpl dengan spot foto gardu pandang di atas pohon menghadap Waduk Sermo.', en:'A community forest at 450m with famous tree-platform viewpoints over the Sermo reservoir.' } },
+    { id:45, name:'Embung Nglanggeran', slug:'embung-nglanggeran', category:'Buatan', tag:'Embung', regency:'Gunungkidul', rating:4.5, votes:4366, priceWeekday:10000, priceWeekend:10000, lat:-7.847140, lng:110.546859, scene:'water', address:'Nglanggeran, Patuk, Gunungkidul', website:'',
+      desc:{ id:'Telaga buatan di puncak bukit di samping gunung api purba, dengan panorama senja melintasi Gunungkidul.', en:'A hilltop reservoir beside an ancient volcano, with panoramic sunset views across Gunungkidul.' } },
+    { id:14, name:'Heha Sky View', slug:'heha-sky-view', category:'Buatan', tag:'Sky View', regency:'Gunungkidul', rating:4.4, votes:13048, priceWeekday:10000, priceWeekend:10000, lat:-7.848530, lng:110.478710, scene:'recreation', address:'Patuk, Gunungkidul', website:'',
+      desc:{ id:'Gardu pandang modern dengan sky balloon, spot foto, dan aneka kuliner menghadap gemerlap lampu kota.', en:'A modern hilltop viewpoint with sky balloons, photo spots and street food overlooking the city lights.' } },
+    { id:3, name:'Gembira Loka Zoo', slug:'gembira-loka-zoo', category:'Buatan', tag:'Kebun Binatang', regency:'Kota Yogyakarta', rating:4.5, votes:36337, priceWeekday:20000, priceWeekend:25000, lat:-7.806234, lng:110.396798, scene:'recreation', address:'Umbulharjo, Kota Yogyakarta', website:'https://gembiralokazoo.com',
+      desc:{ id:'Kebun binatang kesayangan Jogja, rumah bagi beragam satwa dari penjuru dunia di tepi Sungai Gajah Wong.', en:'Jogja’s much-loved zoo, home to species from across the world along the Gajah Wong river.' } },
+    { id:121, name:'Desa Wisata Gamplong', slug:'desa-wisata-gamplong', category:'Budaya & Sejarah', tag:'Desa Wisata', regency:'Sleman', rating:4.4, votes:841, priceWeekday:5000, priceWeekend:5000, lat:-7.805523, lng:110.237468, scene:'recreation', address:'Sumberrahayu, Moyudan, Sleman', website:'',
+      desc:{ id:'Desa studio “mini Hollywood” dengan bangunan set film yang unik — favorit para penggemar fotografi.', en:'A “mini Hollywood” studio village of unique film-set buildings — a favourite for photography.' } },
+  ];
+
+  // A handful of shared bilingual UI strings used across the kit
+  const I18N = {
+    id: {
+      nav: { home:'Beranda', explore:'Jelajah', planner:'Rencana Perjalanan', regency:'Panduan Daerah', about:'Tentang' },
+      askYoga:'Tanya YOGA', searchPlaceholder:'Cari destinasi, kategori, atau daerah…',
+      tagline:'Temukan pesona Yogyakarta.', free:'Gratis', from:'mulai', reviews:'ulasan', places:'tempat',
+    },
+    en: {
+      nav: { home:'Home', explore:'Explore', planner:'Trip Planner', regency:'Regency Guide', about:'About' },
+      askYoga:'Ask YOGA', searchPlaceholder:'Search a destination, category or regency…',
+      tagline:'Discover the soul of Yogyakarta.', free:'Free', from:'from', reviews:'reviews', places:'places',
+    },
+  };
+
+  // Quick-reply chips that mirror the real YOGA chatbot capabilities
+  const QUICK_REPLIES = [
+    { id:'Rekomendasi wisata di Bantul',     en:'Recommend places in Bantul' },
+    { id:'Wisata pantai di Gunungkidul',     en:'Beaches in Gunungkidul' },
+    { id:'Tempat wisata tiket murah',        en:'Budget-friendly spots' },
+    { id:'Rating terbaik',                   en:'Top rated' },
+    { id:'Info Candi Prambanan',             en:'About Candi Prambanan' },
+    { id:'Lokasi Pantai Parangtritis',       en:'Where is Pantai Parangtritis' },
+  ];
+
+  const api = { PLACES, CATEGORIES, REGENCIES, I18N, QUICK_REPLIES, formatRupiah, sceneGradient };
+  if (typeof window !== 'undefined') window.JJ = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})();

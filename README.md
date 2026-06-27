@@ -1,21 +1,28 @@
----
-title: YOGA Chatbot
-emoji: 🗺️
-colorFrom: blue
-colorTo: green
-sdk: docker
-app_port: 7860
-pinned: false
----
+# Jelajah Jogja — Yogyakarta Tourism Assistant
 
-# YOGA Chatbot - Yogyakarta Guide Assistant
+An NLU-powered tourism assistant for **Yogyakarta (Daerah Istimewa Yogyakarta)**.
+A single hybrid-SVM intent model + a 3,399-place knowledge base power **two
+front-ends**:
 
-Telegram chatbot for tourism recommendations in Yogyakarta (Daerah Istimewa Yogyakarta).
+- 🤖 **YOGA Telegram bot** — conversational recommendations in chat.
+- 🌐 **Jelajah Jogja web app** — a bilingual (ID/EN) React site to browse
+  destinations, with the YOGA assistant embedded.
 
-## Architecture
+Both talk to the same NLU pipeline, so improving the model improves both.
+
+## Components
+
+| Component | Path | What it is |
+| --------- | ---- | ---------- |
+| NLU core | `src/yoga_chatbot/` | preprocessing, entity extraction, hybrid intent classifier, knowledge base, action routing |
+| Telegram bot | `src/yoga_chatbot/bot/` | python-telegram-bot front-end |
+| Web API | `api/server.py` | FastAPI service exposing the model + data over HTTP |
+| Web frontend | `frontend/` | React + Vite site (`Jelajah Jogja`) — see `frontend/README.md` |
+
+## NLU Architecture
 
 ```
-User input (Telegram)
+User input (Telegram / Web)
        |
   TextProcessor          Sastrawi stemmer + TF-IDF normalisation
        |
@@ -28,81 +35,98 @@ User input (Telegram)
        |
   ActionHandler          Routes intent to the appropriate search / response method
        |
-  KnowledgeBase          In-memory JSON store: 3,000+ Yogyakarta tourism places
-       |
-  Formatters + Keyboards Telegram Markdown + InlineKeyboardMarkup
+  KnowledgeBase          In-memory JSON store: 3,399 Yogyakarta tourism places
 ```
 
 ## Quick Start
 
 ```bash
-# 1. Clone and enter the project
-git clone <repo-url>
-cd YOGA-Chatbot
-
-# 2. Create and activate a virtual environment
+# Clone + virtual environment
+git clone <repo-url> && cd YOGA-Chatbot
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-
-# 3. Install dependencies
-make install
-
-# 4. Configure environment variables
-cp .env.example .env
-# Edit .env and set TELEGRAM_BOT_TOKEN
-
-# 5. Run the bot
-make run
+.venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
 ```
 
-To retrain the models from the raw data:
+### A. Telegram bot
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env             # then set TELEGRAM_BOT_TOKEN (from @BotFather)
+set PYTHONPATH=src               # PowerShell: $env:PYTHONPATH="src"
+python -m yoga_chatbot.bot.bot
+```
+On Windows you can also just double-click `run.bat`.
+
+### B. Web app (API + frontend)
+
+Two terminals — the API serves the model, the frontend serves the site.
+
+```bash
+# Terminal 1 — backend API (model + data)
+pip install -r requirements.txt -r requirements-api.txt
+set PYTHONPATH=src
+python -m uvicorn api.server:app --port 8000
+
+# Terminal 2 — frontend (needs Node.js 18+)
+cd frontend
+npm install
+npm run dev                      # http://localhost:5173
+```
+The chat in the web app calls the real NLU model at `:8000`; if the API is off
+it falls back to sample data. Full details: [`frontend/README.md`](frontend/README.md).
+
+### Web API endpoints
+
+| Method | Path | Purpose |
+| ------ | ---- | ------- |
+| `POST` | `/api/chat` | run the NLU model → reply + place cards |
+| `GET`  | `/api/places` | list places (filter by `q`/`category`/`regency`/`max_price`/`min_rating`, `sort`) |
+| `GET`  | `/api/places/{id}` | single place |
+| `GET`  | `/api/meta` | category & regency counts |
+| `GET`  | `/api/health` | liveness probe |
+
+## Retraining the model
 
 ```bash
 PYTHONPATH=src python scripts/relabel_intents.py   # raw -> semantic intents
-PYTHONPATH=src python scripts/train.py             # train + save artifacts
+PYTHONPATH=src python scripts/train.py             # train + save artifacts to models/
 ```
 
 ## Development
 
 ```bash
-# Install dev dependencies (includes pytest, jupyter)
-make install-dev
-
-# Run tests
-make test
-
-# Run tests with coverage report
-make coverage
-
-# Augment training data
-make augment
+pip install -r requirements-dev.txt
+make test          # run the pytest suite
+make coverage      # tests + coverage report
 ```
 
 ## Project Structure
 
 ```
 .
-├── config/
-│   └── settings.py              # Centralised configuration
+├── api/                         # FastAPI web API (server.py)
+├── config/settings.py           # Centralised configuration
 ├── data/
-│   ├── raw/                     # Original unmodified data files
-│   ├── processed/               # Augmented and enriched datasets
-│   └── knowledge/               # Kecamatan/kabupaten lookup data
-├── models/                      # Trained model artifacts (.pkl)
-├── notebooks/                   # Training and evaluation notebooks
+│   ├── raw/                     # Source intents + raw data
+│   ├── processed/               # tourism_knowledge_base.json
+│   └── knowledge/               # kecamatan/kabupaten lookup
+├── frontend/                    # React + Vite web app (Jelajah Jogja)
+├── models/                      # Trained model artifacts (.pkl) + metadata.json
+├── notebooks/                   # Training & evaluation notebook
 ├── scripts/
-│   ├── relabel_intents.py       # Map raw location tags -> semantic intents
-│   ├── train.py                 # Reproducible training pipeline (-> models/)
-│   ├── augment_data.py          # Data augmentation pipeline
+│   ├── relabel_intents.py       # raw location tags -> 12 semantic intents
+│   ├── train.py                 # reproducible training pipeline (-> models/)
+│   ├── augment_data.py          # data augmentation helpers
 │   └── fetch_places.py          # Google Places API scraper
-├── src/
-│   └── yoga_chatbot/
-│       ├── preprocessing/       # TextProcessor (Sastrawi stemmer)
-│       ├── nlu/                 # EntityExtractor, HybridIntentClassifier, NLUPipeline
-│       ├── knowledge/           # KnowledgeBase (search methods)
-│       ├── actions/             # ActionHandler (intent routing)
-│       └── bot/                 # Telegram handlers, keyboards, formatters
-└── tests/                       # Pytest test suite
+├── src/yoga_chatbot/
+│   ├── preprocessing/           # TextProcessor (Sastrawi stemmer)
+│   ├── nlu/                     # EntityExtractor, HybridIntentClassifier, NLUPipeline
+│   ├── knowledge/               # KnowledgeBase (search methods)
+│   ├── actions/                 # ActionHandler (intent routing)
+│   └── bot/                     # Telegram handlers, keyboards, formatters
+├── tests/                       # Pytest suite
+├── Dockerfile / app.py          # container entry (bot)
+└── run.bat                      # one-click local bot launcher (Windows)
 ```
 
 ## Model Performance

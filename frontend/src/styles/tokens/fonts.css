@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Jelajah Jogja — Webfonts
+   --------------------------------------------------------------------------
+   Fonts are loaded from the Google Fonts CDN (no binaries are bundled in this
+   project — the sandbox cannot download font files). If you need a fully
+   offline / self-hosted build, replace this @import with local @font-face
+   rules pointing at woff2 files in assets/fonts/.
+
+   Newsreader        — editorial display serif (headings, romantic italics)
+   Plus Jakarta Sans — Indonesian-made humanist sans (body + UI)
+   JetBrains Mono    — token / code specimens
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
