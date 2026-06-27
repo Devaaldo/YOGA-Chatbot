@@ -1,4 +1,3 @@
-
 # Jelajah Jogja — Yogyakarta Tourism Assistant
 
 <!-- The YAML block above configures the Hugging Face Space that hosts the API.
