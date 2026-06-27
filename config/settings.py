@@ -1,10 +1,3 @@
-"""
-Centralized configuration for YOGA Chatbot.
-
-All runtime settings are loaded from environment variables (via .env file).
-Import the singleton `settings` object rather than instantiating Settings directly.
-"""
-
 from __future__ import annotations
 
 import os
@@ -15,20 +8,19 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# ---------------------------------------------------------------------------
+
 # Project root
-# ---------------------------------------------------------------------------
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
 
 @dataclass
 class Settings:
-    # --- Telegram ---
+    # Telegram
     telegram_bot_token: str = field(
         default_factory=lambda: os.environ.get("TELEGRAM_BOT_TOKEN", "")
     )
 
-    # --- Paths ---
+    # Paths
     model_dir: Path = field(default_factory=lambda: ROOT_DIR / "models")
     data_dir: Path = field(default_factory=lambda: ROOT_DIR / "data")
 
@@ -40,7 +32,7 @@ class Settings:
     def kecamatan_path(self) -> Path:
         return self.data_dir / "knowledge" / "kecamatan_diy.json"
 
-    # --- NLU thresholds ---
+    # NLU thresholds
     greeting_confidence_threshold: float = float(
         os.environ.get("GREETING_CONFIDENCE_THRESHOLD", "0.7")
     )
@@ -51,10 +43,10 @@ class Settings:
         os.environ.get("INTENT_CONFIDENCE_THRESHOLD", "0.15")
     )
 
-    # --- Logging ---
+    # Logging
     log_level: str = os.environ.get("LOG_LEVEL", "INFO")
 
-    # --- Model file names ---
+    # Model file names
     greeting_detector_filename: str = "greeting_detector.pkl"
     svm_model_filename: str = "svm_model.pkl"
     tfidf_greeting_filename: str = "tfidf_greeting.pickle"
@@ -62,7 +54,7 @@ class Settings:
     label_encoder_filename: str = "label_encoder.pickle"
 
     def validate(self) -> None:
-        """Raise ValueError for any missing critical configuration."""
+        # Raise ValueError for any missing critical configuration
         if not self.telegram_bot_token:
             raise ValueError(
                 "TELEGRAM_BOT_TOKEN is not set. "
