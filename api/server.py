@@ -30,7 +30,6 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from yoga_chatbot.actions.handlers import ActionHandler  # noqa: E402
 from yoga_chatbot.knowledge.knowledge_base import KnowledgeBase, Place  # noqa: E402
 from yoga_chatbot.nlu.entity_extractor import EntityExtractor  # noqa: E402
 from yoga_chatbot.nlu.pipeline import NLUPipeline  # noqa: E402
