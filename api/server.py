@@ -184,6 +184,82 @@ def map_place(place: Place) -> dict[str, Any]:
     }
 
 
+# Precompute the mapped catalogue once (also reused by /api/places).
+ALL_PLACES: list[dict[str, Any]] = [map_place(p) for p in kb._places]  # noqa: SLF001
+
+# Fine-grained type keywords (user text -> place tag).
+_FINE_TYPES: dict[str, str] = {
+    "pantai": "Pantai", "beach": "Pantai",
+    "candi": "Candi", "temple": "Candi",
+    "gunung": "Gunung", "merapi": "Gunung",
+    "bukit": "Bukit", "puncak": "Bukit",
+    "tebing": "Tebing",
+    "air terjun": "Air Terjun", "curug": "Air Terjun", "grojogan": "Air Terjun",
+    "goa": "Goa", "gua": "Goa",
+    "museum": "Museum",
+    "hutan": "Hutan", "pinus": "Hutan",
+    "embung": "Embung", "telaga": "Embung", "waduk": "Embung",
+    "taman": "Taman",
+    "kuliner": "Kuliner", "kebun binatang": "Kebun Binatang", "zoo": "Kebun Binatang",
+    "desa wisata": "Desa Wisata",
+}
+
+_BUDGET_RE = re.compile(r"(\d+(?:[.,]\d+)?)\s*(rb|ribu|k|jt|juta)?", re.IGNORECASE)
+
+
+def _popular(items: list[dict[str, Any]], n: int = 5) -> list[dict[str, Any]]:
+    """Top places preferring well-known ones (vote floor) so obscure 5.0-rated
+    outliers with a handful of votes don't dominate."""
+    known = [p for p in items if (p.get("votes") or 0) >= 100]
+    pool = known if len(known) >= n else items
+    return sorted(pool, key=lambda p: ((p.get("rating") or 0), (p.get("votes") or 0)),
+                  reverse=True)[:n]
+
+
+def _detect_type(text: str) -> Optional[str]:
+    t = text.lower()
+    for kw, tag in _FINE_TYPES.items():
+        if kw in t:
+            return tag
+    return None
+
+
+def _extract_budget(text: str) -> Optional[int]:
+    m = _BUDGET_RE.search(text.lower())
+    if not m:
+        return None
+    try:
+        amount = int(m.group(1).replace(".", "").replace(",", ""))
+    except ValueError:
+        return None
+    unit = (m.group(2) or "").lower()
+    if unit in ("rb", "ribu", "k"):
+        amount *= 1_000
+    elif unit in ("jt", "juta"):
+        amount *= 1_000_000
+    return amount
+
+
+def _by_regency(items: list[dict[str, Any]], regency: Optional[str]) -> list[dict[str, Any]]:
+    if not regency:
+        return items
+    sub = [p for p in items if p["regency"].lower() == regency.lower()]
+    return sub if sub else items
+
+
+def _fuzzy_place(text: str) -> Optional[dict[str, Any]]:
+    t = text.lower()
+    best, best_score = None, 0
+    for p in ALL_PLACES:
+        name = p["name"].lower()
+        if name in t:
+            return p
+        score = sum(1 for w in name.split() if len(w) > 3 and w in t)
+        if score > best_score:
+            best, best_score = p, score
+    return best if best_score > 0 else None
+
+
 # ---------------------------------------------------------------------------
 # FastAPI app
 # ---------------------------------------------------------------------------
@@ -271,45 +347,84 @@ def get_place(place_id: int) -> dict[str, Any]:
 
 @app.post("/api/chat")
 def chat(req: ChatRequest) -> dict[str, Any]:
-    """Run the real NLU model and route to the same actions the bot uses."""
+    """Run the NLU model, then pick places from the mapped catalogue using
+    fine-grained tags + a popularity floor (better than the coarse KB search)."""
     result = nlu.understand(req.message)
     intent = result.intent
     lang = req.lang
-    places: list[Place] = []
+    text = req.message
+
+    kab = result.entity.get("kabupaten")
+    if kab is None and result.entity.get("type") == "kabupaten":
+        kab = result.entity.get("value")
+    regency = _KAB_DISPLAY.get(kab)
+
+    places: list[dict[str, Any]] = []
     reply: str
 
     if intent in GREETING_INTENTS:
         reply = _greeting_reply(intent, lang)
-    elif intent == "rekomendasi_wisata":
-        places = ActionHandler.handle_rekomendasi(result, kb)
-        loc = result.entity.get("value")
-        reply = _L(lang,
-                   f"Rekomendasi wisata{' di ' + loc.title() if loc else ' terbaik'}:",
-                   f"Recommended places{' in ' + loc.title() if loc else ''}:")
+
     elif intent == "cari_by_type":
-        places = ActionHandler.handle_cari_by_type(result, kb)
-        reply = _L(lang, "Hasil pencarian berdasarkan kategori:", "Results by category:")
+        tag = _detect_type(text)
+        if tag:
+            matches = _by_regency([p for p in ALL_PLACES if p["tag"] == tag], regency)
+            places = _popular(matches)
+            where = f" di {regency}" if regency else ""
+            reply = _L(lang, f"Rekomendasi {tag.lower()}{where}:",
+                       f"Top {tag.lower()}{(' in ' + regency) if regency else ''}:")
+        else:
+            places = _popular(_by_regency(ALL_PLACES, regency))
+            reply = _L(lang, "Rekomendasi wisata:", "Recommended places:")
+
     elif intent == "cari_by_harga":
-        places = ActionHandler.handle_cari_by_harga(result, kb)
-        reply = _L(lang, "Wisata sesuai anggaranmu:", "Places within your budget:")
+        t = text.lower()
+        if "gratis" in t or "free" in t:
+            free = [p for p in ALL_PLACES if p["priceWeekday"] == 0]
+            if free:
+                places = _popular(free)
+            else:
+                # data rarely flags true-free; fall back to the cheapest tickets
+                cheap = [p for p in ALL_PLACES if p["priceWeekday"] not in (None, 0)]
+                cheap.sort(key=lambda p: (p["priceWeekday"], -(p["votes"] or 0)))
+                places = cheap[:5]
+            reply = _L(lang, "Wisata gratis / paling murah:", "Free / cheapest attractions:")
+        else:
+            budget = _extract_budget(t)
+            cand = [p for p in ALL_PLACES if p["priceWeekday"] not in (None, 0)]
+            if budget:
+                cand = [p for p in cand if p["priceWeekday"] <= budget]
+            cand.sort(key=lambda p: (p["priceWeekday"], -(p["votes"] or 0)))
+            places = cand[:5]
+            reply = _L(lang, "Wisata dengan tiket ramah kantong:", "Budget-friendly spots:")
+
     elif intent == "cari_by_rating":
-        places = ActionHandler.handle_cari_by_rating(kb)
+        places = _popular(ALL_PLACES)
         reply = _L(lang, "Wisata dengan rating terbaik:", "Top-rated places:")
+
+    elif intent == "rekomendasi_wisata":
+        places = _popular(_by_regency(ALL_PLACES, regency))
+        where = f" di {regency}" if regency else " terbaik"
+        reply = _L(lang, f"Rekomendasi wisata{where}:",
+                   f"Recommended places{(' in ' + regency) if regency else ''}:")
+
     elif intent == "info_detail":
-        place = ActionHandler.handle_info_detail(result, kb)
-        if place:
-            places = [place]
-            reply = _L(lang, f"Ini {place.nama}:", f"Here's {place.nama}:")
+        p = _fuzzy_place(text)
+        if p:
+            places = [p]
+            reply = _L(lang, f"Ini {p['name']}:", f"Here's {p['name']}:")
         else:
             reply = _fallback_reply(lang)
+
     elif intent == "info_lokasi":
-        place = ActionHandler.handle_info_lokasi(result, kb)
-        if place:
-            places = [place]
-            reply = _L(lang, f"{place.nama} ada di {_regency_of(place)}. Ketuk untuk peta:",
-                       f"{place.nama} is in {_regency_of(place)}. Tap for the map:")
+        p = _fuzzy_place(text)
+        if p:
+            places = [p]
+            reply = _L(lang, f"{p['name']} ada di {p['regency']}. Ketuk untuk peta:",
+                       f"{p['name']} is in {p['regency']}. Tap for the map:")
         else:
             reply = _fallback_reply(lang)
+
     else:
         reply = _fallback_reply(lang)
 
@@ -318,7 +433,7 @@ def chat(req: ChatRequest) -> dict[str, Any]:
         "intent": intent,
         "confidence": round(result.confidence, 3),
         "entity": result.entity,
-        "places": [map_place(p) for p in places],
+        "places": places,
     }
 
 
