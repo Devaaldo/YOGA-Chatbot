@@ -324,7 +324,7 @@
 				/>
 				<main className="jjk-main">
 					{page === "home" && <S.Home {...common} q={q} setQ={setQ} />}
-					{page === "chat" && <S.ChatPage {...common} />}
+					{page === "chat" && <S.ChatPage {...common} initial={params} />}
 					{page === "explore" && <S.Explore {...common} initial={params} />}
 					{page === "detail" && (
 						<S.Detail {...common} place={selected} onPlan={addToPlan} />
