@@ -1,19 +1,3 @@
-"""
-HTTP API for the Jelajah Jogja web frontend.
-
-Wraps the existing YOGA NLU pipeline + knowledge base (the same code the
-Telegram bot uses) behind a small FastAPI service so the React frontend can:
-
-  GET  /api/health            liveness probe
-  GET  /api/places            list places (filter/sort) for the Explore page
-  GET  /api/places/{id}       single place
-  GET  /api/meta              categories + regencies (counts)
-  POST /api/chat              run the real NLU model -> reply + place cards
-
-Run:
-    PYTHONPATH=src python -m uvicorn api.server:app --reload --port 8000
-"""
-
 from __future__ import annotations
 
 import re
@@ -25,23 +9,19 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-# Make `yoga_chatbot` (under src/) and `config` importable.
+
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from yoga_chatbot.knowledge.knowledge_base import KnowledgeBase, Place  # noqa: E402
-from yoga_chatbot.nlu.entity_extractor import EntityExtractor  # noqa: E402
-from yoga_chatbot.nlu.pipeline import NLUPipeline  # noqa: E402
+from yoga_chatbot.knowledge.knowledge_base import KnowledgeBase, Place 
+from yoga_chatbot.nlu.entity_extractor import EntityExtractor
+from yoga_chatbot.nlu.pipeline import NLUPipeline
 
-# ---------------------------------------------------------------------------
 # Load models + data once at startup (same artifacts as the bot)
-# ---------------------------------------------------------------------------
-
 KB_PATH = ROOT / "data" / "processed" / "tourism_knowledge_base.json"
 KECAMATAN_PATH = ROOT / "data" / "knowledge" / "kecamatan_diy.json"
 MODEL_DIR = ROOT / "models"
-
 
 class _Settings:
     model_dir = MODEL_DIR
@@ -50,17 +30,13 @@ class _Settings:
     word_count_threshold = 3
     intent_confidence_threshold = 0.15
 
-
 kb = KnowledgeBase(KB_PATH)
 nlu = NLUPipeline.from_settings(_Settings)
 extractor = EntityExtractor(KECAMATAN_PATH)
 
 GREETING_INTENTS = {"greeting", "pagi", "siang", "sore", "malam", "goodbye"}
 
-# ---------------------------------------------------------------------------
 # Backend Place -> frontend place mapping
-# ---------------------------------------------------------------------------
-
 _MAIN_CATEGORIES = {"Alam", "Kuliner", "Budaya & Sejarah", "Buatan", "Wisata Air", "Wisata Umum"}
 _CATEGORY_BUCKET = {
     "Budaya dan Sejarah": "Budaya & Sejarah",
@@ -108,20 +84,17 @@ _SCENE_BY_CATEGORY = {
     "Wisata Umum": "culture",
 }
 
-
 def _slugify(text: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
     return s or "tempat"
-
 
 def _normalize_category(type_str: str) -> str:
     first = (type_str or "").split(",")[0].strip()
     first = _CATEGORY_BUCKET.get(first, first)
     return first if first in _MAIN_CATEGORIES else _CATEGORY_BUCKET.get(first, "Wisata Umum")
 
-
 def _regency_by_coord(lat: Optional[float], lng: Optional[float]) -> Optional[str]:
-    """Rough lat/lng buckets for the 5 DIY regencies (fallback only)."""
+    # Rough lat/lng buckets for the 5 DIY regencies (fallback only)
     if lat is None or lng is None:
         return None
     if lng < 110.27:
@@ -136,9 +109,8 @@ def _regency_by_coord(lat: Optional[float], lng: Optional[float]) -> Optional[st
         return "Bantul"
     return "Sleman"
 
-
 def _regency_of(place: Place) -> str:
-    """Derive kabupaten/kota from the address (kecamatan map), then coordinates."""
+    # Derive kabupaten/kota from the address (kecamatan map), then coordinates
     entity = extractor.extract(place.address)
     kab = entity.get("kabupaten")
     if kab is None and entity.get("type") == "kabupaten":
@@ -147,14 +119,12 @@ def _regency_of(place: Place) -> str:
         return _KAB_DISPLAY[kab]
     return _regency_by_coord(place.lokasi.latitude, place.lokasi.longitude) or "Yogyakarta"
 
-
 def _tag_of(place: Place, category: str) -> str:
     hay = f"{place.nama} {place.type_clean}".lower()
     for tag, keys in _TAG_RULES:
         if any(k in hay for k in keys):
             return tag
     return category
-
 
 def map_place(place: Place) -> dict[str, Any]:
     category = _normalize_category(place.type)
@@ -182,9 +152,8 @@ def map_place(place: Place) -> dict[str, Any]:
         "hasPrice": place.has_price,
     }
 
-
 # Precompute the mapped catalogue once (also reused by /api/places).
-ALL_PLACES: list[dict[str, Any]] = [map_place(p) for p in kb._places]  # noqa: SLF001
+ALL_PLACES: list[dict[str, Any]] = [map_place(p) for p in kb._places]
 
 # Fine-grained type keywords (user text -> place tag).
 _FINE_TYPES: dict[str, str] = {
@@ -212,8 +181,7 @@ def _popular(items: list[dict[str, Any]], n: int = 5) -> list[dict[str, Any]]:
     known = [p for p in items if (p.get("votes") or 0) >= 100]
     pool = known if len(known) >= n else items
     return sorted(pool, key=lambda p: ((p.get("rating") or 0), (p.get("votes") or 0)),
-                  reverse=True)[:n]
-
+                reverse=True)[:n]
 
 def _detect_type(text: str) -> Optional[str]:
     t = text.lower()
@@ -221,7 +189,6 @@ def _detect_type(text: str) -> Optional[str]:
         if kw in t:
             return tag
     return None
-
 
 def _extract_budget(text: str) -> Optional[int]:
     m = _BUDGET_RE.search(text.lower())
@@ -238,13 +205,11 @@ def _extract_budget(text: str) -> Optional[int]:
         amount *= 1_000_000
     return amount
 
-
 def _by_regency(items: list[dict[str, Any]], regency: Optional[str]) -> list[dict[str, Any]]:
     if not regency:
         return items
     sub = [p for p in items if p["regency"].lower() == regency.lower()]
     return sub if sub else items
-
 
 def _fuzzy_place(text: str) -> Optional[dict[str, Any]]:
     t = text.lower()
@@ -259,10 +224,7 @@ def _fuzzy_place(text: str) -> Optional[dict[str, Any]]:
     return best if best_score > 0 else None
 
 
-# ---------------------------------------------------------------------------
 # FastAPI app
-# ---------------------------------------------------------------------------
-
 app = FastAPI(title="Jelajah Jogja API", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
@@ -276,28 +238,25 @@ class ChatRequest(BaseModel):
     message: str
     lang: str = "id"
 
-
 def _L(lang: str, id_text: str, en_text: str) -> str:
     return en_text if lang == "en" else id_text
 
-
 @app.get("/api/health")
 def health() -> dict[str, Any]:
-    return {"status": "ok", "places": len(kb._places)}  # noqa: SLF001
-
+    return {"status": "ok", "places": len(kb._places)} 
 
 @app.get("/api/meta")
 def meta() -> dict[str, Any]:
     cats: dict[str, int] = {}
     regs: dict[str, int] = {}
-    for p in kb._places:  # noqa: SLF001
+    for p in kb._places:
         m = map_place(p)
         cats[m["category"]] = cats.get(m["category"], 0) + 1
         regs[m["regency"]] = regs.get(m["regency"], 0) + 1
     return {
         "categories": [{"name": k, "count": v} for k, v in sorted(cats.items(), key=lambda x: -x[1])],
         "regencies": [{"name": k, "count": v} for k, v in sorted(regs.items(), key=lambda x: -x[1])],
-        "total": len(kb._places),  # noqa: SLF001
+        "total": len(kb._places),
     }
 
 
@@ -311,7 +270,7 @@ def list_places(
     sort: str = "rating",
     limit: int = Query(default=500, le=4000),
 ) -> dict[str, Any]:
-    items = [map_place(p) for p in kb._places]  # noqa: SLF001
+    items = [map_place(p) for p in kb._places]
 
     if q:
         ql = q.lower()
@@ -335,14 +294,12 @@ def list_places(
     total = len(items)
     return {"total": total, "items": items[:limit]}
 
-
 @app.get("/api/places/{place_id}")
 def get_place(place_id: int) -> dict[str, Any]:
     place = kb.get_by_id(place_id)
     if place is None:
         raise HTTPException(status_code=404, detail="Place not found")
     return map_place(place)
-
 
 @app.post("/api/chat")
 def chat(req: ChatRequest) -> dict[str, Any]:
@@ -371,7 +328,7 @@ def chat(req: ChatRequest) -> dict[str, Any]:
             places = _popular(matches)
             where = f" di {regency}" if regency else ""
             reply = _L(lang, f"Rekomendasi {tag.lower()}{where}:",
-                       f"Top {tag.lower()}{(' in ' + regency) if regency else ''}:")
+                        f"Top {tag.lower()}{(' in ' + regency) if regency else ''}:")
         else:
             places = _popular(_by_regency(ALL_PLACES, regency))
             reply = _L(lang, "Rekomendasi wisata:", "Recommended places:")
@@ -405,7 +362,7 @@ def chat(req: ChatRequest) -> dict[str, Any]:
         places = _popular(_by_regency(ALL_PLACES, regency))
         where = f" di {regency}" if regency else " terbaik"
         reply = _L(lang, f"Rekomendasi wisata{where}:",
-                   f"Recommended places{(' in ' + regency) if regency else ''}:")
+                    f"Recommended places{(' in ' + regency) if regency else ''}:")
 
     elif intent == "info_detail":
         p = _fuzzy_place(text)
@@ -420,7 +377,7 @@ def chat(req: ChatRequest) -> dict[str, Any]:
         if p:
             places = [p]
             reply = _L(lang, f"{p['name']} ada di {p['regency']}. Ketuk untuk peta:",
-                       f"{p['name']} is in {p['regency']}. Tap for the map:")
+                        f"{p['name']} is in {p['regency']}. Tap for the map:")
         else:
             reply = _fallback_reply(lang)
 
@@ -439,7 +396,7 @@ def chat(req: ChatRequest) -> dict[str, Any]:
 def _greeting_reply(intent: str, lang: str) -> str:
     base = {
         "greeting": ("Halo! Saya YOGA, asisten wisata Yogyakarta. Mau cari wisata apa?",
-                     "Hi! I'm YOGA, your Yogyakarta travel assistant. What are you looking for?"),
+                        "Hi! I'm YOGA, your Yogyakarta travel assistant. What are you looking for?"),
         "pagi": ("Selamat pagi! Mau wisata ke mana hari ini?", "Good morning! Where would you like to go today?"),
         "siang": ("Selamat siang! Ada rencana wisata?", "Good afternoon! Any travel plans?"),
         "sore": ("Selamat sore! Cari rekomendasi wisata?", "Good evening! Looking for recommendations?"),
@@ -452,5 +409,5 @@ def _greeting_reply(intent: str, lang: str) -> str:
 
 def _fallback_reply(lang: str) -> str:
     return _L(lang,
-              "Maaf, saya kurang paham. Coba tanya rekomendasi wisata, kategori, harga, atau rating.",
-              "Sorry, I didn't catch that. Try asking for recommendations, a category, price, or rating.")
+                "Maaf, saya kurang paham. Coba tanya rekomendasi wisata, kategori, harga, atau rating.",
+                "Sorry, I didn't catch that. Try asking for recommendations, a category, price, or rating.")
