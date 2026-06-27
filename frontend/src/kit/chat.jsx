@@ -359,7 +359,12 @@
 	}
 
 	// Full-page experience (/tanya-yoga)
-	function ChatPage({ lang, saved, onSave, onOpen, askSignal }) {
+	function ChatPage({ lang, saved, onSave, onOpen, initial }) {
+		const seed = initial && initial.ask;
+		const seedSignal = React.useMemo(
+			() => ({ text: seed || null, n: seed ? 1 : 0 }),
+			[seed],
+		);
 		return (
 			<div className="jjk-chatpage">
 				<div className="jjk-container jjk-chatpage__inner">
@@ -388,7 +393,7 @@
 							saved={saved}
 							onSave={onSave}
 							onOpen={onOpen}
-							askSignal={askSignal}
+							askSignal={seedSignal}
 							variant="page"
 						/>
 					</div>
