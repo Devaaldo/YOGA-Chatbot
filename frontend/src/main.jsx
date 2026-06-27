@@ -14,6 +14,7 @@ import * as ReactDOMFull from 'react-dom'
 import './styles/styles.css'
 import './styles/kit.css'
 import './styles/kit-screens.css'
+import './styles/chatpage.css'
 
 // --- Provide the globals the kit expects -----------------------------------
 window.React = React

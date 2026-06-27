@@ -6,6 +6,7 @@
 
   const NAV = [
     { key: 'home', id: 'Beranda', en: 'Home' },
+    { key: 'chat', id: 'Tanya YOGA', en: 'Ask YOGA' },
     { key: 'explore', id: 'Jelajah', en: 'Explore' },
     { key: 'planner', id: 'Rencana Perjalanan', en: 'Trip Planner' },
     { key: 'regency', id: 'Panduan Daerah', en: 'Regency Guide' },
@@ -24,7 +25,7 @@
           </nav>
           <div className="jjk-nav__right">
             <LangToggle value={lang} onChange={setLang} />
-            <span style={{ display: 'inline-flex' }} className="jjk-hide-sm"><Btn variant="primary" size="sm" iconLeft={<Icon name="sparkles" size={16} />} onClick={() => onAsk()}>{L(lang, 'Tanya YOGA', 'Ask YOGA')}</Btn></span>
+            <span style={{ display: 'inline-flex' }} className="jjk-hide-sm"><Btn variant="primary" size="sm" iconLeft={<Icon name="sparkles" size={16} />} onClick={() => go('chat')}>{L(lang, 'Tanya YOGA', 'Ask YOGA')}</Btn></span>
             <span className="jjk-nav__menu" style={{ display: 'none' }}><IconBtn variant="ghost" icon={<Icon name={menuOpen ? 'x' : 'sliders'} size={20} />} label="Menu" onClick={() => setMenuOpen(!menuOpen)} /></span>
           </div>
         </div>
@@ -122,6 +123,7 @@
         <Nav lang={lang} setLang={setLang} page={page} go={go} onAsk={ask} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <main className="jjk-main">
           {page === 'home' && <S.Home {...common} q={q} setQ={setQ} />}
+          {page === 'chat' && <S.ChatPage {...common} />}
           {page === 'explore' && <S.Explore {...common} initial={params} />}
           {page === 'detail' && <S.Detail {...common} place={selected} onPlan={addToPlan} />}
           {page === 'planner' && <S.Planner lang={lang} days={days} onRemove={removeFromPlan} onAsk={ask} go={go} weekend={weekend} setWeekend={setWeekend} />}

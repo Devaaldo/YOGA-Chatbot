@@ -1,0 +1,73 @@
+/* Full-page YOGA chat experience (/tanya-yoga) — earthy/cultural, minimalist. */
+.jjk-chatpage {
+  padding: 22px 0 48px;
+  background:
+    radial-gradient(1200px 360px at 50% -140px, rgba(184, 92, 56, 0.10), transparent 70%),
+    var(--color-surface, #fffcf7);
+  min-height: 78vh;
+}
+.jjk-chatpage__inner {
+  max-width: 760px;
+}
+.jjk-chatpage__hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.jjk-chatpage__avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  flex: none;
+  box-shadow: 0 8px 24px rgba(184, 92, 56, 0.22);
+  background: #fff;
+}
+.jjk-chatpage__badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b85c38;
+  background: rgba(184, 92, 56, 0.10);
+  border: 1px solid rgba(184, 92, 56, 0.20);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+.jjk-chatpage__title {
+  margin: 2px 0 6px;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.05;
+}
+.jjk-chatpage__title em {
+  color: #b85c38;
+  font-style: italic;
+}
+.jjk-chatpage__sub {
+  margin: 0;
+  color: var(--color-ink-soft, #6b584a);
+  max-width: 58ch;
+}
+.jjk-chatpage__card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--color-border, #eadfcb);
+  border-radius: 22px;
+  box-shadow: 0 18px 50px rgba(91, 70, 54, 0.10);
+  overflow: hidden;
+}
+/* Taller, page-sized message area (overrides the compact panel body). */
+.jjk-chatpage__body {
+  height: auto;
+  min-height: 46vh;
+  max-height: 60vh;
+  padding: 22px;
+}
+@media (max-width: 600px) {
+  .jjk-chatpage__hero { flex-direction: column; text-align: center; gap: 12px; }
+  .jjk-chatpage__sub { margin-inline: auto; }
+  .jjk-chatpage__body { min-height: 52vh; }
+}
