@@ -1,4 +1,8 @@
+
 # Jelajah Jogja — Yogyakarta Tourism Assistant
+
+<!-- The YAML block above configures the Hugging Face Space that hosts the API.
+     On GitHub it just renders as a small metadata table — harmless. -->
 
 An NLU-powered tourism assistant for **Yogyakarta (Daerah Istimewa Yogyakarta)**.
 A single hybrid-SVM intent model + a 3,399-place knowledge base power **two

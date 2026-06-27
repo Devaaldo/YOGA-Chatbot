@@ -1,19 +1,19 @@
-# YOGA Chatbot — container image (works on Hugging Face Spaces, Fly.io, any VPS)
+# Jelajah Jogja API — container image (Hugging Face Spaces / any Docker host).
+# Serves the FastAPI backend (NLU model + knowledge base) on port 7860.
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies first for better layer caching
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies first for better layer caching.
+# requirements-api.txt pulls in requirements.txt via its `-r` line.
+COPY requirements.txt requirements-api.txt ./
+RUN pip install --no-cache-dir -r requirements-api.txt
 
 # Copy the project
 COPY . .
 
-# Make the package importable and expose the HF Spaces health port
 ENV PYTHONPATH=/app/src
-ENV PORT=7860
 EXPOSE 7860
 
-# TELEGRAM_BOT_TOKEN must be provided at runtime (HF Space secret / -e flag)
-CMD ["python", "app.py"]
+# Hugging Face Spaces routes traffic to port 7860.
+CMD ["uvicorn", "api.server:app", "--host", "0.0.0.0", "--port", "7860"]
