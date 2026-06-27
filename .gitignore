@@ -63,3 +63,6 @@ data/raw/*.csv
 *.tmp
 *.bak
 *.swp
+
+# Local Claude Code config
+.claude/
