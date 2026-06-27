@@ -119,17 +119,21 @@
 									<SearchBar
 										value={q}
 										onChange={setQ}
-										onSubmit={() => go("explore")}
+										onSubmit={() =>
+											go("chat", q.trim() ? { ask: q } : {})
+										}
 										placeholder={L(
 											lang,
-											"Cari destinasi, kategori, atau daerah…",
-											"Search a destination, category or regency…",
+											"Tanya YOGA: pantai murah di Gunungkidul, info Candi Prambanan…",
+											"Ask YOGA: cheap beaches in Gunungkidul, about Candi Prambanan…",
 										)}
 										action={
 											<Btn
 												variant="primary"
 												iconLeft={<Icon name="sparkles" size={18} />}
-												onClick={() => onAsk()}
+												onClick={() =>
+													go("chat", q.trim() ? { ask: q } : {})
+												}
 											>
 												{L(lang, "Tanya YOGA", "Ask YOGA")}
 											</Btn>
