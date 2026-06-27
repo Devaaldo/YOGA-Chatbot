@@ -1,0 +1,16 @@
+# Render Blueprint — deploys the YOGA backend API (FastAPI + NLU model).
+# Render reads this automatically when you create a "Blueprint" from the repo.
+services:
+  - type: web
+    name: yoga-api
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt -r requirements-api.txt
+    startCommand: uvicorn api.server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: PYTHONPATH
+        value: src

@@ -1,0 +1,17 @@
+# Netlify config for the Jelajah Jogja frontend.
+# When connecting the repo in Netlify, set the Base directory to "frontend".
+# Set VITE_API_URL in Netlify UI (Site settings -> Environment variables) to
+# your deployed Render API URL, e.g. https://yoga-api.onrender.com
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback (the app is client-side routed via state, but this is safe).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
