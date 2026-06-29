@@ -224,6 +224,84 @@ def _fuzzy_place(text: str) -> Optional[dict[str, Any]]:
     return best if best_score > 0 else None
 
 
+_CHEAP_WORDS = ("murah", "hemat", "budget", "termurah", "ramah kantong", "cheap")
+_RATING_WORDS = ("rating", "terbaik", "bagus", "populer", "favorit", "top",
+                 "best", "recommended", "hits", "terkenal")
+_ITINERARY_WORDS = ("itinerary", "itinerari", "rencana", "jadwal", "plan")
+
+
+def _rupiah(n: int) -> str:
+    return "Rp" + f"{n:,}".replace(",", ".")
+
+
+def resolve_search(text, regency, lang):
+    """Compositional search: combine type + regency + budget + rating from a
+    single message (e.g. 'pantai murah di gunungkidul')."""
+    t = text.lower()
+    tag = _detect_type(text)
+    wants_free = "gratis" in t or "free" in t
+    budget = _extract_budget(t)
+    wants_cheap = wants_free or budget is not None or any(w in t for w in _CHEAP_WORDS)
+    wants_rating = any(w in t for w in _RATING_WORDS)
+
+    items = ALL_PLACES
+    if tag:
+        items = [p for p in items if p["tag"] == tag]
+    items = _by_regency(items, regency)
+
+    if wants_free:
+        free = [p for p in items if p["priceWeekday"] == 0]
+        items = free or [p for p in items if p["priceWeekday"] not in (None, 0)]
+    elif budget:
+        items = [p for p in items if p["priceWeekday"] is not None and p["priceWeekday"] <= budget]
+
+    if wants_cheap and not wants_free:
+        cand = [p for p in items if p["priceWeekday"] not in (None, 0)]
+        cand.sort(key=lambda p: (p["priceWeekday"], -(p["votes"] or 0)))
+        places = cand[:6]
+    else:
+        places = _popular(items, 6)
+
+    label = tag.lower() if tag else _L(lang, "wisata", "places")
+    where = (_L(lang, " di ", " in ") + regency) if regency else ""
+    if wants_free:
+        mod = _L(lang, " gratis/termurah", " (free/cheapest)")
+    elif wants_cheap:
+        mod = _L(lang, " termurah", " (cheapest)")
+    elif wants_rating:
+        mod = _L(lang, " rating terbaik", " (top-rated)")
+    else:
+        mod = ""
+    reply = _L(lang, f"Rekomendasi {label}{where}{mod}:", f"Top {label}{where}{mod}:")
+    return places, reply
+
+
+def build_itinerary(text, regency, lang):
+    """Turn 'buatkan itinerary 2 hari' into a day-by-day plan + budget."""
+    m = re.search(r"(\d+)\s*(hari|day)", text.lower())
+    days = max(1, min(int(m.group(1)) if m else 2, 5))
+    pool = _by_regency(ALL_PLACES, regency)
+    picks = _popular(pool, days * 3)
+    if len(picks) < days * 3:
+        picks = _popular(ALL_PLACES, days * 3)
+
+    segments, total = [], 0
+    for i in range(days):
+        group = picks[i * 3:(i + 1) * 3]
+        if not group:
+            break
+        total += sum((p["priceWeekday"] or 0) for p in group)
+        names = ", ".join(p["name"] for p in group)
+        segments.append(_L(lang, f"Hari {i + 1}: ", f"Day {i + 1}: ") + names)
+
+    head = _L(lang,
+              f"Rencana {days} hari di {regency or 'Yogyakarta'}",
+              f"A {days}-day plan in {regency or 'Yogyakarta'}")
+    budget = _L(lang, f"Perkiraan tiket {_rupiah(total)}", f"Estimated tickets {_rupiah(total)}")
+    reply = head + " — " + " · ".join(segments) + ". " + budget + "."
+    return picks, reply
+
+
 # FastAPI app
 app = FastAPI(title="Jelajah Jogja API", version="1.0.0")
 app.add_middleware(
@@ -316,54 +394,14 @@ def chat(req: ChatRequest) -> dict[str, Any]:
     regency = _KAB_DISPLAY.get(kab)
 
     places: list[dict[str, Any]] = []
-    reply: str
+    t = text.lower()
+    is_itinerary = bool(any(w in t for w in _ITINERARY_WORDS)
+                        or re.search(r"\d+\s*(hari|day)", t))
 
-    if intent in GREETING_INTENTS:
+    if is_itinerary:
+        places, reply = build_itinerary(text, regency, lang)
+    elif intent in GREETING_INTENTS:
         reply = _greeting_reply(intent, lang)
-
-    elif intent == "cari_by_type":
-        tag = _detect_type(text)
-        if tag:
-            matches = _by_regency([p for p in ALL_PLACES if p["tag"] == tag], regency)
-            places = _popular(matches)
-            where = f" di {regency}" if regency else ""
-            reply = _L(lang, f"Rekomendasi {tag.lower()}{where}:",
-                        f"Top {tag.lower()}{(' in ' + regency) if regency else ''}:")
-        else:
-            places = _popular(_by_regency(ALL_PLACES, regency))
-            reply = _L(lang, "Rekomendasi wisata:", "Recommended places:")
-
-    elif intent == "cari_by_harga":
-        t = text.lower()
-        if "gratis" in t or "free" in t:
-            free = [p for p in ALL_PLACES if p["priceWeekday"] == 0]
-            if free:
-                places = _popular(free)
-            else:
-                # data rarely flags true-free; fall back to the cheapest tickets
-                cheap = [p for p in ALL_PLACES if p["priceWeekday"] not in (None, 0)]
-                cheap.sort(key=lambda p: (p["priceWeekday"], -(p["votes"] or 0)))
-                places = cheap[:5]
-            reply = _L(lang, "Wisata gratis / paling murah:", "Free / cheapest attractions:")
-        else:
-            budget = _extract_budget(t)
-            cand = [p for p in ALL_PLACES if p["priceWeekday"] not in (None, 0)]
-            if budget:
-                cand = [p for p in cand if p["priceWeekday"] <= budget]
-            cand.sort(key=lambda p: (p["priceWeekday"], -(p["votes"] or 0)))
-            places = cand[:5]
-            reply = _L(lang, "Wisata dengan tiket ramah kantong:", "Budget-friendly spots:")
-
-    elif intent == "cari_by_rating":
-        places = _popular(ALL_PLACES)
-        reply = _L(lang, "Wisata dengan rating terbaik:", "Top-rated places:")
-
-    elif intent == "rekomendasi_wisata":
-        places = _popular(_by_regency(ALL_PLACES, regency))
-        where = f" di {regency}" if regency else " terbaik"
-        reply = _L(lang, f"Rekomendasi wisata{where}:",
-                    f"Recommended places{(' in ' + regency) if regency else ''}:")
-
     elif intent == "info_detail":
         p = _fuzzy_place(text)
         if p:
@@ -371,16 +409,16 @@ def chat(req: ChatRequest) -> dict[str, Any]:
             reply = _L(lang, f"Ini {p['name']}:", f"Here's {p['name']}:")
         else:
             reply = _fallback_reply(lang)
-
     elif intent == "info_lokasi":
         p = _fuzzy_place(text)
         if p:
             places = [p]
             reply = _L(lang, f"{p['name']} ada di {p['regency']}. Ketuk untuk peta:",
-                        f"{p['name']} is in {p['regency']}. Tap for the map:")
+                       f"{p['name']} is in {p['regency']}. Tap for the map:")
         else:
             reply = _fallback_reply(lang)
-
+    elif intent in ("cari_by_type", "cari_by_harga", "cari_by_rating", "rekomendasi_wisata"):
+        places, reply = resolve_search(text, regency, lang)
     else:
         reply = _fallback_reply(lang)
 
