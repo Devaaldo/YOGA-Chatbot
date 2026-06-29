@@ -15,6 +15,7 @@ import './styles/styles.css'
 import './styles/kit.css'
 import './styles/kit-screens.css'
 import './styles/chatpage.css'
+import './styles/meetyoga.css'
 
 // --- Provide the globals the kit expects -----------------------------------
 window.React = React

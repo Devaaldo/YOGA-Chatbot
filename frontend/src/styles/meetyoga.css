@@ -1,0 +1,52 @@
+/* "Meet YOGA" homepage section — stats + capability list. */
+.jjk-yoga__stats {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  margin: 2px 0 18px;
+}
+.jjk-yoga__stat {
+  display: flex;
+  flex-direction: column;
+}
+.jjk-yoga__statn {
+  font-size: 26px;
+  font-weight: 700;
+  color: #b85c38;
+  line-height: 1;
+}
+.jjk-yoga__statl {
+  font-size: 13px;
+  color: var(--color-ink-soft, #6b584a);
+  margin-top: 3px;
+}
+.jjk-yoga__caps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+}
+.jjk-yoga__cap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink, #4a3b2e);
+}
+.jjk-yoga__capicon {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 9px;
+  color: #b85c38;
+  background: rgba(184, 92, 56, 0.10);
+  border: 1px solid rgba(184, 92, 56, 0.18);
+}
+@media (max-width: 600px) {
+  .jjk-yoga__caps { grid-template-columns: 1fr; }
+}

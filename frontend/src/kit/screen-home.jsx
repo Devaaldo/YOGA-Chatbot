@@ -301,9 +301,36 @@
 									"Ask anything — recommendations, beaches in a region, the cheapest tickets, or details about a temple. YOGA replies with real places from the database.",
 								)}
 							/>
+							<div className="jjk-yoga__stats">
+								{[
+									{ n: "3.399", l: L(lang, "tempat wisata", "places") },
+									{ n: "94,6%", l: L(lang, "akurasi model", "model accuracy") },
+									{ n: "ID·EN", l: L(lang, "dwibahasa", "bilingual") },
+								].map((s, i) => (
+									<div key={i} className="jjk-yoga__stat">
+										<span className="jjk-yoga__statn">{s.n}</span>
+										<span className="jjk-yoga__statl">{s.l}</span>
+									</div>
+								))}
+							</div>
+							<ul className="jjk-yoga__caps">
+								{[
+									{ icon: "sparkles", t: L(lang, "Rekomendasi cerdas", "Smart recommendations") },
+									{ icon: "grid", t: L(lang, "Cari per kategori", "Search by category") },
+									{ icon: "star", t: L(lang, "Filter harga & rating", "Price & rating filters") },
+									{ icon: "map", t: L(lang, "Lokasi & peta", "Location & maps") },
+								].map((c, i) => (
+									<li key={i} className="jjk-yoga__cap">
+										<span className="jjk-yoga__capicon">
+											<Icon name={c.icon} size={15} />
+										</span>
+										{c.t}
+									</li>
+								))}
+							</ul>
 							<div className="jjk-yoga__chips">
 								{askChips.map((c, i) => (
-									<QuickReply key={i} label={c} onClick={() => onAsk(c)} />
+									<QuickReply key={i} label={c} onClick={() => go("chat", { ask: c })} />
 								))}
 							</div>
 						</div>
@@ -353,7 +380,7 @@
 									variant="primary"
 									block
 									iconLeft={<Icon name="sparkles" size={18} />}
-									onClick={() => onAsk()}
+									onClick={() => go("chat")}
 								>
 									{L(lang, "Mulai mengobrol", "Start chatting")}
 								</Btn>
