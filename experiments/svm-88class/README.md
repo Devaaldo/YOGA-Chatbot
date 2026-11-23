@@ -33,6 +33,20 @@ From `models/hybrid_pipeline_info.json`:
 ## Caveat
 
 The trained SVM pickle was never committed to the old repositories, so
-`models/` holds the metrics and plots only. Running `04_SVM_Modeling.ipynb`
-regenerates the model. The 88 labels had roughly 25 examples each, which is why
-several classes collapsed; see `notes/MANY_CLASSES_PROBLEM.md`.
+`models/` held the metrics and plots only. `models/svm_model.pkl` (13 MB) and
+`models/greeting_detector.pkl` were rebuilt by executing notebooks 01 → 04 on
+2026-11-23 and reproduce the original figures exactly: 0.9733 accuracy,
+0.9744 macro F1.
+
+Two things to know before running the notebooks yourself:
+
+- `05_Evaluation.ipynb` is the **LSTM** evaluation (it loads
+  `yoga_lstm_best.h5` and imports TensorFlow + gensim). The SVM evaluation is
+  `05_Hybrid_Evaluation.ipynb`. The file is kept where the original repository
+  had it.
+- `05_Hybrid_Evaluation.ipynb` ends with an interactive `input()` chat loop, so
+  it blocks a headless run (`nbconvert` raises `StdinNotImplementedError`).
+  Run it in Jupyter, or comment that last cell out.
+
+The 88 labels had roughly 25 examples each, which is why several classes
+collapsed; see `notes/MANY_CLASSES_PROBLEM.md`.
