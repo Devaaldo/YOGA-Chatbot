@@ -11,7 +11,38 @@ from pathlib import Path
 
 import pytest
 
-from yoga_chatbot.knowledge.knowledge_base import KnowledgeBase, Place
+from yoga_chatbot.knowledge.knowledge_base import (
+    HargaInfo,
+    KnowledgeBase,
+    LokasiInfo,
+    Place,
+    dedupe_places,
+)
+
+
+def make_place(place_id: int, name: str, lat: float, lng: float, **kwargs) -> Place:
+    """Minimal Place factory for dedupe tests."""
+    defaults = dict(
+        source="test",
+        nama_clean=name.lower(),
+        type="Alam",
+        type_clean="alam",
+        rating=0.0,
+        vote_count=0,
+        harga=HargaInfo(weekday=None, weekend=None),
+        lokasi=LokasiInfo(latitude=lat, longitude=lng),
+        description="",
+        address="",
+        phone="",
+        website="",
+        has_price=False,
+        has_rating=False,
+        has_description=False,
+        has_address=False,
+        has_contact=False,
+    )
+    defaults.update(kwargs)
+    return Place(id=place_id, nama=name, **defaults)
 
 
 @pytest.fixture(scope="module")
@@ -22,13 +53,23 @@ def kb() -> KnowledgeBase:
 
 class TestLoad:
     def test_loads_places(self, kb: KnowledgeBase) -> None:
-        assert len(kb._places) > 0
+        assert len(kb.places) > 0
 
     def test_place_has_required_fields(self, kb: KnowledgeBase) -> None:
-        place = kb._places[0]
+        place = kb.places[0]
         assert isinstance(place, Place)
         assert isinstance(place.nama, str)
         assert isinstance(place.rating, float)
+
+    def test_duplicates_are_collapsed(self, kb: KnowledgeBase) -> None:
+        keys = [(p.nama.lower(), round(p.lokasi.latitude or 0, 3),
+                 round(p.lokasi.longitude or 0, 3)) for p in kb.places]
+        assert len(keys) == len(set(keys))
+
+    def test_dedupe_can_be_disabled(self, kb: KnowledgeBase) -> None:
+        path = Path(__file__).parent.parent / "data" / "processed" / "tourism_knowledge_base.json"
+        raw = KnowledgeBase(path, dedupe=False)
+        assert len(raw.places) > len(kb.places)
 
 
 class TestTopRated:
@@ -105,7 +146,7 @@ class TestFuzzySearch:
 
 class TestGetById:
     def test_existing_id(self, kb: KnowledgeBase) -> None:
-        first = kb._places[0]
+        first = kb.places[0]
         result = kb.get_by_id(first.id)
         assert result is not None
         assert result.id == first.id
@@ -113,3 +154,34 @@ class TestGetById:
     def test_nonexistent_id(self, kb: KnowledgeBase) -> None:
         result = kb.get_by_id(999999)
         assert result is None
+
+
+class TestDedupe:
+    def test_same_name_same_spot_collapses_and_keeps_richest(self) -> None:
+        poor = make_place(1, "Candi Prambanan", -7.751834, 110.491532)
+        rich = make_place(
+            2, "Candi Prambanan", -7.752227, 110.491533,
+            rating=4.7, vote_count=71751, has_rating=True,
+            harga=HargaInfo(weekday=50_000, weekend=50_000), has_price=True,
+            description="Kompleks candi Hindu.", has_description=True,
+        )
+        merged = dedupe_places([poor, rich])
+        assert len(merged) == 1
+        assert merged[0].vote_count == 71_751
+        assert merged[0].harga.weekday == 50_000
+        assert merged[0].description
+
+    def test_same_name_far_apart_stays_separate(self) -> None:
+        a = make_place(1, "Masjid Agung", -7.79, 110.36)
+        b = make_place(2, "Masjid Agung", -7.90, 110.50)
+        assert len(dedupe_places([a, b])) == 2
+
+    def test_name_case_and_punctuation_are_normalised(self) -> None:
+        a = make_place(1, "Taman Sari", -7.8098, 110.3595)
+        b = make_place(2, "taman  sari!", -7.8099, 110.3596)
+        assert len(dedupe_places([a, b])) == 1
+
+    def test_different_names_never_merge(self) -> None:
+        a = make_place(1, "Candi Prambanan", -7.75, 110.49)
+        b = make_place(2, "Candi Sewu", -7.75, 110.49)
+        assert len(dedupe_places([a, b])) == 2

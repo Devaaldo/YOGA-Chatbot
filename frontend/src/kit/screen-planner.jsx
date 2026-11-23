@@ -4,10 +4,15 @@
 	const { Icon, Btn, IconBtn, Toggle, SectionHeader, L, fmtIDR } = U;
 
 	function Planner({ lang, days, onRemove, onAsk, go, weekend, setWeekend }) {
-		const priceOf = (p) => (weekend ? p.priceWeekend : p.priceWeekday) || 0;
-		const dayTotal = (arr) => arr.reduce((s, p) => s + priceOf(p), 0);
+		// Unknown price is not free: keep it null and exclude it from the total.
+		const priceOf = (p) => {
+			const value = weekend ? p.priceWeekend : p.priceWeekday;
+			return value == null ? null : value;
+		};
+		const dayTotal = (arr) => arr.reduce((sum, p) => sum + (priceOf(p) ?? 0), 0);
 		const all = [days[1], days[2], days[3]].flat();
-		const grandTotal = all.reduce((s, p) => s + priceOf(p), 0);
+		const grandTotal = all.reduce((sum, p) => sum + (priceOf(p) ?? 0), 0);
+		const unknownPrices = all.filter((p) => priceOf(p) == null).length;
 		const count = all.length;
 
 		const DayCol = ({ n }) => {
@@ -20,7 +25,7 @@
 							{n}
 						</span>
 						<span className="jjk-day__budget">
-							{arr.length ? fmtIDR(dayTotal(arr)) : "—"}
+							{arr.length ? fmtIDR(dayTotal(arr)) : "n/a"}
 						</span>
 					</div>
 					{arr.length === 0 ? (
@@ -44,9 +49,6 @@
 						<div className="jjk-day__items">
 							{arr.map((p, i) => (
 								<div className="jjk-pitem" key={p.id}>
-									<span className="jjk-pitem__drag">
-										<Icon name="grip" size={18} />
-									</span>
 									<span className="jjk-pitem__num">{i + 1}</span>
 									<span className="jjk-pitem__media">
 										<span
@@ -61,9 +63,11 @@
 										<div className="jjk-pitem__name">{p.name}</div>
 										<div className="jjk-pitem__sub">
 											{p.regency} ·{" "}
-											{priceOf(p) === 0
-												? L(lang, "Gratis", "Free")
-												: fmtIDR(priceOf(p))}
+											{priceOf(p) == null
+												? L(lang, "harga belum tersedia", "price unavailable")
+												: priceOf(p) === 0
+													? L(lang, "Gratis", "Free")
+													: fmtIDR(priceOf(p))}
 										</div>
 									</div>
 									<IconBtn
@@ -164,29 +168,22 @@
 							</span>
 							<b>{fmtIDR(grandTotal)}</b>
 						</div>
-						<div className="jjk-route">
-							<div
-								className="jjk-map__bg"
-								style={{ position: "absolute", inset: 0 }}
-							/>
-							<div
-								className="jjk-map__grid"
-								style={{ position: "absolute", inset: 0 }}
-							/>
-							{all.slice(0, 5).map((p, i) => (
-								<span
-									key={p.id}
-									className="jjk-pin"
-									style={{
-										left: 18 + i * 16 + "%",
-										top: 30 + (i % 3) * 18 + "%",
-										transform: "translate(-50%,-100%) scale(0.8)",
-									}}
-								>
-									<span className="jjk-pin__dot" />
-								</span>
-							))}
-						</div>
+						{unknownPrices > 0 ? (
+							<p
+								style={{
+									margin: "8px 0 0",
+									fontSize: 12.5,
+									lineHeight: 1.5,
+									color: "var(--color-text-muted)",
+								}}
+							>
+								{L(
+									lang,
+									`${unknownPrices} tempat belum punya data harga, jadi belum masuk estimasi.`,
+									`${unknownPrices} places have no price data yet and are excluded from the estimate.`,
+								)}
+							</p>
+						) : null}
 						<div
 							style={{
 								display: "flex",

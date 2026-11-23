@@ -1,0 +1,16 @@
+{
+  "model_name": "YOGA_SVM_Model",
+  "algorithm": "Support Vector Machine",
+  "kernel": "linear",
+  "C": 1.0,
+  "num_classes": 88,
+  "n_support_vectors": 1509,
+  "test_accuracy": 0.9733333333333334,
+  "macro_f1": 0.9744400170536536,
+  "weighted_f1": 0.974711720378387,
+  "train_samples": 1797,
+  "test_samples": 450,
+  "feature_method": "TF-IDF",
+  "tfidf_features": 1000,
+  "timestamp": "2025-12-10 10:33:02"
+}

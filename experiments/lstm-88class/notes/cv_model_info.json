@@ -1,0 +1,40 @@
+{
+  "model_name": "YOGA_LSTM_Model_with_CV",
+  "architecture": "Bidirectional LSTM",
+  "training_method": "Stratified 5-Fold Cross-Validation + Final Training",
+  "input_shape": [
+    8,
+    300
+  ],
+  "lstm_units": [
+    128,
+    64
+  ],
+  "dropout_rate": 0.3,
+  "num_classes": 88,
+  "total_params": 617624,
+  "epochs_trained_final": 200,
+  "max_epochs": 150,
+  "batch_size": 32,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "loss": "categorical_crossentropy",
+  "cross_validation": {
+    "method": "Stratified K-Fold",
+    "n_splits": 5,
+    "cv_mean_accuracy": 0.37116836905479433,
+    "cv_std_accuracy": 0.011000754696480151
+  },
+  "test_accuracy": 0.3955555558204651,
+  "test_loss": 2.3681466579437256,
+  "train_samples": 1797,
+  "test_samples": 450,
+  "feature_method": "Word2Vec Sequences",
+  "word2vec_params": {
+    "algorithm": "CBOW",
+    "vector_size": 300,
+    "window": 5,
+    "vocab_size": 200000
+  },
+  "timestamp": "2025-12-01 11:45:12"
+}

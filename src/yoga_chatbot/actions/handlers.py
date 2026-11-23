@@ -112,7 +112,15 @@ _TYPE_MAPPING: dict[str, str] = {
 
 # Regex for extracting budget amounts from natural language
 _BUDGET_PATTERN = re.compile(
-    r"(\d+(?:[.,]\d+)?)\s*(rb|ribu|k|jt|juta|m)?", re.IGNORECASE
+    r"(?:\brp\.?\s*)?(\d{1,3}(?:[.,]\d{3})+|\d+(?:[.,]\d+)?)\s*(rb|ribu|k|jt|juta|m)?",
+    re.IGNORECASE,
+)
+
+# A bare number is only money when the sentence frames it as money.
+_BUDGET_CONTEXT = re.compile(
+    r"\b(rp|harga|tiket|budget|anggaran|maks|maksimal|max|s\.?d|sampai|"
+    r"bawah|kurang|biaya|htm|tiketnya)\b",
+    re.IGNORECASE,
 )
 
 
@@ -158,8 +166,9 @@ class ActionHandler:
                 places = kb.search_by_type(mapped_type)
                 if places:
                     return places
-        # No type keyword detected, fall back to top-rated
-        return kb.top_rated(limit=5)
+        # No keyword matched (or the category is empty): let the caller show
+        # the category keyboard instead of pretending these are the results.
+        return []
 
     @staticmethod
     def handle_cari_by_rating(kb: "KnowledgeBase") -> "list[Place]":
@@ -170,17 +179,25 @@ class ActionHandler:
         """Extract a budget amount from the raw text and search by price."""
         raw = result.raw_text.lower()
 
-        # Handle "gratis" / "free"
-        if "gratis" in raw or "free" in raw or "murah" in raw and "0" in raw:
+        # "gratis" / "free" means zero, not "cheap".
+        if "gratis" in raw or "free" in raw:
             return kb.search_by_budget(0, limit=5)
 
         budget = ActionHandler._extract_budget(raw)
-        if budget is None:
-            logger.debug("cari_by_harga: no budget detected, returning top-rated")
-            return kb.top_rated(limit=5)
+        if budget is not None:
+            logger.debug("cari_by_harga: extracted budget=%d IDR", budget)
+            return kb.search_by_budget(budget, limit=5)
 
-        logger.debug("cari_by_harga: extracted budget=%d IDR", budget)
-        return kb.search_by_budget(budget, limit=5)
+        # "murah" without a number still means cheapest, not top-rated.
+        if any(word in raw for word in ("murah", "hemat", "budget", "cheap")):
+            cheapest = sorted(
+                (p for p in kb.places if p.has_price and p.harga.weekday),
+                key=lambda p: (p.harga.weekday or 0, -p.vote_count),
+            )
+            return cheapest[:5]
+
+        logger.debug("cari_by_harga: no budget detected, returning top-rated")
+        return kb.top_rated(limit=5)
 
     # ------------------------------------------------------------------
     # Place info
@@ -209,10 +226,17 @@ class ActionHandler:
         Returns ``None`` if no numeric value is found.
         """
         for match in _BUDGET_PATTERN.finditer(text):
-            amount_str = match.group(1).replace(",", "").replace(".", "")
+            amount_str = match.group(1)
             multiplier_str = (match.group(2) or "").lower()
             try:
-                amount = int(amount_str)
+                if re.fullmatch(r"\d{1,3}(?:[.,]\d{3})+", amount_str):
+                    amount = int(re.sub(r"[.,]", "", amount_str))
+                elif "," in amount_str:
+                    amount = int(float(amount_str.replace(",", ".")))
+                elif "." in amount_str and len(amount_str.split(".")[1]) == 3:
+                    amount = int(amount_str.replace(".", ""))
+                else:
+                    amount = int(float(amount_str))
             except ValueError:
                 continue
 
@@ -220,6 +244,9 @@ class ActionHandler:
                 amount *= 1_000
             elif multiplier_str in ("jt", "juta", "m"):
                 amount *= 1_000_000
+            elif not _BUDGET_CONTEXT.search(text) and amount < 1_000:
+                # "4.5" in "rating 4.5" is not a budget.
+                continue
 
             return amount
         return None

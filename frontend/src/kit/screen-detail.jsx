@@ -38,8 +38,16 @@
 		const similar = PLACES.filter(
 			(p) => p.category === place.category && p.id !== place.id,
 		).slice(0, 4);
-		const mapsUrl = `https://www.google.com/maps?q=${place.lat},${place.lng}`;
+		const hasCoords = place.lat != null && place.lng != null;
+		const mapsUrl = hasCoords
+			? `https://www.google.com/maps?q=${place.lat},${place.lng}`
+			: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + " Yogyakarta")}`;
 		const isSaved = saved.has(place.id);
+		const share = () => {
+			const payload = { title: place.name, text: place.name, url: window.location.href };
+			if (navigator.share) navigator.share(payload).catch(() => {});
+			else if (navigator.clipboard) navigator.clipboard.writeText(window.location.href);
+		};
 
 		return (
 			<div className="jjk-section jjk-container">
@@ -135,7 +143,8 @@
 						<IconBtn
 							variant="outline"
 							icon={<Icon name="share" size={18} />}
-							label="Share"
+							label={L(lang, "Bagikan tempat ini", "Share this place")}
+							onClick={share}
 						/>
 					</div>
 				</div>
@@ -184,7 +193,12 @@
 				<div className="jjk-detail__body">
 					<div className="jjk-detail__desc">
 						<h3>{L(lang, "Tentang tempat ini", "About this place")}</h3>
-						<p>{place.desc[lang] || place.desc.id}</p>
+						<p>
+							{place.desc
+								? place.desc[lang] || place.desc.id
+								: place.description ||
+									L(lang, "Belum ada deskripsi untuk tempat ini.", "No description yet.")}
+						</p>
 						<div
 							style={{
 								marginTop: 22,
@@ -264,7 +278,9 @@
 								<div className="jjk-loccard__row">
 									<Icon name="compass" size={17} />
 									<span className="jjk-loccard__coord">
-										{place.lat.toFixed(5)}, {place.lng.toFixed(5)}
+										{hasCoords
+											? `${place.lat.toFixed(5)}, ${place.lng.toFixed(5)}`
+											: L(lang, "Koordinat belum tersedia", "Coordinates unavailable")}
 									</span>
 								</div>
 								{place.website ? (
@@ -328,10 +344,7 @@
 							"More places to discover",
 						)}
 					/>
-					<div
-						className="jjk-grid jjk-grid--results"
-						style={{ marginTop: 22, gridTemplateColumns: "repeat(4, 1fr)" }}
-					>
+					<div className="jjk-grid jjk-grid--4" style={{ marginTop: 22 }}>
 						{similar.map((p) => (
 							<DestinationCard
 								key={p.id}

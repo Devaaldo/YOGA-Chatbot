@@ -1,10 +1,14 @@
 # YOGA Chatbot — Development & Testing Dependencies
 -r requirements.txt
+-r requirements-api.txt
 
 # Testing
 pytest==8.2.0
 pytest-cov==5.0.0
 pytest-asyncio==0.23.6
+# FastAPI's TestClient speaks httpx; pinned to the range python-telegram-bot 20.7
+# requires (httpx~=0.25.2), otherwise pip cannot resolve the two together.
+httpx==0.25.2
 
 # Notebooks
 jupyter==1.0.0

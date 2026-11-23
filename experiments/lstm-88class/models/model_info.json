@@ -1,0 +1,32 @@
+{
+  "model_name": "YOGA_LSTM_Model",
+  "architecture": "Bidirectional LSTM",
+  "input_shape": [
+    8,
+    100
+  ],
+  "lstm_units": [
+    128,
+    64
+  ],
+  "dropout_rate": 0.3,
+  "num_classes": 88,
+  "total_params": 412824,
+  "epochs_trained": 67,
+  "max_epochs": 200,
+  "batch_size": 32,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "loss": "categorical_crossentropy",
+  "test_accuracy": 0.9634518027305603,
+  "test_loss": 0.12221330404281616,
+  "train_samples": 3936,
+  "test_samples": 985,
+  "feature_method": "Word2Vec Sequences",
+  "word2vec_params": {
+    "algorithm": "CBOW",
+    "vector_size": 100,
+    "window": 5,
+    "vocab_size": 302
+  }
+}

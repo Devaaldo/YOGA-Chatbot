@@ -1,0 +1,22 @@
+{
+  "pipeline_name": "Hybrid_3Stage_Pipeline",
+  "stage_0": "Rule-based filter (word_count > 3)",
+  "stage_1": "Binary GreetingDetector (SVM)",
+  "stage_2": "Conditional MainClassifier (88-class SVM)",
+  "confidence_threshold": 0.7,
+  "greeting_intents": [
+    "goodbye",
+    "greeting",
+    "pagi",
+    "siang",
+    "sore",
+    "malam"
+  ],
+  "hybrid_accuracy": 0.9755555555555555,
+  "baseline_accuracy": 0.9733333333333334,
+  "greeting_avg_f1_baseline": 0.7406084656084656,
+  "greeting_avg_f1_hybrid": 0.7637566137566137,
+  "greeting_f1_improvement": 0.02314814814814814,
+  "test_samples": 450,
+  "timestamp": "2025-12-10 10:33:24"
+}

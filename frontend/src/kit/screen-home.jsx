@@ -31,38 +31,48 @@
 		umum: "secondary",
 		air: "accent",
 	};
+	const rupiah = (n) =>
+		Number.isFinite(n) ? "Rp" + n.toLocaleString("id-ID") : "n/a";
 
 	function Home({ lang, data, saved, onSave, onOpen, onAsk, go, q, setQ }) {
 		const { PLACES, CATEGORIES, REGENCIES } = data;
-		const popular = [...PLACES]
-			.sort((a, b) => (b.rating || 0) - (a.rating || 0))
+		const total = data.TOTAL;
+		const totalLabel = total ? total.toLocaleString("id-ID") : `${PLACES.length}`;
+		// A 5.0 from two votes is not "most loved"; require a real review base
+		// and fall back to plain rating order only if too few qualify.
+		const withVotes = PLACES.filter((p) => (p.votes || 0) >= 100);
+		const popularPool = withVotes.length >= 8 ? withVotes : PLACES;
+		const popular = [...popularPool]
+			.sort((a, b) => (b.rating || 0) - (a.rating || 0) || (b.votes || 0) - (a.votes || 0))
 			.slice(0, 8);
+
+		const beaches = PLACES.filter((p) => p.tag === "Pantai");
+		const cheap = PLACES.filter(
+			(p) => p.priceWeekday != null && p.priceWeekday > 0 && p.priceWeekday <= 20000,
+		);
+		const temples = PLACES.filter((p) => p.tag === "Candi");
 		const collections = [
 			{
-				eyebrow: L(lang, "Permata Tersembunyi", "Hidden Gems"),
-				title: L(
+				eyebrow: L(lang, "Pesisir Selatan", "Southern Coast"),
+				title: L(lang, "Pantai di Yogyakarta", "Beaches of Yogyakarta"),
+				meta: L(
 					lang,
-					"Sunrise di Perbukitan Menoreh",
-					"Sunrise in the Menoreh Hills",
+					`${beaches.length} pantai · dari ${rupiah(Math.min(...beaches.map((p) => p.priceWeekday ?? Infinity)))}`,
+					`${beaches.length} beaches · from ${rupiah(Math.min(...beaches.map((p) => p.priceWeekday ?? Infinity)))}`,
 				),
-				meta: L(lang, "8 tempat · mulai Rp10.000", "8 spots · from Rp10,000"),
-				scene: "nature",
+				scene: "beach",
 			},
 			{
 				eyebrow: L(lang, "Wisata Hemat", "Budget Trips"),
-				title: L(lang, "Liburan di Bawah Rp20.000", "A Day Out Under Rp20,000"),
-				meta: L(lang, "14 tempat ramah kantong", "14 wallet-friendly spots"),
+				title: L(lang, "Tiket di Bawah Rp20.000", "Tickets Under Rp20,000"),
+				meta: L(lang, `${cheap.length} tempat ramah kantong`, `${cheap.length} wallet-friendly spots`),
 				scene: "dusk",
 			},
 			{
-				eyebrow: L(lang, "Pesisir Selatan", "Southern Coast"),
-				title: L(
-					lang,
-					"Pantai Pasir Putih Gunungkidul",
-					"White-Sand Beaches of Gunungkidul",
-				),
-				meta: L(lang, "11 pantai terbaik", "11 finest beaches"),
-				scene: "beach",
+				eyebrow: L(lang, "Warisan Budaya", "Living Heritage"),
+				title: L(lang, "Candi & situs sejarah", "Temples & historic sites"),
+				meta: L(lang, `${temples.length} candi & situs`, `${temples.length} temples & sites`),
+				scene: "nature",
 			},
 		];
 		const askChips =
@@ -110,8 +120,8 @@
 							<p className="jjk-hero__sub">
 								{L(
 									lang,
-									"Jelajahi 3.399 tempat wisata — dari candi megah hingga pantai pasir putih — ditemani YOGA, pemandu wisatamu.",
-									"Explore 3,399 destinations — from grand temples to white-sand beaches — guided by YOGA, your local companion.",
+									`Jelajahi ${totalLabel} tempat wisata, dari candi megah hingga pantai pasir putih, ditemani YOGA, pemandu wisatamu.`,
+									`Explore ${totalLabel} destinations, from grand temples to white-sand beaches, guided by YOGA, your local companion.`,
 								)}
 							</p>
 							<div className="jjk-hero__search">
@@ -124,8 +134,8 @@
 										}
 										placeholder={L(
 											lang,
-											"Tanya YOGA: pantai murah di Gunungkidul, info Candi Prambanan…",
-											"Ask YOGA: cheap beaches in Gunungkidul, about Candi Prambanan…",
+											"Tanya YOGA: pantai murah di Gunungkidul…",
+											"Ask YOGA: cheap beaches in Gunungkidul…",
 										)}
 										action={
 											<Btn
@@ -216,10 +226,7 @@
 						actionLabel={L(lang, "Panduan daerah", "Regency guide")}
 						onAction={() => go("regency")}
 					/>
-					<div
-						className="jjk-grid"
-						style={{ marginTop: 22, gridTemplateColumns: "repeat(5, 1fr)" }}
-					>
+					<div className="jjk-grid jjk-grid--5" style={{ marginTop: 22 }}>
 						{REGENCIES.map((r) => (
 							<RegencyCard
 								key={r.key}
@@ -267,8 +274,8 @@
 								<p>
 									{L(
 										lang,
-										"Tambahkan destinasi ke Hari 1, 2, dan 3. Lihat estimasi anggaran dan rute otomatis — atau minta YOGA membuatkannya.",
-										"Add destinations to Day 1, 2 and 3. See an instant budget and route — or let YOGA build it for you.",
+										"Tambahkan destinasi ke Hari 1, 2, dan 3. Lihat estimasi anggaran dan rute otomatis, atau minta YOGA membuatkannya.",
+										"Add destinations to Day 1, 2 and 3. See an instant budget and route, or let YOGA build it for you.",
 									)}
 								</p>
 							</div>
@@ -297,14 +304,14 @@
 								)}
 								subtitle={L(
 									lang,
-									"Tanya apa saja — rekomendasi, pantai di daerah tertentu, tiket termurah, atau info sebuah candi. YOGA menjawab dengan tempat sungguhan dari basis data.",
-									"Ask anything — recommendations, beaches in a region, the cheapest tickets, or details about a temple. YOGA replies with real places from the database.",
+									"Tanya apa saja: rekomendasi, pantai di daerah tertentu, tiket termurah, atau info sebuah candi. YOGA menjawab dengan tempat sungguhan dari basis data.",
+									"Ask anything: recommendations, beaches in a region, the cheapest tickets, or details about a temple. YOGA replies with real places from the database.",
 								)}
 							/>
 							<div className="jjk-yoga__stats">
 								{[
-									{ n: "3.399", l: L(lang, "tempat wisata", "places") },
-									{ n: "94,6%", l: L(lang, "akurasi model", "model accuracy") },
+									{ n: totalLabel, l: L(lang, "tempat wisata", "places") },
+									{ n: "94,6%", l: L(lang, "akurasi uji model", "held-out accuracy") },
 									{ n: "ID·EN", l: L(lang, "dwibahasa", "bilingual") },
 								].map((s, i) => (
 									<div key={i} className="jjk-yoga__stat">
@@ -364,14 +371,14 @@
 										"Hi! Looking for beaches, temples, or budget-friendly spots?",
 									)}
 								</Bubble>
-								<Bubble from="user" time="09:41">
-									{L(lang, "Rating terbaik", "Top rated")}
+								<Bubble from="user">
+									{L(lang, "Pantai murah di Gunungkidul", "Cheap beaches in Gunungkidul")}
 								</Bubble>
 								<Bubble from="yoga">
 									{L(
 										lang,
-										"Tugu Pal Putih (4.8) dan Candi Prambanan (4.7) jadi favorit. Mau lihat detailnya?",
-										"Tugu Pal Putih (4.8) and Candi Prambanan (4.7) are favourites. Want the details?",
+										`Saya carikan dari ${totalLabel} tempat di basis data, lengkap dengan harga tiket dan lokasinya.`,
+										`I'll pull matches from all ${totalLabel} places, with ticket prices and locations.`,
 									)}
 								</Bubble>
 							</div>

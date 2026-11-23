@@ -361,6 +361,9 @@
 	// Full-page experience (/tanya-yoga)
 	function ChatPage({ lang, saved, onSave, onOpen, initial }) {
 		const seed = initial && initial.ask;
+		const totalLabel = window.JJ.TOTAL
+			? window.JJ.TOTAL.toLocaleString("id-ID")
+			: `${window.JJ.PLACES.length}`;
 		const seedSignal = React.useMemo(
 			() => ({ text: seed || null, n: seed ? 1 : 0 }),
 			[seed],
@@ -381,8 +384,8 @@
 							<p className="jjk-chatpage__sub">
 								{L(
 									lang,
-									"Pemandu wisata bertenaga AI. Tanya rekomendasi, kategori, harga, rating, lokasi, atau rencana perjalanan di Yogyakarta — dijawab dari 3.399 tempat wisata.",
-									"An AI-powered guide. Ask for recommendations, categories, prices, ratings, locations, or trip plans around Yogyakarta — answered from 3,399 real places.",
+									`Pemandu wisata bertenaga AI. Tanya rekomendasi, kategori, harga, rating, lokasi, atau rencana perjalanan di Yogyakarta, dijawab dari ${totalLabel} tempat wisata.`,
+									`An AI-powered guide. Ask for recommendations, categories, prices, ratings, locations, or trip plans around Yogyakarta, answered from ${totalLabel} real places.`,
 								)}
 							</p>
 						</div>
