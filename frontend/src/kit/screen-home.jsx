@@ -1,4 +1,4 @@
-/* Jelajah Jogja — Home (Beranda) */
+/* YOGA — Home (Beranda) */
 (function () {
 	const U = window.JJUI;
 	const {

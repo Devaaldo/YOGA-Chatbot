@@ -1,5 +1,5 @@
 /* 
-   Jelajah Jogja — shared sample data (real, curated from the YOGA knowledge
+   YOGA — shared sample data (real, curated from the YOGA knowledge
    base of 3,399 Yogyakarta tourism places). Loaded by the UI kit.
    Attaches `window.JJ`. Also supports CommonJS for <x-import>.
  */

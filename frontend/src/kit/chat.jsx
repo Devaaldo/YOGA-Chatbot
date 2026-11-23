@@ -1,4 +1,4 @@
-/* Jelajah Jogja — YOGA chat.
+/* YOGA — chat.
    Talks to the real YOGA NLU backend (api/server.py). One shared <ChatThread>
    powers both the floating panel and the full-page /tanya-yoga experience.
    respond() is only an offline fallback when the API is unreachable. */

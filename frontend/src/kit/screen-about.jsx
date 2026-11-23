@@ -1,11 +1,22 @@
-/* Jelajah Jogja — About (Tentang) */
+/* YOGA — About (Tentang) */
 (function () {
 	const U = window.JJUI;
 	const { Icon, Btn, SectionHeader, L } = U;
 
 	function About({ lang, onAsk, go }) {
 		const data = window.JJ;
-		const totalLabel = data.TOTAL ? data.TOTAL.toLocaleString("id-ID") : "n/a";
+		const totalLabel = data.TOTAL
+			? data.TOTAL.toLocaleString("id-ID")
+			: `${data.PLACES.length}`;
+		// With the API offline only the bundled sample is loaded, so the sentence
+		// must not quote a catalogue count it cannot see.
+		const totalPhrase = data.TOTAL
+			? L(
+					lang,
+					`${totalLabel} tempat wisata`,
+					`${data.TOTAL.toLocaleString("en-US")} destinations`,
+				)
+			: L(lang, "sejumlah tempat wisata contoh", "a sample of destinations");
 		const steps = [
 			{
 				icon: "bank",
@@ -55,7 +66,7 @@
 			<div className="jjk-section jjk-container">
 				<div className="jjk-about__hero">
 					<div className="jjk-eyebrow" style={{ marginBottom: 16 }}>
-						{L(lang, "Tentang Jelajah Jogja", "About Jelajah Jogja")}
+						{L(lang, "Tentang YOGA", "About YOGA")}
 					</div>
 					<h1>
 						{L(
@@ -74,8 +85,8 @@
 					>
 						{L(
 							lang,
-							`Jelajah Jogja menyatukan ${totalLabel} tempat wisata Daerah Istimewa Yogyakarta dalam satu pengalaman yang hangat dan mudah, ditemani YOGA, asisten yang memberi rekomendasi, menyaring berdasarkan kategori, harga, dan rating, serta menjawab pertanyaan lokasi dan detail.`,
-							`Jelajah Jogja brings ${totalLabel} destinations of the Special Region of Yogyakarta into one warm, effortless experience, guided by YOGA, an assistant that recommends places, filters by category, price and rating, and answers location and detail questions.`,
+							`YOGA (YOgyakarta Guide Assistant) menyatukan ${totalPhrase} di Daerah Istimewa Yogyakarta dalam satu pengalaman yang hangat dan mudah, ditemani YOGA, asisten yang memberi rekomendasi, menyaring berdasarkan kategori, harga, dan rating, serta menjawab pertanyaan lokasi dan detail.`,
+							`YOGA (YOgyakarta Guide Assistant) brings ${totalPhrase} in the Special Region of Yogyakarta into one warm, effortless experience, guided by YOGA, an assistant that recommends places, filters by category, price and rating, and answers location and detail questions.`,
 						)}
 					</p>
 				</div>

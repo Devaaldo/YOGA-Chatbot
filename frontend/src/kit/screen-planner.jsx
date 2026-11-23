@@ -1,4 +1,4 @@
-/* Jelajah Jogja — Trip Planner (Rencana Perjalanan) */
+/* YOGA — Trip Planner (Rencana Perjalanan) */
 (function () {
 	const U = window.JJUI;
 	const { Icon, Btn, IconBtn, Toggle, SectionHeader, L, fmtIDR } = U;

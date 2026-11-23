@@ -1,4 +1,4 @@
-/* Jelajah Jogja — Destination Detail (Detail Destinasi) */
+/* YOGA — Destination detail (Detail Destinasi) */
 (function () {
 	const U = window.JJUI;
 	const {

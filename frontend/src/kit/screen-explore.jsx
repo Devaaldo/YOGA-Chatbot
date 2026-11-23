@@ -1,4 +1,4 @@
-/* Jelajah Jogja — Explore (Jelajah) */
+/* YOGA — Explore (Jelajah) */
 (function () {
 	const U = window.JJUI;
 	const {

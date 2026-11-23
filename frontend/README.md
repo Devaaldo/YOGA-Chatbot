@@ -1,6 +1,6 @@
-# Jelajah Jogja: Frontend (React + Vite)
+# YOGA: frontend (React + Vite)
 
-Bilingual Yogyakarta tourism site with the YOGA assistant. It calls the real NLU
+Bilingual Yogyakarta tourism site for YOGA (YOgyakarta Guide Assistant), with the chatbot embedded. It calls the real NLU
 model and the de-duplicated catalogue through the backend API
 (`../api/server.py`).
 

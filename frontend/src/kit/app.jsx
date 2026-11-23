@@ -1,4 +1,4 @@
-/* Jelajah Jogja — App shell: nav, footer, router, language & chat/planner state */
+/* YOGA — App shell: nav, footer, router, language & chat/planner state */
 (function () {
 	const U = window.JJUI;
 	const S = window.JJSCREENS;
@@ -30,7 +30,7 @@
 							alt=""
 						/>
 						<span className="jjk-brand__wm">
-							Jelajah <em>Jogja</em>
+							YO<em>GA</em>
 						</span>
 					</a>
 					<nav className="jjk-nav__links">
@@ -118,14 +118,14 @@
 								style={{ width: 32, height: 32 }}
 							/>
 							<span className="jjk-brand__wm">
-								Jelajah <em>Jogja</em>
+								YO<em>GA</em>
 							</span>
 						</span>
 						<p className="jjk-footer__blurb">
 								{L(
 									lang,
-									`Temukan pesona Yogyakarta, ${data.TOTAL ? data.TOTAL.toLocaleString("id-ID") + " tempat wisata" : "destinasi pilihan"}, satu pemandu yang hangat.`,
-									`Discover the soul of Yogyakarta: ${data.TOTAL ? data.TOTAL.toLocaleString("en-US") + " destinations" : "a curated selection"}, one warm guide.`,
+									`YOGA (YOgyakarta Guide Assistant). Temukan pesona Yogyakarta: ${data.TOTAL ? data.TOTAL.toLocaleString("id-ID") + " tempat wisata" : "destinasi pilihan"}, satu pemandu yang hangat.`,
+									`YOGA (YOgyakarta Guide Assistant). Discover the soul of Yogyakarta: ${data.TOTAL ? data.TOTAL.toLocaleString("en-US") + " destinations" : "a curated selection"}, one warm guide.`,
 								)}
 							</p>
 					</div>
@@ -177,7 +177,7 @@
 				</div>
 				<div className="jjk-container jjk-footer__bottom">
 					<span>
-						© 2026 Jelajah Jogja ·{" "}
+						© 2026 YOGA ·{" "}
 						{L(lang, "Data: Kaggle + Geoapify", "Data: Kaggle + Geoapify")}
 						{data.OFFLINE
 							? L(lang, " · mode contoh (API offline)", " · sample mode (API offline)")

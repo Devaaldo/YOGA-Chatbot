@@ -1,4 +1,4 @@
-/* Jelajah Jogja — Vite entry point.
+/* YOGA — Vite entry point.
  *
  * The UI kit (src/kit/*) was authored as global-IIFE modules that expect
  * `React`, `ReactDOM`, `window.JJUI`, `window.JJSCREENS`, `window.JJ` and

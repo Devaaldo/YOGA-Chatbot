@@ -1,4 +1,4 @@
-/* Jelajah Jogja UI Kit — shared primitives (kit-local recreations of the DS
+/* YOGA UI Kit — shared primitives (kit-local recreations of the DS
    components, using the same jj-* classes). Exposed on window for the screens.
    In production import the real components from window.JelajahJogjaDesignSystem_… */
 

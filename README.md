@@ -1,7 +1,7 @@
 # YOGA: Yogyakarta Guide Assistant
 
 An intent-classification chatbot for tourism in Yogyakarta, with two front-ends
-sharing one NLU pipeline: a **Telegram bot** and the **Jelajah Jogja** web app.
+sharing one NLU pipeline: a **Telegram bot** and the **YOGA** web app.
 
 The catalogue holds **2,559 unique destinations** after collapsing duplicated
 POIs in the source data, and the intent model is a two-stage linear SVM
@@ -14,7 +14,7 @@ POIs in the source data, and the intent model is a two-stage linear SVM
 | NLU core | `src/yoga_chatbot/` | preprocessing, entity extraction, greeting gate, intent SVM, knowledge base, action routing |
 | Telegram bot | `src/yoga_chatbot/bot/` | `python-telegram-bot` front-end |
 | Web API | `api/server.py` | FastAPI service exposing the model and catalogue over HTTP |
-| Web frontend | `frontend/` | React + Vite site (Jelajah Jogja) |
+| Web frontend | `frontend/` | React + Vite site (YOGA) |
 
 ## How a message is understood
 

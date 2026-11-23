@@ -1,4 +1,4 @@
-/* Jelajah Jogja — Regency Guide (Panduan Daerah) */
+/* YOGA — Regency Guide (Panduan Daerah) */
 (function () {
 	const U = window.JJUI;
 	const { Icon, Badge, SectionHeader, RegencyCard, DestinationCard, L } = U;
