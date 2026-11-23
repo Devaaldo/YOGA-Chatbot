@@ -59,10 +59,7 @@
 							)}
 						/>
 					</div>
-					<div
-						className="jjk-grid"
-						style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
-					>
+					<div className="jjk-grid jjk-grid--5">
 						{REGENCIES.map((r) => (
 							<RegencyCard
 								key={r.key}

@@ -134,8 +134,8 @@
 										}
 										placeholder={L(
 											lang,
-											"Tanya YOGA: pantai murah di Gunungkidul, info Candi Prambanan…",
-											"Ask YOGA: cheap beaches in Gunungkidul, about Candi Prambanan…",
+											"Tanya YOGA: pantai murah di Gunungkidul…",
+											"Ask YOGA: cheap beaches in Gunungkidul…",
 										)}
 										action={
 											<Btn
@@ -226,10 +226,7 @@
 						actionLabel={L(lang, "Panduan daerah", "Regency guide")}
 						onAction={() => go("regency")}
 					/>
-					<div
-						className="jjk-grid"
-						style={{ marginTop: 22, gridTemplateColumns: "repeat(5, 1fr)" }}
-					>
+					<div className="jjk-grid jjk-grid--5" style={{ marginTop: 22 }}>
 						{REGENCIES.map((r) => (
 							<RegencyCard
 								key={r.key}

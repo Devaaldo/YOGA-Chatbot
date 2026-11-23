@@ -10,8 +10,8 @@
 .jjk-app { min-height: 100vh; display: flex; flex-direction: column; background: var(--color-bg); }
 .jjk-main { flex: 1; }
 .jjk-container { width: 100%; max-width: var(--container-max); margin-inline: auto; padding-inline: 24px; }
-.jjk-section { padding: 64px 0; }
-.jjk-section--tight { padding: 44px 0; }
+.jjk-section { padding-block: 64px; }
+.jjk-section--tight { padding-block: 44px; }
 
 /* ---- Top navigation ---- */
 .jjk-nav { position: sticky; top: 0; z-index: var(--z-nav); background: rgba(250,246,238,0.82); -webkit-backdrop-filter: blur(var(--blur-md)); backdrop-filter: blur(var(--blur-md)); border-bottom: 1px solid var(--color-border); }
@@ -21,7 +21,7 @@
 .jjk-brand__wm { font-family: var(--font-display); font-weight: 600; font-size: 21px; letter-spacing: -0.01em; color: var(--color-text); }
 .jjk-brand__wm em { font-style: normal; color: var(--color-primary); }
 .jjk-nav__links { display: flex; align-items: center; gap: 4px; margin-left: 14px; }
-.jjk-nav__link { appearance: none; border: 0; background: transparent; font-family: var(--font-sans); font-weight: 500; font-size: 14.5px; color: var(--color-text-secondary); padding: 8px 13px; border-radius: var(--radius-pill); cursor: pointer; transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard); }
+.jjk-nav__link { white-space: nowrap; appearance: none; border: 0; background: transparent; font-family: var(--font-sans); font-weight: 500; font-size: 14.5px; color: var(--color-text-secondary); padding: 8px 13px; border-radius: var(--radius-pill); cursor: pointer; transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard); }
 .jjk-nav__link:hover { color: var(--color-text); background: var(--color-bg-sunken); }
 .jjk-nav__link.is-active { color: var(--color-primary-press); background: var(--color-primary-soft); font-weight: 600; }
 .jjk-nav__right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
@@ -175,7 +175,7 @@
 .jj-search--sm { height: 44px; padding-left: 15px; }
 .jj-search__icon { display: flex; color: var(--color-text-muted); flex: none; }
 .jj-search__icon svg { width: 20px; height: 20px; }
-.jj-search__input { flex: 1; min-width: 0; border: 0; background: transparent; font-family: var(--font-sans); font-size: 15.5px; color: var(--color-text); outline: none; }
+.jj-search__input { flex: 1; min-width: 0; text-overflow: ellipsis; border: 0; background: transparent; font-family: var(--font-sans); font-size: 15.5px; color: var(--color-text); outline: none; }
 .jj-search__input::placeholder { color: var(--color-text-muted); }
 
 .jj-select { position: relative; display: inline-flex; align-items: center; }

@@ -344,10 +344,7 @@
 							"More places to discover",
 						)}
 					/>
-					<div
-						className="jjk-grid jjk-grid--results"
-						style={{ marginTop: 22, gridTemplateColumns: "repeat(4, 1fr)" }}
-					>
+					<div className="jjk-grid jjk-grid--4" style={{ marginTop: 22 }}>
 						{similar.map((p) => (
 							<DestinationCard
 								key={p.id}

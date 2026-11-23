@@ -58,7 +58,7 @@
 								{L(lang, "Tanya YOGA", "Ask YOGA")}
 							</Btn>
 						</span>
-						<span className="jjk-nav__menu" style={{ display: "none" }}>
+						<span className="jjk-nav__menu">
 							<IconBtn
 								variant="ghost"
 								icon={<Icon name={menuOpen ? "x" : "sliders"} size={20} />}
