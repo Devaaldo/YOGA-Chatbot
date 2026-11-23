@@ -219,10 +219,19 @@
 					})
 					.catch(() => {
 						const r = respond(text, lang);
+						// Without the API only the bundled sample is searchable; say so
+						// instead of answering as if the full catalogue were live.
+						const note = window.JJ.OFFLINE
+							? L(
+									lang,
+									"(Mode contoh, API belum tersambung.) ",
+									"(Sample mode, API not connected.) ",
+								)
+							: "";
 						setTyping(false);
 						setMsgs((m) => [
 							...m,
-							{ from: "yoga", text: r.reply, places: r.places },
+							{ from: "yoga", text: note + r.reply, places: r.places },
 						]);
 					});
 			},

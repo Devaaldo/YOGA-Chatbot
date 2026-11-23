@@ -10,7 +10,10 @@ htmlcov/
 .gitignore
 .env
 notebooks/
+experiments/
 tests/
+docs/
+frontend/
 *.log
 .idea/
 .vscode/

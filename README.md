@@ -78,8 +78,8 @@ npm run dev                      # http://localhost:5173
 ```
 
 The site fetches places and counts from the API. With the API offline it falls
-back to a small built-in sample and says so in the footer, instead of pretending
-to have the full catalogue.
+back to a small built-in sample and says so in the footer. Deploying the API is
+covered in [`deploy/README.md`](deploy/README.md).
 
 ### API endpoints
 
