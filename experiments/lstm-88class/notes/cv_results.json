@@ -1,0 +1,72 @@
+{
+  "cv_method": "Stratified K-Fold",
+  "n_splits": 5,
+  "fold_results": [
+    {
+      "fold": 1,
+      "train_samples": 1437,
+      "val_samples": 360,
+      "epochs_trained": 100,
+      "val_loss": 2.332932233810425,
+      "val_accuracy": 0.3888888955116272,
+      "final_train_accuracy": 0.494084894657135,
+      "best_val_accuracy": 0.39444443583488464
+    },
+    {
+      "fold": 2,
+      "train_samples": 1437,
+      "val_samples": 360,
+      "epochs_trained": 100,
+      "val_loss": 2.408456325531006,
+      "val_accuracy": 0.3638888895511627,
+      "final_train_accuracy": 0.48573416471481323,
+      "best_val_accuracy": 0.36944442987442017
+    },
+    {
+      "fold": 3,
+      "train_samples": 1438,
+      "val_samples": 359,
+      "epochs_trained": 100,
+      "val_loss": 2.5655598640441895,
+      "val_accuracy": 0.3760445713996887,
+      "final_train_accuracy": 0.49791377782821655,
+      "best_val_accuracy": 0.38161560893058777
+    },
+    {
+      "fold": 4,
+      "train_samples": 1438,
+      "val_samples": 359,
+      "epochs_trained": 100,
+      "val_loss": 2.611912727355957,
+      "val_accuracy": 0.3704735338687897,
+      "final_train_accuracy": 0.4993045926094055,
+      "best_val_accuracy": 0.38997215032577515
+    },
+    {
+      "fold": 5,
+      "train_samples": 1438,
+      "val_samples": 359,
+      "epochs_trained": 100,
+      "val_loss": 2.4830265045166016,
+      "val_accuracy": 0.35654595494270325,
+      "final_train_accuracy": 0.48678719997406006,
+      "best_val_accuracy": 0.3732590675354004
+    }
+  ],
+  "cv_scores": [
+    0.3888888955116272,
+    0.3638888895511627,
+    0.3760445713996887,
+    0.3704735338687897,
+    0.35654595494270325
+  ],
+  "cv_mean_accuracy": 0.37116836905479433,
+  "cv_std_accuracy": 0.011000754696480151,
+  "cv_confidence_interval_95": [
+    0.34960688984969324,
+    0.39272984825989543
+  ],
+  "test_accuracy": 0.3955555558204651,
+  "test_loss": 2.3681466579437256,
+  "cv_vs_test_difference": 0.024387186765670754
+}

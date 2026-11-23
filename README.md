@@ -132,6 +132,25 @@ Figures from `models/metadata.json` (the shipped artifacts):
 | Intent classes | 12 |
 | Entity types | 78 kecamatan, 5 kabupaten/kota, 1 provinsi |
 
+## Model history
+
+This chatbot was trained more than once. The experiments live in
+[`experiments/`](experiments/README.md) so the notebooks and their numbers stay
+with the code:
+
+| Track | Model | Result |
+| --- | --- | --- |
+| `experiments/lstm-88class/` | Bidirectional LSTM on Word2Vec sequences, 88 intents | 96.35% test accuracy (985 samples) |
+| `experiments/svm-88class/` | Linear SVM + hybrid greeting pipeline, 88 intents | 97.33% test accuracy (450 samples) |
+| `experiments/model-comparison/` | SVM vs logistic regression vs naive Bayes | comparison notebook, no recorded winner |
+| `experiments/legacy-v3/` | First pipeline, 5 then 10 intents | exploratory, no recorded metric |
+
+Those runs used different datasets and splits, so the percentages are not
+comparable to each other or to the production model. The production 12-class
+setup exists because 88 intents with ~25 examples each collapsed on several
+classes; `experiments/svm-88class/notes/MANY_CLASSES_PROBLEM.md` records that
+diagnosis.
+
 ## Development
 
 ```bash
@@ -154,6 +173,7 @@ CI runs the Python suite and the frontend production build on every push
 │   ├── raw/                     # intent patterns + original place list
 │   ├── processed/               # tourism_knowledge_base.json (runtime data)
 │   └── knowledge/               # kecamatan lookup
+├── experiments/                 # earlier training tracks (SVM, LSTM, v3)
 ├── frontend/                    # React + Vite app
 ├── models/                      # fitted artifacts + metadata.json
 ├── notebooks/                   # original training exploration

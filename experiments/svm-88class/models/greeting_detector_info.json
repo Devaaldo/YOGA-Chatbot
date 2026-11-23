@@ -1,0 +1,28 @@
+{
+  "model_name": "Binary_GreetingDetector",
+  "algorithm": "Binary SVM",
+  "greeting_intents": [
+    "goodbye",
+    "greeting",
+    "pagi",
+    "siang",
+    "sore",
+    "malam"
+  ],
+  "accuracy": 1.0,
+  "confusion_matrix": [
+    [
+      420,
+      0
+    ],
+    [
+      0,
+      30
+    ]
+  ],
+  "train_samples": 1797,
+  "test_samples": 450,
+  "greeting_samples": 150,
+  "non_greeting_samples": 2097,
+  "timestamp": "2025-12-10 10:32:53"
+}
