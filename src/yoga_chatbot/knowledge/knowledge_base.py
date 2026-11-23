@@ -42,11 +42,16 @@ from __future__ import annotations
 
 import json
 import logging
-from dataclasses import dataclass, field
+import re
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 logger = logging.getLogger(__name__)
+
+# Two POIs closer than this are treated as the same place when their names
+# also match. ~0.0015° is roughly 165 m of latitude in Yogyakarta.
+_DUPLICATE_RADIUS_DEG = 0.0015
 
 
 # ---------------------------------------------------------------------------
@@ -108,9 +113,21 @@ class KnowledgeBase:
         Path to ``tourism_knowledge_base.json``.
     """
 
-    def __init__(self, path: Path) -> None:
-        self._places: list[Place] = self._load(path)
+    def __init__(self, path: Path, dedupe: bool = True) -> None:
+        raw = self._load(path)
+        self._places: list[Place] = dedupe_places(raw) if dedupe else raw
+        if len(self._places) != len(raw):
+            logger.info(
+                "KnowledgeBase deduplicated %d -> %d places",
+                len(raw),
+                len(self._places),
+            )
         logger.info("KnowledgeBase loaded %d places from %s", len(self._places), path)
+
+    @property
+    def places(self) -> list[Place]:
+        """All places, read-only view (duplicates already collapsed)."""
+        return self._places
 
     # ------------------------------------------------------------------
     # Search API
@@ -261,3 +278,96 @@ class KnowledgeBase:
             places.append(place)
 
         return places
+
+
+# ---------------------------------------------------------------------------
+# Duplicate collapsing
+# ---------------------------------------------------------------------------
+
+
+def _name_key(name: str) -> str:
+    """Lowercase, strip punctuation and collapse whitespace for name matching."""
+    return re.sub(r"[^a-z0-9]+", " ", (name or "").casefold()).strip()
+
+
+def _completeness(place: Place) -> tuple:
+    """Sort key: prefer records that actually carry community data."""
+    return (
+        place.vote_count > 0,
+        place.vote_count,
+        place.has_rating,
+        place.has_price,
+        len(place.description or ""),
+    )
+
+
+def _same_place(a: Place, b: Place) -> bool:
+    """Same normalised name already established; check they are co-located.
+
+    Records without coordinates fall back to name-only matching, which is the
+    best available signal.
+    """
+    lat_a, lng_a = a.lokasi.latitude, a.lokasi.longitude
+    lat_b, lng_b = b.lokasi.latitude, b.lokasi.longitude
+    if None in (lat_a, lng_a, lat_b, lng_b):
+        return True
+    return (
+        abs(lat_a - lat_b) <= _DUPLICATE_RADIUS_DEG
+        and abs(lng_a - lng_b) <= _DUPLICATE_RADIUS_DEG
+    )
+
+
+def _merge_into(target: Place, donor: Place) -> None:
+    """Fill gaps in *target* from *donor* without overwriting better data."""
+    if not target.has_rating and donor.has_rating:
+        target.rating = donor.rating
+        target.vote_count = donor.vote_count
+        target.has_rating = True
+    if not target.has_price and donor.has_price:
+        target.harga = donor.harga
+        target.has_price = True
+    if target.lokasi.latitude is None and donor.lokasi.latitude is not None:
+        target.lokasi = donor.lokasi
+    for attr in ("description", "address", "phone", "website"):
+        if not getattr(target, attr) and getattr(donor, attr):
+            setattr(target, attr, getattr(donor, attr))
+    target.has_description = bool(target.description)
+    target.has_address = bool(target.address)
+    target.has_contact = bool(target.phone or target.website)
+
+
+def dedupe_places(places: Iterable[Place]) -> list[Place]:
+    """Collapse the same POI ingested twice (Kaggle seed + Geoapify enrichment).
+
+    The knowledge base was built by matching a curated Kaggle list against
+    Geoapify results, so 41% of rows are the same destination twice: one with
+    ratings/votes, one with only a name and coordinates. Left in, duplicates
+    dominate "top rated" lists and inflate the catalogue count.
+
+    Matching is name + proximity, never name alone, so two genuinely different
+    places that share a name (different regencies) stay separate. The richest
+    record of each cluster survives and absorbs the missing fields of the rest.
+    """
+    buckets: dict[str, list[Place]] = {}
+    for place in places:
+        buckets.setdefault(_name_key(place.nama), []).append(place)
+
+    collapsed: list[Place] = []
+    for group in buckets.values():
+        clusters: list[list[Place]] = []
+        for place in sorted(group, key=_completeness, reverse=True):
+            for cluster in clusters:
+                if _same_place(cluster[0], place):
+                    cluster.append(place)
+                    break
+            else:
+                clusters.append([place])
+
+        for cluster in clusters:
+            keeper = cluster[0]
+            for extra in cluster[1:]:
+                _merge_into(keeper, extra)
+            collapsed.append(keeper)
+
+    collapsed.sort(key=lambda p: p.id)
+    return collapsed

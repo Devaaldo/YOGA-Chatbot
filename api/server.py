@@ -7,14 +7,14 @@ from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from yoga_chatbot.knowledge.knowledge_base import KnowledgeBase, Place 
+from yoga_chatbot.knowledge.knowledge_base import KnowledgeBase, Place
 from yoga_chatbot.nlu.entity_extractor import EntityExtractor
 from yoga_chatbot.nlu.pipeline import NLUPipeline
 
@@ -117,7 +117,7 @@ def _regency_of(place: Place) -> str:
         kab = entity.get("value")
     if kab in _KAB_DISPLAY:
         return _KAB_DISPLAY[kab]
-    return _regency_by_coord(place.lokasi.latitude, place.lokasi.longitude) or "Yogyakarta"
+    return _regency_by_coord(place.lokasi.latitude, place.lokasi.longitude) or "Kota Yogyakarta"
 
 def _tag_of(place: Place, category: str) -> str:
     hay = f"{place.nama} {place.type_clean}".lower()
@@ -153,7 +153,7 @@ def map_place(place: Place) -> dict[str, Any]:
     }
 
 # Precompute the mapped catalogue once (also reused by /api/places).
-ALL_PLACES: list[dict[str, Any]] = [map_place(p) for p in kb._places]
+ALL_PLACES: list[dict[str, Any]] = [map_place(p) for p in kb.places]
 
 # Fine-grained type keywords (user text -> place tag).
 _FINE_TYPES: dict[str, str] = {
@@ -172,7 +172,71 @@ _FINE_TYPES: dict[str, str] = {
     "desa wisata": "Desa Wisata",
 }
 
-_BUDGET_RE = re.compile(r"(\d+(?:[.,]\d+)?)\s*(rb|ribu|k|jt|juta)?", re.IGNORECASE)
+_AMOUNT_RE = re.compile(
+    r"(?:\brp\.?\s*)?(\d{1,3}(?:[.,]\d{3})+|\d+(?:[.,]\d+)?)\s*(rb|ribu|k|jt|juta)?",
+    re.IGNORECASE,
+)
+# A bare number is only a price when the sentence frames it as one. Without
+# this, "rating 4.5" was read as a Rp45 budget and returned zero results.
+_BUDGET_CONTEXT_RE = re.compile(
+    r"\b(rp|harga|tiket|budget|anggaran|maks|maksimal|max|s\.?d|sampai|"
+    r"bawah|kurang|hemat|murah|biaya|htm|tiketnya)\b",
+    re.IGNORECASE,
+)
+
+
+def _parse_amount(raw: str) -> Optional[float]:
+    """Parse '30rb', '1.500.000', '4,5' into a number of rupiah-thousands-agnostic units."""
+    cleaned = raw.strip()
+    if re.fullmatch(r"\d{1,3}(?:[.,]\d{3})+", cleaned):
+        return float(cleaned.replace(".", "").replace(",", ""))
+    if "," in cleaned and "." not in cleaned:
+        return float(cleaned.replace(",", "."))
+    if "." in cleaned and "," not in cleaned:
+        head, _, tail = cleaned.partition(".")
+        if len(tail) == 3:  # Indonesian thousands separator
+            return float(head + tail)
+        return float(cleaned)
+    return float(cleaned)
+
+
+def _extract_budget(text: str) -> Optional[int]:
+    t = text.lower()
+    has_context = bool(_BUDGET_CONTEXT_RE.search(t))
+    for match in _AMOUNT_RE.finditer(t):
+        raw, unit = match.group(1), (match.group(2) or "").lower()
+        try:
+            amount = _parse_amount(raw)
+        except ValueError:
+            continue
+        if unit in ("rb", "ribu", "k"):
+            amount *= 1_000
+        elif unit in ("jt", "juta"):
+            amount *= 1_000_000
+        elif not has_context and amount < 1_000:
+            # "2 hari", "rating 4.5" — not money.
+            continue
+        if amount > 0:
+            return int(amount)
+    return None
+
+
+def _by_regency(items: list[dict[str, Any]], regency: Optional[str]) -> list[dict[str, Any]]:
+    if not regency:
+        return items
+    return [p for p in items if p["regency"].lower() == regency.lower()]
+
+
+def _normalise_place_text(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", (text or "").lower()).strip()
+
+
+def _by_kecamatan(items: list[dict[str, Any]], kecamatan: str) -> list[dict[str, Any]]:
+    """Filter by sub-district using the address, tolerating 'gunung kidul' spacing."""
+    needle = _normalise_place_text(kecamatan)
+    if not needle:
+        return items
+    return [p for p in items if needle in _normalise_place_text(p.get("address"))]
 
 
 def _popular(items: list[dict[str, Any]], n: int = 5) -> list[dict[str, Any]]:
@@ -190,27 +254,6 @@ def _detect_type(text: str) -> Optional[str]:
             return tag
     return None
 
-def _extract_budget(text: str) -> Optional[int]:
-    m = _BUDGET_RE.search(text.lower())
-    if not m:
-        return None
-    try:
-        amount = int(m.group(1).replace(".", "").replace(",", ""))
-    except ValueError:
-        return None
-    unit = (m.group(2) or "").lower()
-    if unit in ("rb", "ribu", "k"):
-        amount *= 1_000
-    elif unit in ("jt", "juta"):
-        amount *= 1_000_000
-    return amount
-
-def _by_regency(items: list[dict[str, Any]], regency: Optional[str]) -> list[dict[str, Any]]:
-    if not regency:
-        return items
-    sub = [p for p in items if p["regency"].lower() == regency.lower()]
-    return sub if sub else items
-
 def _fuzzy_place(text: str) -> Optional[dict[str, Any]]:
     t = text.lower()
     best, best_score = None, 0
@@ -224,6 +267,23 @@ def _fuzzy_place(text: str) -> Optional[dict[str, Any]]:
     return best if best_score > 0 else None
 
 
+_TAG_EN = {
+    "Pantai": "beaches",
+    "Candi": "temples",
+    "Goa": "caves",
+    "Air Terjun": "waterfalls",
+    "Tebing": "cliffs",
+    "Bukit": "hills",
+    "Gunung": "mountains",
+    "Museum": "museums",
+    "Embung": "reservoirs",
+    "Hutan": "forests",
+    "Desa Wisata": "villages",
+    "Kebun Binatang": "zoos",
+    "Keraton": "the palace",
+    "Taman": "parks",
+}
+
 _CHEAP_WORDS = ("murah", "hemat", "budget", "termurah", "ramah kantong", "cheap")
 _RATING_WORDS = ("rating", "terbaik", "bagus", "populer", "favorit", "top",
                  "best", "recommended", "hits", "terkenal")
@@ -234,7 +294,7 @@ def _rupiah(n: int) -> str:
     return "Rp" + f"{n:,}".replace(",", ".")
 
 
-def resolve_search(text, regency, lang):
+def resolve_search(text, regency, lang, kecamatan: Optional[str] = None):
     """Compositional search: combine type + regency + budget + rating from a
     single message (e.g. 'pantai murah di gunungkidul')."""
     t = text.lower()
@@ -248,12 +308,19 @@ def resolve_search(text, regency, lang):
     if tag:
         items = [p for p in items if p["tag"] == tag]
     items = _by_regency(items, regency)
+    if kecamatan:
+        # A named sub-district is more specific than its regency; if it has no
+        # matches at all, keep the regency fallback instead of showing nothing.
+        scoped = _by_kecamatan(items, kecamatan)
+        items = scoped or items
 
     if wants_free:
-        free = [p for p in items if p["priceWeekday"] == 0]
-        items = free or [p for p in items if p["priceWeekday"] not in (None, 0)]
-    elif budget:
+        items = [p for p in items if p["priceWeekday"] == 0]
+    elif budget is not None:
         items = [p for p in items if p["priceWeekday"] is not None and p["priceWeekday"] <= budget]
+
+    if not items:
+        return [], _empty_reply(tag, kecamatan or regency, budget, wants_free, lang)
 
     if wants_cheap and not wants_free:
         cand = [p for p in items if p["priceWeekday"] not in (None, 0)]
@@ -262,10 +329,11 @@ def resolve_search(text, regency, lang):
     else:
         places = _popular(items, 6)
 
-    label = tag.lower() if tag else _L(lang, "wisata", "places")
-    where = (_L(lang, " di ", " in ") + regency) if regency else ""
+    label = _L(lang, tag.lower(), _TAG_EN.get(tag, "places")) if tag else _L(lang, "wisata", "places")
+    focus = kecamatan or regency
+    where = (_L(lang, " di ", " in ") + focus.title()) if focus else ""
     if wants_free:
-        mod = _L(lang, " gratis/termurah", " (free/cheapest)")
+        mod = _L(lang, " gratis", " (free)")
     elif wants_cheap:
         mod = _L(lang, " termurah", " (cheapest)")
     elif wants_rating:
@@ -274,6 +342,27 @@ def resolve_search(text, regency, lang):
         mod = ""
     reply = _L(lang, f"Rekomendasi {label}{where}{mod}:", f"Top {label}{where}{mod}:")
     return places, reply
+
+
+def _empty_reply(tag: Optional[str], where_name: Optional[str], budget: Optional[int],
+                 wants_free: bool, lang: str) -> str:
+    """Honest answer when the filters genuinely match nothing."""
+    what = tag.lower() if tag else _L(lang, "wisata", "places")
+    focus = (_L(lang, " di ", " in ") + where_name.title()) if where_name else ""
+    if wants_free:
+        qualifier = _L(lang, " gratis", " free")
+    elif budget is not None:
+        qualifier = _L(lang, f" dengan tiket di bawah {_rupiah(budget)}",
+                        f" under {_rupiah(budget)}")
+    else:
+        qualifier = ""
+    return _L(
+        lang,
+        f"Belum ada {what}{qualifier}{focus} dalam data Yogyakarta. "
+        f"Coba hapus filter harga atau pilih daerah lain.",
+        f"No {what}{qualifier}{focus} in the Yogyakarta dataset yet. "
+        f"Try removing the price filter or picking another regency.",
+    )
 
 
 def build_itinerary(text, regency, lang):
@@ -313,28 +402,27 @@ app.add_middleware(
 
 
 class ChatRequest(BaseModel):
-    message: str
-    lang: str = "id"
+    message: str = Field(min_length=1, max_length=500)
+    lang: str = Field(default="id", pattern="^(id|en)$")
 
 def _L(lang: str, id_text: str, en_text: str) -> str:
     return en_text if lang == "en" else id_text
 
 @app.get("/api/health")
 def health() -> dict[str, Any]:
-    return {"status": "ok", "places": len(kb._places)} 
+    return {"status": "ok", "places": len(ALL_PLACES)}
 
 @app.get("/api/meta")
 def meta() -> dict[str, Any]:
     cats: dict[str, int] = {}
     regs: dict[str, int] = {}
-    for p in kb._places:
-        m = map_place(p)
-        cats[m["category"]] = cats.get(m["category"], 0) + 1
-        regs[m["regency"]] = regs.get(m["regency"], 0) + 1
+    for p in ALL_PLACES:
+        cats[p["category"]] = cats.get(p["category"], 0) + 1
+        regs[p["regency"]] = regs.get(p["regency"], 0) + 1
     return {
         "categories": [{"name": k, "count": v} for k, v in sorted(cats.items(), key=lambda x: -x[1])],
         "regencies": [{"name": k, "count": v} for k, v in sorted(regs.items(), key=lambda x: -x[1])],
-        "total": len(kb._places),
+        "total": len(ALL_PLACES),
     }
 
 
@@ -348,7 +436,7 @@ def list_places(
     sort: str = "rating",
     limit: int = Query(default=500, le=4000),
 ) -> dict[str, Any]:
-    items = [map_place(p) for p in kb._places]
+    items = list(ALL_PLACES)
 
     if q:
         ql = q.lower()
@@ -392,6 +480,7 @@ def chat(req: ChatRequest) -> dict[str, Any]:
     if kab is None and result.entity.get("type") == "kabupaten":
         kab = result.entity.get("value")
     regency = _KAB_DISPLAY.get(kab)
+    kecamatan = result.entity.get("value") if result.entity.get("type") == "kecamatan" else None
 
     places: list[dict[str, Any]] = []
     t = text.lower()
@@ -418,7 +507,7 @@ def chat(req: ChatRequest) -> dict[str, Any]:
         else:
             reply = _fallback_reply(lang)
     elif intent in ("cari_by_type", "cari_by_harga", "cari_by_rating", "rekomendasi_wisata"):
-        places, reply = resolve_search(text, regency, lang)
+        places, reply = resolve_search(text, regency, lang, kecamatan)
     else:
         reply = _fallback_reply(lang)
 

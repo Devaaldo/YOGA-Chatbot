@@ -5,8 +5,8 @@
 
 	const INTRO = {
 		kota: {
-			id: "Jantung budaya provinsi — tempat Keraton, Malioboro, dan Tugu Pal Putih berpadu dengan denyut kota yang hangat dan ramah.",
-			en: "The cultural heart of the province — where the Keraton, Malioboro and Tugu Pal Putih meet a warm, welcoming city life.",
+			id: "Jantung budaya provinsi, tempat Keraton, Malioboro, dan Tugu Pal Putih berpadu dengan denyut kota yang hangat dan ramah.",
+			en: "The cultural heart of the province, where the Keraton, Malioboro and Tugu Pal Putih meet a warm, welcoming city life.",
 			cats: ["Budaya & Sejarah", "Kuliner", "Buatan"],
 		},
 		sleman: {
@@ -78,7 +78,11 @@
 
 		const reg = REGENCIES.find((r) => r.key === regencyKey);
 		const intro = INTRO[regencyKey];
-		const places = PLACES.filter((p) => p.regency === NAME[regencyKey]);
+		// A regency can hold more than a thousand places; render the strongest
+		// ones and link to the filtered Explore view for the rest.
+		const places = PLACES.filter((p) => p.regency === NAME[regencyKey])
+			.sort((a, b) => (b.rating || 0) - (a.rating || 0) || (b.votes || 0) - (a.votes || 0))
+			.slice(0, 24);
 
 		return (
 			<div>
@@ -147,7 +151,7 @@
 							"Top picks in " + reg.name,
 						)}
 						actionLabel={L(lang, "Jelajah semua", "Explore all")}
-						onAction={() => go("explore", { category: null })}
+						onAction={() => go("explore", { regency: reg.name })}
 					/>
 					<div className="jjk-grid jjk-grid--results" style={{ marginTop: 22 }}>
 						{places.map((p) => (

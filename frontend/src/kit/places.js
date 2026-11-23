@@ -188,8 +188,8 @@
 			address: "Jalan Malioboro, Kota Yogyakarta",
 			website: "",
 			desc: {
-				id: "Jantung Kota Jogja — jalan legendaris untuk berburu cendera mata, kuliner kaki lima, dan jalan pagi yang santai.",
-				en: "The beating heart of the city — a legendary street for souvenirs, street food and slow morning walks.",
+				id: "Jantung Kota Jogja, jalan legendaris untuk berburu cendera mata, kuliner kaki lima, dan jalan pagi yang santai.",
+				en: "The beating heart of the city, a legendary street for souvenirs, street food and slow morning walks.",
 			},
 		},
 		{
@@ -209,8 +209,8 @@
 			address: "Kraton, Kota Yogyakarta",
 			website: "",
 			desc: {
-				id: "Istana air Kesultanan abad ke-18 — taman kesenangan bergaya Portugis-Jawa dengan kolam dan lorong di belakang Keraton.",
-				en: "The Sultanate’s 18th-century water castle — a Portuguese-Javanese pleasure garden of pools and tunnels behind the Keraton.",
+				id: "Istana air Kesultanan abad ke-18, taman kesenangan bergaya Portugis-Jawa dengan kolam dan lorong di belakang Keraton.",
+				en: "The Sultanate’s 18th-century water castle, a Portuguese-Javanese pleasure garden of pools and tunnels behind the Keraton.",
 			},
 		},
 		{
@@ -251,8 +251,8 @@
 			address: "Bokoharjo, Prambanan, Sleman",
 			website: "",
 			desc: {
-				id: "Kompleks istana di atas bukit di atas Prambanan — terkenal dengan gerbang megah dan salah satu senja terbaik di Jogja.",
-				en: "A hilltop palace above Prambanan — famous for its monumental gate and one of Jogja’s finest sunsets.",
+				id: "Kompleks istana di atas bukit di atas Prambanan, terkenal dengan gerbang megah dan salah satu senja terbaik di Jogja.",
+				en: "A hilltop palace above Prambanan, famous for its monumental gate and one of Jogja’s finest sunsets.",
 			},
 		},
 		{
@@ -293,8 +293,8 @@
 			address: "Parangtritis, Kretek, Bantul",
 			website: "",
 			desc: {
-				id: "Pantai pasir hitam ikonik Bantul — naik ATV atau kuda, dan nikmati debur ombak dari gumuk pasir saat senja.",
-				en: "Bantul’s iconic black-sand beach — ride ATVs or horses and watch the surf from the dunes at dusk.",
+				id: "Pantai pasir hitam ikonik Bantul, naik ATV atau kuda, dan nikmati debur ombak dari gumuk pasir saat senja.",
+				en: "Bantul’s iconic black-sand beach, ride ATVs or horses and watch the surf from the dunes at dusk.",
 			},
 		},
 		{
@@ -335,8 +335,8 @@
 			address: "Tepus, Gunungkidul",
 			website: "",
 			desc: {
-				id: "Air toska liar dan gondola kayu tarik tangan menyeberang ke pulau karang — petualangan pemacu adrenalin.",
-				en: "Wild turquoise water and a hand-pulled wooden gondola crossing to a rocky islet — pure adrenaline.",
+				id: "Air toska liar dan gondola kayu tarik tangan menyeberang ke pulau karang, petualangan pemacu adrenalin.",
+				en: "Wild turquoise water and a hand-pulled wooden gondola crossing to a rocky islet, pure adrenaline.",
 			},
 		},
 		{
@@ -440,8 +440,8 @@
 			address: "Sumberrahayu, Moyudan, Sleman",
 			website: "",
 			desc: {
-				id: "Desa studio “mini Hollywood” dengan bangunan set film yang unik — favorit para penggemar fotografi.",
-				en: "A “mini Hollywood” studio village of unique film-set buildings — a favourite for photography.",
+				id: "Desa studio “mini Hollywood” dengan bangunan set film yang unik, favorit para penggemar fotografi.",
+				en: "A “mini Hollywood” studio village of unique film-set buildings, a favourite for photography.",
 			},
 		},
 	];
@@ -496,6 +496,8 @@
 		PLACES,
 		CATEGORIES,
 		REGENCIES,
+		TOTAL: null,      // filled from /api/meta; null means "sample only"
+		OFFLINE: true,    // flipped to false once the API answers
 		I18N,
 		QUICK_REPLIES,
 		formatRupiah,

@@ -1,5 +1,7 @@
 # YOGA Chatbot — Runtime Dependencies
-# Tested on Python 3.10+
+# Python 3.10–3.12 (pinned numpy/scikit-learn have no wheels for 3.13+).
+# The pins match the versions that produced models/*.pkl; unpinning them can
+# break pickle compatibility with the shipped artifacts.
 
 # Telegram bot framework
 python-telegram-bot==20.7

@@ -111,11 +111,9 @@
 .jjk-pitem__media { width: 52px; height: 52px; border-radius: var(--radius-sm); overflow: hidden; position: relative; flex: none; }
 .jjk-pitem__name { font-family: var(--font-display); font-weight: 600; font-size: 15.5px; color: var(--color-text); }
 .jjk-pitem__sub { font-family: var(--font-sans); font-size: 12.5px; color: var(--color-text-muted); }
-.jjk-pitem__drag { color: var(--color-text-muted); cursor: grab; display: flex; }
 .jjk-summary { position: sticky; top: 88px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 22px; box-shadow: var(--shadow-md); }
 .jjk-summary__total { display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--color-divider); margin-top: 8px; }
 .jjk-summary__total b { font-family: var(--font-mono); font-size: 22px; color: var(--color-text); font-weight: 600; }
-.jjk-route { position: relative; height: 150px; border-radius: var(--radius-md); overflow: hidden; margin-top: 14px; }
 
 /* ---- About ---- */
 .jjk-about__hero { text-align: center; max-width: 720px; margin: 0 auto; }
@@ -144,9 +142,6 @@
 .jjk-footer a { font-family: var(--font-sans); font-size: 14px; color: var(--warm-200); text-decoration: none; cursor: pointer; }
 .jjk-footer a:hover { color: #fff; }
 .jjk-footer__bottom { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1); font-family: var(--font-sans); font-size: 13px; color: var(--warm-500); flex-wrap: wrap; }
-.jjk-footer__social { display: flex; gap: 10px; }
-.jjk-footer__social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); display: inline-flex; align-items: center; justify-content: center; }
-.jjk-footer__social svg { width: 17px; height: 17px; }
 
 /* ---- Chat panel ---- */
 .jjk-chat { position: fixed; right: 24px; bottom: 98px; width: 384px; max-width: calc(100vw - 32px); height: 600px; max-height: calc(100vh - 130px); z-index: var(--z-chat); display: flex; flex-direction: column; background: var(--color-bg-sunken); border: 1px solid var(--color-border); border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-xl); transform-origin: bottom right; animation: jjk-chatin 0.34s var(--ease-spring) both; }

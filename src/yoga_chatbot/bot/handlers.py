@@ -229,7 +229,11 @@ async def handle_callback(
     data: str = query.data or ""
 
     if data.startswith("place:"):
-        place_id = int(data.split(":", 1)[1])
+        try:
+            place_id = int(data.split(":", 1)[1])
+        except ValueError:
+            await query.edit_message_text("Tindakan tidak dikenali.")
+            return
         place = kb.get_by_id(place_id)
         if place is None:
             await query.edit_message_text("Informasi tempat tidak ditemukan.")

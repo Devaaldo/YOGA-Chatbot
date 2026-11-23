@@ -17,32 +17,41 @@
 	} = U;
 
 	const MAP_B = { latMin: -8.22, latMax: -7.54, lngMin: 110.0, lngMax: 110.86 };
-	const pinPos = (p) => ({
-		left:
-			Math.max(
-				4,
-				Math.min(
-					96,
-					((p.lng - MAP_B.lngMin) / (MAP_B.lngMax - MAP_B.lngMin)) * 100,
-				),
-			) + "%",
-		top:
-			Math.max(
-				6,
-				Math.min(
-					94,
-					((MAP_B.latMax - p.lat) / (MAP_B.latMax - MAP_B.latMin)) * 100,
-				),
-			) + "%",
-	});
+	const MAX_PINS = 300;
+	// Places without coordinates cannot be plotted; returning 0 keeps them at
+	// the map's corner instead of writing "NaN%" into the style attribute.
+	const pinPos = (p) => {
+		if (p.lat == null || p.lng == null) return { display: "none" };
+		return {
+			left:
+				Math.max(
+					4,
+					Math.min(
+						96,
+						((p.lng - MAP_B.lngMin) / (MAP_B.lngMax - MAP_B.lngMin)) * 100,
+					),
+				) + "%",
+			top:
+				Math.max(
+					6,
+					Math.min(
+						94,
+						((MAP_B.latMax - p.lat) / (MAP_B.latMax - MAP_B.latMin)) * 100,
+					),
+				) + "%",
+		};
+	};
 
 	function Explore({ lang, data, saved, onSave, onOpen, initial }) {
 		const { PLACES, CATEGORIES } = data;
+		const totalLabel = data.TOTAL ? data.TOTAL.toLocaleString("id-ID") : `${PLACES.length}`;
 		const [query, setQuery] = React.useState("");
 		const [cats, setCats] = React.useState(
 			() => new Set(initial && initial.category ? [initial.category] : []),
 		);
-		const [regency, setRegency] = React.useState("");
+		const [regency, setRegency] = React.useState(
+			(initial && initial.regency) || "",
+		);
 		const [budget, setBudget] = React.useState(100000);
 		const [freeOnly, setFreeOnly] = React.useState(false);
 		const [minRating, setMinRating] = React.useState(0);
@@ -52,6 +61,7 @@
 
 		React.useEffect(() => {
 			if (initial && initial.category) setCats(new Set([initial.category]));
+			if (initial && initial.regency) setRegency(initial.regency);
 		}, [initial]);
 
 		const toggleCat = (id) =>
@@ -138,8 +148,8 @@
 						)}
 						subtitle={L(
 							lang,
-							"Saring 3.399 destinasi berdasarkan kategori, daerah, harga tiket, dan rating.",
-							"Filter 3,399 destinations by category, regency, ticket price and rating.",
+							`Saring ${totalLabel} destinasi berdasarkan kategori, daerah, harga tiket, dan rating.`,
+							`Filter ${totalLabel} destinations by category, regency, ticket price and rating.`,
 						)}
 					/>
 				</div>
@@ -336,7 +346,7 @@
 							<div className="jjk-map">
 								<div className="jjk-map__bg" />
 								<div className="jjk-map__grid" />
-								{list.map((p) => (
+								{list.slice(0, MAX_PINS).map((p) => (
 									<button
 										key={p.id}
 										className="jjk-pin"
@@ -347,6 +357,27 @@
 										<span className="jjk-pin__dot" />
 									</button>
 								))}
+								{list.length > MAX_PINS ? (
+									<div
+										style={{
+											position: "absolute",
+											left: 14,
+											bottom: 14,
+											background: "var(--color-surface)",
+											border: "1px solid var(--color-border)",
+											borderRadius: "var(--radius-pill)",
+											padding: "6px 14px",
+											fontSize: 12.5,
+											color: "var(--color-text-secondary)",
+										}}
+									>
+										{L(
+											lang,
+											`Menampilkan ${MAX_PINS} dari ${list.length} pin. Persempit filter untuk melihat sisanya.`,
+											`Showing ${MAX_PINS} of ${list.length} pins. Narrow the filters to see the rest.`,
+										)}
+									</div>
+								) : null}
 								{activePin ? (
 									<div className="jjk-mapcard">
 										<DestinationCard

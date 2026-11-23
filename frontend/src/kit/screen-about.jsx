@@ -4,14 +4,16 @@
 	const { Icon, Btn, SectionHeader, L } = U;
 
 	function About({ lang, onAsk, go }) {
+		const data = window.JJ;
+		const totalLabel = data.TOTAL ? data.TOTAL.toLocaleString("id-ID") : "n/a";
 		const steps = [
 			{
 				icon: "bank",
 				t: L(lang, "Kategori", "Categories"),
 				d: L(
 					lang,
-					"Alam, Kuliner, Budaya & Sejarah, Buatan, Wisata Air, dan Wisata Umum — enam kategori untuk setiap suasana hati.",
-					"Nature, Culinary, Culture & History, Recreation, Water and General — six categories for every mood.",
+					"Alam, Kuliner, Budaya & Sejarah, Buatan, Wisata Air, dan Wisata Umum, enam kategori untuk setiap suasana hati.",
+					"Nature, Culinary, Culture & History, Recreation, Water and General, six categories for every mood.",
 				),
 			},
 			{
@@ -28,8 +30,8 @@
 				t: L(lang, "Anggaran", "Budget"),
 				d: L(
 					lang,
-					"Saring berdasarkan harga tiket — termasuk yang Gratis — agar pas dengan kantong.",
-					"Filter by ticket price — including Free spots — to fit any budget.",
+					"Saring berdasarkan harga tiket, termasuk yang Gratis, agar pas dengan kantong.",
+					"Filter by ticket price, including Free spots, to fit any budget.",
 				),
 			},
 			{
@@ -43,10 +45,10 @@
 			},
 		];
 		const stats = [
-			{ n: "3.399", l: L(lang, "Tempat wisata", "Destinations") },
-			{ n: "5", l: L(lang, "Kabupaten / Kota", "Regencies") },
+			{ n: totalLabel, l: L(lang, "Tempat wisata", "Destinations") },
+			{ n: String(data.REGENCIES.length), l: L(lang, "Kabupaten / Kota", "Regencies") },
 			{ n: "78", l: L(lang, "Kecamatan", "Sub-districts") },
-			{ n: "6", l: L(lang, "Kategori", "Categories") },
+			{ n: String(data.CATEGORIES.length), l: L(lang, "Kategori", "Categories") },
 		];
 
 		return (
@@ -72,8 +74,8 @@
 					>
 						{L(
 							lang,
-							"Jelajah Jogja menyatukan 3.399 tempat wisata Daerah Istimewa Yogyakarta dalam satu pengalaman yang hangat dan mudah — ditemani YOGA, asisten yang memberi rekomendasi, menyaring berdasarkan kategori, harga, dan rating, serta menjawab pertanyaan lokasi dan detail.",
-							"Jelajah Jogja brings all 3,399 destinations of the Special Region of Yogyakarta into one warm, effortless experience — guided by YOGA, an assistant that recommends places, filters by category, price and rating, and answers location and detail questions.",
+							`Jelajah Jogja menyatukan ${totalLabel} tempat wisata Daerah Istimewa Yogyakarta dalam satu pengalaman yang hangat dan mudah, ditemani YOGA, asisten yang memberi rekomendasi, menyaring berdasarkan kategori, harga, dan rating, serta menjawab pertanyaan lokasi dan detail.`,
+							`Jelajah Jogja brings ${totalLabel} destinations of the Special Region of Yogyakarta into one warm, effortless experience, guided by YOGA, an assistant that recommends places, filters by category, price and rating, and answers location and detail questions.`,
 						)}
 					</p>
 				</div>
@@ -139,8 +141,8 @@
 						>
 							{L(
 								lang,
-								"Data wisata bersumber dari dataset Kaggle Indonesia Tourism dan pengayaan Geoapify Places. Sebagian tempat belum memiliki rating, harga, atau kontak — kami menampilkan hanya yang tersedia.",
-								"Tourism data is sourced from the Kaggle Indonesia Tourism dataset enriched with the Geoapify Places API. Some places have no rating, price or contact yet — we only show what exists.",
+								"Data wisata bersumber dari dataset Kaggle Indonesia Tourism dan pengayaan Geoapify Places. Sebagian tempat belum memiliki rating, harga, atau kontak, jadi kami hanya menampilkan yang tersedia.",
+								"Tourism data is sourced from the Kaggle Indonesia Tourism dataset enriched with the Geoapify Places API. Some places have no rating, price or contact yet, so we only show what exists.",
 							)}
 						</p>
 					</div>

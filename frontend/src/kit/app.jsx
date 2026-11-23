@@ -122,12 +122,12 @@
 							</span>
 						</span>
 						<p className="jjk-footer__blurb">
-							{L(
-								lang,
-								"Temukan pesona Yogyakarta — 3.399 tempat wisata, satu pemandu yang hangat.",
-								"Discover the soul of Yogyakarta — 3,399 destinations, one warm guide.",
-							)}
-						</p>
+								{L(
+									lang,
+									`Temukan pesona Yogyakarta, ${data.TOTAL ? data.TOTAL.toLocaleString("id-ID") + " tempat wisata" : "destinasi pilihan"}, satu pemandu yang hangat.`,
+									`Discover the soul of Yogyakarta: ${data.TOTAL ? data.TOTAL.toLocaleString("en-US") + " destinations" : "a curated selection"}, one warm guide.`,
+								)}
+							</p>
 					</div>
 					<div>
 						<h5>{L(lang, "Jelajah", "Explore")}</h5>
@@ -179,17 +179,9 @@
 					<span>
 						© 2026 Jelajah Jogja ·{" "}
 						{L(lang, "Data: Kaggle + Geoapify", "Data: Kaggle + Geoapify")}
-					</span>
-					<span className="jjk-footer__social">
-						<a aria-label="Instagram">
-							<Icon name="instagram" size={17} />
-						</a>
-						<a aria-label="Maps">
-							<Icon name="mapPin" size={17} />
-						</a>
-						<a aria-label="Share">
-							<Icon name="share" size={17} />
-						</a>
+						{data.OFFLINE
+							? L(lang, " · mode contoh (API offline)", " · sample mode (API offline)")
+							: ""}
 					</span>
 				</div>
 			</footer>
@@ -256,6 +248,7 @@
 			setParams(pr);
 			setPage(p);
 			setMenuOpen(false);
+			if (p === "chat") setChatOpen(false);
 			window.scrollTo({ top: 0, behavior: "auto" });
 		};
 		const openPlace = (place) => {
@@ -346,16 +339,20 @@
 					{page === "about" && <S.About lang={lang} onAsk={ask} go={go} />}
 				</main>
 				<Footer lang={lang} go={go} data={data} />
-				<Launcher open={chatOpen} onClick={() => setChatOpen((o) => !o)} />
-				<S.ChatPanel
-					open={chatOpen}
-					lang={lang}
-					onClose={() => setChatOpen(false)}
-					askSignal={askSignal}
-					saved={saved}
-					onSave={toggleSave}
-					onOpen={openPlace}
-				/>
+				{page !== "chat" ? (
+					<>
+						<Launcher open={chatOpen} onClick={() => setChatOpen((o) => !o)} />
+						<S.ChatPanel
+							open={chatOpen}
+							lang={lang}
+							onClose={() => setChatOpen(false)}
+							askSignal={askSignal}
+							saved={saved}
+							onSave={toggleSave}
+							onOpen={openPlace}
+						/>
+					</>
+				) : null}
 				{toast ? <div className="jjk-toast">{toast}</div> : null}
 			</div>
 		);

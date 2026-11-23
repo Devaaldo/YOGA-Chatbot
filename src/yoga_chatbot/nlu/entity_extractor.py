@@ -83,61 +83,84 @@ class EntityExtractor:
     def extract(self, text: str) -> EntityResult:
         """Return the most specific geographical entity found in *text*.
 
+        When several names of the same level appear (e.g. ``"pakem sleman"``),
+        the one mentioned first wins; ties go to the longer name. Ordering by
+        position matters because the location the user says first is the one
+        they are asking about — ``"pakem sleman"`` means Pakem, not Sleman.
+
         Returns an :class:`EntityResult` with all fields set to ``None``
         when no entity is detected.
         """
-        normalised = text.lower().strip()
-
-        # Priority 1: kecamatan
-        for kec in self._all_kecamatan:
-            if re.search(r"\b" + re.escape(kec) + r"\b", normalised):
-                return EntityResult(
-                    type="kecamatan",
-                    value=kec,
-                    kabupaten=self._kec_to_kab[kec],
-                )
-
-        # Priority 2: kabupaten / kota
-        for kab_canonical, aliases in _KABUPATEN_ALIASES.items():
-            for alias in sorted(aliases, key=len, reverse=True):
-                if re.search(r"\b" + re.escape(alias) + r"\b", normalised):
-                    return EntityResult(
-                        type="kabupaten",
-                        value=kab_canonical,
-                        kabupaten=kab_canonical,
-                    )
-
-        # Priority 3: provinsi
-        for keyword in sorted(_PROVINCE_KEYWORDS, key=len, reverse=True):
-            if re.search(r"\b" + re.escape(keyword) + r"\b", normalised):
-                return EntityResult(
-                    type="provinsi",
-                    value="yogyakarta",
-                    kabupaten=None,
-                )
-
-        return EntityResult(type=None, value=None, kabupaten=None)
+        found = self._find(text)
+        if found is None:
+            return EntityResult(type=None, value=None, kabupaten=None)
+        kind, value, parent, _surface = found
+        return EntityResult(type=kind, value=value, kabupaten=parent)
 
     def replace_with_placeholder(
         self, text: str, placeholder: str = "[LOKASI]"
     ) -> str:
-        """Return *text* with any detected location name replaced by *placeholder*.
+        """Return *text* with the detected location replaced by *placeholder*.
 
-        This lets the intent classifier see a location-neutral sentence, which
-        improves generalisation across the 78 kecamatan.
+        The replacement uses the surface form that actually occurs in the text
+        (``"gunung kidul"``), not the canonical value (``"gunungkidul"``) —
+        otherwise aliases silently survive and the classifier still sees a
+        location token.
         """
-        entity = self.extract(text)
-        if entity["value"] is None:
+        found = self._find(text)
+        if found is None:
             return text
-
-        normalised = text.lower()
-        pattern = r"\b" + re.escape(entity["value"]) + r"\b"
-        replaced = re.sub(pattern, placeholder, normalised, flags=re.IGNORECASE)
-        return replaced
+        _kind, _value, _parent, surface = found
+        pattern = r"\b" + re.escape(surface) + r"\b"
+        return re.sub(pattern, placeholder, text, flags=re.IGNORECASE)
 
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
+
+    def _find(self, text: str) -> tuple[str, str, str | None, str] | None:
+        """Return ``(kind, canonical, parent, surface)`` for the best match.
+
+        Levels are tried in priority order (kecamatan → kabupaten → provinsi).
+        Inside a level the earliest mention wins, so a sub-district named the
+        same as its regency can no longer hijack the query.
+        """
+        normalised = text.lower()
+        if not normalised.strip():
+            return None
+
+        # Priority 1: kecamatan
+        best: tuple[int, int, str, str, str | None] | None = None
+        for kec in self._all_kecamatan:
+            match = re.search(r"\b" + re.escape(kec) + r"\b", normalised)
+            if match is None:
+                continue
+            candidate = (match.start(), -len(kec), kec, kec, self._kec_to_kab[kec])
+            if best is None or candidate[:2] < best[:2]:
+                best = candidate
+        if best is not None:
+            return ("kecamatan", best[2], best[4], text[best[0]:best[0] + len(best[2])])
+
+        # Priority 2: kabupaten / kota
+        best = None
+        for kab_canonical, aliases in _KABUPATEN_ALIASES.items():
+            for alias in aliases:
+                match = re.search(r"\b" + re.escape(alias) + r"\b", normalised)
+                if match is None:
+                    continue
+                candidate = (match.start(), -len(alias), kab_canonical, alias, kab_canonical)
+                if best is None or candidate[:2] < best[:2]:
+                    best = candidate
+        if best is not None:
+            return ("kabupaten", best[2], best[4], text[best[0]:best[0] + len(best[3])])
+
+        # Priority 3: provinsi
+        for keyword in sorted(_PROVINCE_KEYWORDS, key=len, reverse=True):
+            match = re.search(r"\b" + re.escape(keyword) + r"\b", normalised)
+            if match is not None:
+                return ("provinsi", "yogyakarta", None, text[match.start():match.end()])
+
+        return None
 
     @staticmethod
     def _load(path: Path) -> dict[str, list[str]]:

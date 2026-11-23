@@ -115,3 +115,14 @@ class TestPlaceholderReplacement:
         text = "rekomendasi wisata pantai"
         result = extractor.replace_with_placeholder(text)
         assert result == text.lower() or result == text
+
+    def test_replaces_multiword_alias(self, extractor: EntityExtractor) -> None:
+        # The canonical value is "gunungkidul"; the text says "gunung kidul".
+        result = extractor.replace_with_placeholder("pantai di gunung kidul")
+        assert "[LOKASI]" in result
+        assert "gunung kidul" not in result.lower()
+
+    def test_replaces_the_location_mentioned_first(self, extractor: EntityExtractor) -> None:
+        result = extractor.replace_with_placeholder("wisata di pakem sleman")
+        assert "pakem" not in result.lower()
+        assert "[LOKASI]" in result

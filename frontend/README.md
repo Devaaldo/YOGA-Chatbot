@@ -1,52 +1,63 @@
-# Jelajah Jogja — Frontend (React + Vite)
+# Jelajah Jogja: Frontend (React + Vite)
 
-Bilingual Yogyakarta tourism website with the YOGA assistant, wired to the real
-NLU model + 3,399-place knowledge base via the backend API (`../api/server.py`).
+Bilingual Yogyakarta tourism site with the YOGA assistant. It calls the real NLU
+model and the de-duplicated catalogue through the backend API
+(`../api/server.py`).
 
 ## Prasyarat
-- **Node.js** 18+ (cek: `node -v`). Jika `node`/`npm` tidak dikenali, buka
-  terminal baru setelah instalasi Node.
-- **Python** + dependensi backend: dari root project jalankan
+
+- **Node.js** 18+ (`node -v`). If `node`/`npm` is not recognised, open a new
+  terminal after installing Node.
+- **Python** plus the backend dependencies. From the repository root:
   `pip install -r requirements.txt -r requirements-api.txt`.
 
 ## Menjalankan (2 terminal)
 
-**Terminal 1 — Backend API (model NLU + data):**
+**Terminal 1: backend API (model NLU + data), from the repository root:**
+
 ```bash
-cd C:\Users\LENOVO\code\YOGA-Chatbot
 set PYTHONPATH=src           # PowerShell: $env:PYTHONPATH="src"
 python -m uvicorn api.server:app --port 8000
 ```
 
-**Terminal 2 — Frontend (Vite):**
+**Terminal 2: frontend:**
+
 ```bash
-cd C:\Users\LENOVO\code\YOGA-Chatbot\frontend
+cd frontend
 npm install      # sekali saja
 npm run dev
 ```
-Buka **http://localhost:5173**. Chat YOGA memanggil model asli di `:8000`.
-Jika API mati, frontend tetap jalan dengan data contoh (fallback).
+
+Open **http://localhost:5173**. The chat calls the model on `:8000`. If the API
+is unreachable the site keeps its curated sample and labels itself as running in
+sample mode in the footer.
 
 ## Konfigurasi
-- URL API diatur lewat `VITE_API_URL` (lihat `.env.example`). Default
-  `http://localhost:8000`. Untuk produksi, salin ke `.env` dan arahkan ke URL
-  API yang sudah dideploy.
+
+- API URL comes from `VITE_API_URL` (see `.env.example`); default
+  `http://localhost:8000`. For production, set it to the deployed API URL at
+  build time.
 
 ## Build untuk produksi / deploy
+
 ```bash
 npm run build      # output ke dist/
 ```
-- Hasil `dist/` adalah situs statis — deploy gratis ke **Netlify / Cloudflare
-  Pages / GitHub Pages**.
-- Catatan: backend (`api/server.py`) perlu host Python sendiri yang selalu
-  nyala, dan `VITE_API_URL` di build harus menunjuk ke URL backend tersebut.
+
+- `dist/` is a static site, so Netlify, Cloudflare Pages or GitHub Pages all work.
+- The backend needs its own always-on Python host, and `VITE_API_URL` must point
+  at it during the build.
 
 ## Arsitektur singkat
+
 ```
 React (Vite)  ──POST /api/chat──►  FastAPI (api/server.py)
-   chat.jsx                          └─ NLUPipeline (model SVM) + ActionHandler
-   Explore   ──GET /api/places──►       └─ KnowledgeBase (3.399 tempat)
+   chat.jsx                          └─ NLUPipeline (SVM) + ActionHandler
+   Explore   ──GET /api/places──►       └─ KnowledgeBase (2,559 tempat unik)
+             ──GET /api/meta────►         category & regency counts
 ```
-Kit UI dari Claude Design dipakai apa adanya (pola global `window.JJ*`); `src/
-main.jsx` menyediakan global React, memuat kit, mengambil data asli dari API,
-lalu mount. Lihat komentar di `src/main.jsx`.
+
+The UI kit is authored as global modules (`window.JJ*`, `window.JJUI`,
+`window.JJSCREENS`). `src/main.jsx` provides the React globals, loads the kit in
+dependency order, fetches places and counts, adapts the API payload to the kit's
+place shape, then mounts the app.
