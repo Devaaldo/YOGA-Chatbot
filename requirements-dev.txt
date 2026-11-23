@@ -1,5 +1,6 @@
 # YOGA Chatbot — Development & Testing Dependencies
 -r requirements.txt
+-r requirements-api.txt
 
 # Testing
 pytest==8.2.0
