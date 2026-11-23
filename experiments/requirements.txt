@@ -1,0 +1,15 @@
+# Extra dependencies for running the notebooks in experiments/.
+# The app itself only needs ../requirements.txt + ../requirements-api.txt.
+
+# Notebook runner (also installed by ../requirements-dev.txt)
+jupyter
+pandas
+matplotlib
+seaborn
+scikit-learn==1.4.2
+
+# Word vectors used by the LSTM track (03_Feature_Extraction, 05_Evaluation)
+gensim
+
+# LSTM track only: training and loading models/yoga_lstm_best.h5
+# tensorflow-cpu
