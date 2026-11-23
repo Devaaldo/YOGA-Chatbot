@@ -41,9 +41,12 @@ class per place name.
 ## Quick start
 
 Requires Python 3.10–3.12 (the pinned `scikit-learn`/`numpy` versions have no
-wheels for 3.13+).
+wheels for 3.13+). Model artifacts are stored in Git LFS: run `git lfs install`
+once before cloning, or `git lfs pull` after, otherwise `models/*.pkl` are
+pointer files and the app cannot unpickle them.
 
 ```bash
+git lfs install
 git clone <repo-url> && cd YOGA-Chatbot
 python -m venv .venv
 .venv/Scripts/activate           # macOS/Linux: source .venv/bin/activate
